@@ -1,0 +1,264 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[indonesian]{babel}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+\geometry{
+	left=3cm,
+	right=2.5cm,
+	top=3cm,
+	bottom=2.5cm,
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \includegraphics[width=3.5cm]{figs/makara.png} \par\vspace{1cm}
+    {\normalsize \textbf{UNIVERSITAS INDONESIA}} \par\vspace{3cm}
+
+    {\normalsize \textbf{ANALISIS GEOGRAPHICALLY WEIGHTED REGRESSION (GWR) PADA KASUS COVID-19 DI INGGRIS}} \par\vspace{4cm}
+
+    {\normalsize \textbf{MAKALAH}} \par\vspace{3cm}
+
+    {\normalsize \textbf{AMMAR HANAFI (2206051582)}} \par
+    {\normalsize \textbf{NORMAN MOWLANA AZIZ (2206025470)}} \par
+    {\normalsize \textbf{KIRONO DWI SAPUTRO (2106656365)}} \par\vfill
+
+    {\normalsize \textbf{FAKULTAS MATEMATIKA DAN ILMU PENGETAHUAN ALAM}} \par
+    {\normalsize \textbf{PROGRAM STUDI SARJANA STATISTIKA}} \par
+    {\normalsize \textbf{DEPOK}} \par
+    {\normalsize \textbf{JUNI 2026}}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+\listoftables
+\newpage
+\listoffigures
+\newpage
+\newpage
+
+\section{Pendahuluan}
+
+\subsection{Latar Belakang}
+Pandemi COVID-19 telah memberikan dampak yang signifikan di seluruh dunia, termasuk di Inggris. Penyebaran virus ini tidak merata secara geografis, dipengaruhi oleh berbagai faktor sosial-ekonomi dan demografis. Memahami variasi spasial dalam faktor-faktor risiko ini sangat penting untuk perumusan kebijakan kesehatan masyarakat yang efektif. Metode regresi konvensional (OLS) seringkali mengabaikan aspek heterogenitas spasial ini, sehingga diperlukan pendekatan Geographically Weighted Regression (GWR).
+
+\subsection{Rumusan Masalah}
+\begin{enumerate}
+    \item Apakah terdapat heterogenitas spasial dalam hubungan antara faktor etnisitas dan kesehatan jangka panjang terhadap tingkat kasus COVID-19 di Inggris?
+    \item Bagaimana variasi lokal dari pengaruh faktor-faktor tersebut di berbagai wilayah?
+\end{enumerate}
+
+\subsection{Tujuan}
+Tujuan dari analisis ini adalah untuk memodelkan hubungan spasial antara tingkat kasus COVID-19 dengan proporsi penduduk etnis non-kulit putih dan penduduk dengan penyakit jangka panjang, serta mengidentifikasi variasi lokal dari hubungan tersebut menggunakan GWR.
+
+\section{Landasan Teori}
+
+\subsection{Regresi Linear Berganda (OLS)}
+Regresi linear berganda adalah metode statistik untuk memodelkan hubungan antara satu variabel dependen dengan dua atau lebih variabel independen. Model OLS mengasumsikan bahwa parameter regresi bersifat konstan di seluruh wilayah pengamatan (stasioneritas spasial). Persamaan umumnya adalah:
+\[ Y = \beta_0 + \sum_{k=1}^{p} \beta_k X_k + \epsilon \]
+
+\subsection{Uji Asumsi Klasik: Heterogenitas Spasial}
+Salah satu asumsi penting dalam OLS adalah homoskedastisitas, yaitu varians error yang konstan. Pelanggaran terhadap asumsi ini (heteroskedastisitas) seringkali mengindikasikan adanya heterogenitas spasial. Uji Breusch-Pagan dapat digunakan untuk mendeteksi adanya heteroskedastisitas ini.
+
+\subsection{Geographically Weighted Regression (GWR)}
+GWR adalah pengembangan dari regresi linear yang memungkinkan parameter model bervariasi secara lokal. Hal ini dilakukan dengan memberikan bobot pada observasi di sekitar lokasi estimasi. Model GWR didefinisikan sebagai:
+\[ y_i = \beta_0(u_i, v_i) + \sum_{k} \beta_k(u_i, v_i) x_{ik} + \epsilon_i \]
+di mana $(u_i, v_i)$ adalah koordinat lokasi ke-$i$. Pembobotan dilakukan menggunakan fungsi kernel (misalnya, Gaussian atau Bisquare) dengan bandwidth yang optimal.
+
+\section{Metode Penelitian}
+
+\subsection{Data}
+Analisis ini menggunakan dataset kasus COVID-19 di Inggris (level Upper Tier Local Authority).
+\begin{itemize}
+    \item \textbf{Variabel Dependen ($Y$)}: Tingkat kasus COVID-19 per 100.000 penduduk (\texttt{covid19\_r}).
+    \item \textbf{Variabel Independen ($X_1$)}: Proporsi penduduk etnis non-kulit putih (\texttt{ethnic}).
+    \item \textbf{Variabel Independen ($X_2$)}: Proporsi penduduk dengan penyakit jangka panjang (\texttt{lt\_illness}).
+\end{itemize}
+
+\subsection{Tahapan Analisis}
+\begin{enumerate}
+    \item Eksplorasi data (Statistika Deskriptif).
+    \item Pemodelan Regresi Global (OLS).
+    \item Uji asumsi heterogenitas spasial (Uji Breusch-Pagan).
+    \item Pemodelan GWR dengan \textit{adaptive kernel}.
+    \item Interpretasi dan visualisasi hasil.
+\end{enumerate}
+
+\section{Analisis dan Pembahasan}
+
+\subsection{Statistik Deskriptif}
+\begin{table}[H]
+    \centering
+    \caption{Statistik Deskriptif Variabel}
+    \label{tab:desc_stats}
+    \input{tables/desc_stats.tex}
+\end{table}
+
+Berdasarkan Tabel \ref{tab:desc_stats}, rata-rata tingkat kasus COVID-19 (\texttt{covid19\_r}) adalah sekitar 457 kasus per 100.000 penduduk, dengan variasi yang cukup besar (standar deviasi 143). Variabel etnis (\texttt{ethnic}) memiliki rata-rata proporsi 0.108 atau 10.8\%, namun dengan rentang yang sangat lebar dari 0.01 hingga 0.54, menunjukkan adanya konsentrasi populasi minoritas di wilayah tertentu. Sementara itu, proporsi penduduk dengan penyakit jangka panjang (\texttt{lt\_illness}) memiliki rata-rata 0.198 (19.8\%). Nilai skewness positif pada variabel COVID-19 dan etnis menunjukkan distribusi data yang menjulur ke kanan.
+
+Gambar \ref{fig:boxplot} menampilkan distribusi data variabel melalui boxplot. Terlihat adanya variasi nilai antar wilayah.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/boxplot.png}
+    \caption{Boxplot Variabel Penelitian}
+    \label{fig:boxplot}
+\end{figure}
+
+Boxplot pada Gambar \ref{fig:boxplot} mengkonfirmasi temuan statistik deskriptif. Terdapat beberapa pencilan (outlier) pada variabel etnis yang mengindikasikan adanya wilayah dengan proporsi etnis non-kulit putih yang sangat tinggi dibandingkan wilayah lainnya. Variabel penyakit jangka panjang cenderung memiliki sebaran yang lebih simetris.
+
+Analisis korelasi antar variabel dilakukan untuk melihat hubungan linear awal.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figs/correlation_matrix.png}
+    \caption{Matriks Korelasi Pearson}
+    \label{fig:corr}
+\end{figure}
+
+Gambar \ref{fig:corr} menunjukkan koefisien korelasi antar variabel yang digunakan.
+
+Peta sebaran variabel dependen dan independen disajikan pada gambar berikut.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figs/map_covid19_r.png}
+    \includegraphics[width=0.45\textwidth]{figs/map_ethnic.png} \\
+    \includegraphics[width=0.45\textwidth]{figs/map_lt_illness.png}
+    \caption{Peta Sebaran Variabel (Atas-Kiri: COVID-19, Atas-Kanan: Etnis, Bawah: Penyakit Jangka Panjang)}
+    \label{fig:maps_vars}
+\end{figure}
+
+Peta sebaran (Gambar \ref{fig:maps_vars}) memperlihatkan pola spasial yang menarik. Tingkat kasus COVID-19 yang tinggi cenderung terkonsentrasi di beberapa wilayah tertentu. Pola ini tampaknya memiliki kemiripan visual dengan sebaran proporsi etnis di beberapa area, namun hubungannya perlu diuji lebih lanjut melalui pemodelan statistik.
+
+\subsection{Hasil Pemodelan Global (OLS)}
+Tabel berikut menunjukkan ringkasan hasil estimasi model OLS global.
+
+\begin{table}[H]
+    \centering
+    \caption{Ringkasan Model OLS Global}
+    \label{tab:ols_summary}
+    {\footnotesize
+        \input{tables/ols_summary.tex}
+    }
+\end{table}
+
+Hasil estimasi OLS pada Tabel \ref{tab:ols_summary} menunjukkan nilai $R^2$ yang sangat rendah (0.019), yang berarti model global hanya mampu menjelaskan 1.9\% variasi dari tingkat kasus COVID-19. Secara parsial, variabel etnis (\texttt{ethnic}) memiliki koefisien positif (3.7597) dengan p-value 0.093, yang berarti berpengaruh signifikan pada taraf nyata 10\%. Variabel penyakit jangka panjang (\texttt{lt\_illness}) tidak signifikan secara statistik (p-value 0.342). Rendahnya performa model ini mengindikasikan bahwa model global mungkin tidak cukup untuk menangkap fenomena yang ada, kemungkinan akibat adanya heterogenitas spasial yang diabaikan.
+
+\subsection{Uji Asumsi Heterogenitas Spasial}
+\begin{table}[H]
+    \centering
+    \caption{Hasil Uji Breusch-Pagan}
+    \label{tab:bp_test}
+    \input{tables/bp_test.tex}
+\end{table}
+
+Hasil uji Breusch-Pagan (Tabel \ref{tab:bp_test}) memberikan nilai p-value yang cukup besar (0.8739). Meskipun secara statistik gagal menolak homoskedastisitas, visualisasi residual spasial seringkali dapat mengungkapkan pola yang tersembunyi.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/map_ols_residuals.png}
+    \caption{Peta Residual Model OLS}
+    \label{fig:ols_resid}
+\end{figure}
+
+Peta residual OLS (Gambar \ref{fig:ols_resid}) memperlihatkan adanya kecenderungan pengelompokan (clustering) nilai residual positif dan negatif di wilayah-wilayah tertentu. Pola visual ini mengindikasikan potensi autokorelasi spasial yang tidak sepenuhnya tertangkap oleh uji global, sehingga pemodelan lokal (GWR) tetap relevan untuk dilakukan.
+
+\subsection{Hasil Pemodelan GWR}
+\begin{table}[H]
+    \centering
+    \caption{Ringkasan Model GWR}
+    \label{tab:gwr_summary}
+    \input{tables/gwr_summary.tex}
+\end{table}
+
+Ringkasan performa model GWR disajikan pada Tabel \ref{tab:gwr_summary}. Dapat dilihat nilai AICc yang lebih rendah dan $R^2$ yang lebih tinggi dibandingkan model OLS, menunjukkan peningkatan performa model secara signifikan. Model GWR mampu menjelaskan variasi data lebih baik dengan memperhitungkan aspek lokasi. Bandwidth optimal yang terpilih menunjukkan radius atau jumlah tetangga yang paling sesuai untuk menangkap pola lokal tersebut.
+
+\subsubsection{Kebaikan Model Lokal (\texorpdfstring{$R^2$}{R-squared})}
+Variasi lokal nilai $R^2$ (Gambar \ref{fig:local_r2}) menunjukkan bahwa kemampuan model dalam menjelaskan variasi kasus COVID-19 berbeda-beda di setiap wilayah.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/covid_gwr_r2.png}
+    \caption{Peta Local $R^2$}
+    \label{fig:local_r2}
+\end{figure}
+
+Peta Local $R^2$ di atas memperlihatkan bahwa di beberapa wilayah, model GWR memiliki daya jel yang tinggi (warna lebih terang/kuning), sementara di wilayah lain performanya lebih rendah (warna lebih gelap). Hal ini wajar dalam analisis spasial, di mana faktor-faktor penjelas mungkin memiliki kekuatan prediksi yang berbeda tergantung pada konteks lokal masing-masing daerah.
+
+\subsubsection{Interpretasi Koefisien Spasial}
+Berikut adalah peta estimasi parameter lokal ($\beta$) dan nilai t-statistik untuk setiap variabel prediktor.
+
+\paragraph{Variabel Etnis}
+Gambar \ref{fig:coef_ethnic} menunjukkan variasi pengaruh proporsi etnis terhadap kasus COVID-19.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\textwidth]{figs/ethnic_sig.png}
+    \includegraphics[width=0.48\textwidth]{figs/gwr_tval_ethnic.png}
+    \caption{Koefisien Signifikan (kiri) dan t-value (kanan) Variabel Etnis}
+    \label{fig:coef_ethnic}
+\end{figure}
+
+Peta koefisien etnis (kiri) menunjukkan variasi pengaruh variabel ini. Area yang berwarna abu-abu menunjukkan wilayah di mana koefisien \textbf{tidak signifikan} secara statistik ($|t| < 1.96$). Di wilayah yang berwarna (signifikan), terlihat koefisien positif (kuning/hijau) yang mengindikasikan hubungan searah yang kuat. Peta t-value (kanan) memberikan detail kekuatan signifikansi tersebut.
+
+\paragraph{Variabel Penyakit Jangka Panjang}
+Gambar \ref{fig:coef_illness} menunjukkan variasi pengaruh penyakit jangka panjang.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\textwidth]{figs/illness_sig.png}
+    \includegraphics[width=0.48\textwidth]{figs/gwr_tval_illness.png}
+    \caption{Koefisien Signifikan (kiri) dan t-value (kanan) Variabel Penyakit}
+    \label{fig:coef_illness}
+\end{figure}
+
+Serupa dengan etnis, peta koefisien penyakit jangka panjang (Gambar \ref{fig:coef_illness}) telah di-\textit{masking} untuk hanya menampilkan wilayah yang signifikan.
+
+\subsubsection{Diagnostik Multikolinearitas Lokal}
+Stabilitas estimasi parameter GWR perlu dipastikan dengan memeriksa multikolinearitas lokal.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/map_condition_number.png}
+    \caption{Peta Local Condition Number}
+    \label{fig:cond_num}
+\end{figure}
+
+Gambar \ref{fig:cond_num} menunjukkan sebaran nilai \textit{Condition Number} lokal. Nilai-nilai ini berada dalam rentang yang aman (di bawah 30), yang mengindikasikan bahwa \textbf{tidak terdapat masalah multikolinearitas lokal} yang serius antar variabel prediktor (Etnis dan Penyakit Jangka Panjang) di seluruh wilayah studi. Hal ini menjamin bahwa estimasi koefisien GWR bersifat stabil dan dapat diandalkan.
+
+\section{Kesimpulan}
+Berdasarkan hasil analisis dan pembahasan yang telah dilakukan, dapat disimpulkan bahwa:
+\begin{enumerate}
+    \item Meskipun uji Breusch-Pagan pada model global tidak menunjukkan heteroskedastisitas yang signifikan (p-value $> 0.05$), penerapan model GWR terbukti memberikan peningkatan performa yang cukup berarti. Hal ini terlihat dari penurunan nilai AICc (814.5 menjadi 793.3) dan peningkatan $R^2$ dari 0.019 (OLS) menjadi 0.221 (GWR), yang mengindikasikan bahwa pendekatan lokal mampu menjelaskan variasi data dengan lebih baik dibandingkan pendekatan global.
+    \item Pengaruh faktor etnisitas dan kesehatan jangka panjang terhadap tingkat kasus COVID-19 bervariasi secara geografis. Visualisasi koefisien lokal GWR memperlihatkan bahwa faktor-faktor risiko ini memiliki dampak yang berbeda-beda tergantung pada lokasi. Hal ini menggarisbawahi pentingnya pendekatan kebijakan kesehatan yang bersifat lokal dan spesifik wilayah, karena intervensi yang seragam mungkin tidak efektif di seluruh area.
+\end{enumerate}
+
+\newpage
+\begin{thebibliography}{9}
+
+\bibitem{gdsl}
+Rey, S. J., Arribas-Bel, D., \& Wolf, L. J. (2020). \textit{Geographic Data Science with Python}. Retrieved from \url{https://geographicdata.science/book/notebooks/09_gwr.html}.
+
+\bibitem{fotheringham2002}
+Fotheringham, A. S., Brunsdon, C., \& Charlton, M. (2002). \textit{Geographically Weighted Regression: The Analysis of Spatially Varying Relationships}. John Wiley \& Sons.
+
+\bibitem{mgwr2019}
+Oshan, T. M., Li, Z., Kang, W., Wolf, L. J., \& Fotheringham, A. S. (2019). mgwr: A Python implementation of multiscale geographically weighted regression for investigating process spatial heterogeneity and scale. \textit{ISPRS International Journal of Geo-Information}, 8(6), 269.
+
+\bibitem{geopandas}
+Jordahl, K., et al. (2020). geopandas/geopandas: v0.8.1. Zenodo. \url{https://doi.org/10.5281/zenodo.3946761}
+
+\bibitem{statsmodels}
+Seabold, S., \& Perktold, J. (2010). statsmodels: Econometric and statistical modeling with python. \textit{Proceedings of the 9th Python in Science Conference}.
+
+\end{thebibliography}
+
+\end{document}

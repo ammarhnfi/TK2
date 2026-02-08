@@ -1,0 +1,17 @@
+Type: <class 'tuple'>
+Item 0 type: <class 'numpy.ndarray'>
+Item 0 shape: (149, 1)
+Item 0 min: -0.5269183798669442, max: -0.07655812614894777, mean: -0.3570517069900507
+--------------------
+Item 1 type: <class 'numpy.ndarray'>
+Item 1 shape: (149, 2)
+Item 1 min: 1.0058957022551338, max: 1.3843570021278948, mean: 1.157945361694155
+--------------------
+Item 2 type: <class 'numpy.ndarray'>
+Item 2 shape: (149, 1)
+Item 2 min: 15.45997154666592, max: 23.346539891122795, mean: 20.004632164183555
+--------------------
+Item 3 type: <class 'numpy.ndarray'>
+Item 3 shape: (149, 3)
+Item 3 min: 1.1002590533829448e-05, max: 0.9963773249390807, mean: 0.7188454221612104
+--------------------

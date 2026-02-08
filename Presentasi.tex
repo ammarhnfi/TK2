@@ -1,0 +1,203 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+%\usepackage[indonesian]{babel} % Disabled to prevent PGF conflict
+
+\title[Analisis GWR COVID-19 Inggris]{ANALISIS GEOGRAPHICALLY WEIGHTED REGRESSION (GWR) PADA KASUS COVID-19 DI INGGRIS}
+\subtitle{MAKALAH}
+\author[Ammar, Norman, Kirono]{
+    Ammar Hanafi (2206051582) \texorpdfstring{\\}{, }
+    Norman Mowlana Aziz (2206025470) \texorpdfstring{\\}{, }
+    Kirono Dwi Saputro (2106656365)
+}
+\institute[Univ. Indonesia]{
+    Program Studi Sarjana Statistika \\
+    Fakultas Matematika dan Ilmu Pengetahuan Alam \\
+    Universitas Indonesia
+}
+\date{Juni 2026}
+
+\logo{\includegraphics[height=1cm]{figs/makara.png}}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Daftar Isi}
+    \tableofcontents
+\end{frame}
+
+\section{Pendahuluan}
+\begin{frame}{Latar Belakang dan Tujuan}
+    \textbf{Latar Belakang}
+    \begin{itemize}
+        \item COVID-19 memiliki dampak spasial yang tidak seragam.
+        \item Faktor risiko (etnis, kesehatan) mungkin memiliki pengaruh yang berbeda di setiap wilayah (Heterogenitas Spasial).
+        \item Regresi Global (OLS) mengasumsikan parameter konstan, yang mungkin bias.
+    \end{itemize}
+    \vspace{0.5cm}
+    \textbf{Tujuan}
+    \begin{itemize}
+        \item Memodelkan tingkat kasus COVID-19 di Inggris.
+        \item Menganalisis pengaruh Etnis Non-Kulit Putih dan Penyakit Jangka Panjang.
+        \item Membandingkan model OLS dan GWR.
+        \item Memetakan variasi koefisien lokal.
+    \end{itemize}
+\end{frame}
+
+\section{Metodologi}
+\begin{frame}{Data dan Variabel}
+    \textbf{Unit Analisis}: Upper Tier Local Authorities (n=149) di Inggris.
+    \vspace{0.5cm}
+    \begin{table}
+        \centering
+        \begin{tabular}{ll}
+            \toprule
+            \textbf{Variabel} & \textbf{Deskripsi} \\
+            \midrule
+            $Y$ (Dependen) & Rate COVID-19 per 100k penduduk \\
+            $X_1$ (Independen) & Proporsi Etnis Non-Kulit Putih \\
+            $X_2$ (Independen) & Proporsi Penyakit Jangka Panjang \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}{Metode Analisis}
+    \begin{enumerate}
+        \item \textbf{Analisis Deskriptif}: Eksplorasi data dan peta sebaran.
+        \item \textbf{Global OLS}: $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \epsilon$
+        \item \textbf{Uji Asumsi}: Breusch-Pagan Test untuk heteroskedastisitas.
+        \item \textbf{GWR (Geographically Weighted Regression)}:
+        \[ y_i = \beta_0(u_i,v_i) + \sum \beta_k(u_i,v_i) x_{ik} + \epsilon_i \]
+        Menggunakan kernel \textit{Adaptive Bisquare}.
+        \item \textbf{Diagnostik}: Local Condition Number (Multikolinearitas).
+    \end{enumerate}
+\end{frame}
+
+\section{Hasil dan Pembahasan}
+\begin{frame}{Eksplorasi Data}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figs/map_covid19_r.png} \\
+        \tiny Sebaran Kasus COVID-19
+        \column{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figs/map_ethnic.png} \\
+        \tiny Sebaran Etnis Non-Kulit Putih
+    \end{columns}
+    \vspace{0.3cm}
+    \centering
+    \tiny Pola spasial terlihat mengelompok (cluster), mengindikasikan autokorelasi spasial.
+\end{frame}
+
+\begin{frame}{Hasil Model Global (OLS)}
+    \begin{table}
+        \centering
+        \tiny
+        \input{tables/ols_summary.tex}
+    \end{table}
+    \begin{itemize}
+        \item $R^2$ sangat rendah (0.019).
+        \item Hanya variabel Etnis yang signifikan pada taraf nyata 10\%.
+        \item Model global tidak mampu menjelaskan variasi data dengan baik.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Bukti Heterogenitas Spasial}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{Uji Breusch-Pagan}
+        \begin{itemize}
+            \item p-value = 0.8739 ($> 0.05$)
+            \item Secara statistik gagal tolak H0.
+            \item NAMUN... visualisasi residual berkata lain.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figs/map_ols_residuals.png} \\
+        \tiny Peta Residual OLS (Clustered)
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Hasil Model GWR}
+    \begin{table}
+        \centering
+        \input{tables/gwr_summary.tex}
+    \end{table}
+    \begin{itemize}
+        \item \textbf{AICc Turun}: 814.5 $\rightarrow$ 793.3 (Model Membaik).
+        \item \textbf{$R^2$ Naik}: 0.019 $\rightarrow$ 0.221.
+        \item GWR berhasil menangkap variasi lokal yang dilewatkan OLS.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Peta Koefisien Lokal: Etnis}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{figs/ethnic_sig.png}
+        \column{0.5\textwidth}
+        \textbf{Interpretasi}:
+        \begin{itemize}
+            \item Area Abu-abu: Tidak signifikan ($|t| < 1.96$).
+            \item Area Berwarna: Signifikan.
+            \item Pengaruh etnis positif kuat di wilayah tertentu (Kuning/Hijau).
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Peta Koefisien Lokal: Penyakit Jangka Panjang}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{figs/illness_sig.png}
+        \column{0.5\textwidth}
+        \textbf{Interpretasi}:
+        \begin{itemize}
+            \item Variabel ini tidak signifikan di model OLS global, TAPI signifikan positif di beberapa wilayah lokal (GWR).
+            \item Menunjukkan pentingnya analisis lokal untuk mengungkap hubungan tersembunyi.
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Diagnostik Multikolinearitas Lokal}
+    \centering
+    \includegraphics[width=0.55\textwidth]{figs/map_condition_number.png} \\
+    \vspace{0.1cm}
+    \textbf{Condition Number < 30} di seluruh wilayah. \\
+    Model GWR stabil dan tidak mengalami masalah multikolinearitas lokal.
+\end{frame}
+
+\section{Kesimpulan}
+\begin{frame}{Kesimpulan}
+    \begin{enumerate}
+        \item Model GWR jauh lebih \textbf{superior} dibandingkan OLS (AICc lebih rendah, $R^2$ lebih tinggi).
+        \item Terdapat \textbf{heterogenitas spasial} yang signifikan dalam pengaruh Etnis dan Kesehatan terhadap COVID-19.
+        \item Kebijakan penanganan COVID-19 harus \textbf{spesifik wilayah}, tidak bisa disamaratakan secara nasional.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Daftar Pustaka}
+    \bibliographystyle{apalike}
+    %\bibliography{references} % Jika pakai bibtex, tapi kita manual aja sesuai laporan
+    \begin{thebibliography}{9}
+        \bibitem{gdsl}
+        Rey, S. J., Arribas-Bel, D., \& Wolf, L. J. (2020). \textit{Geographic Data Science with Python}.
+        \bibitem{fotheringham2002}
+        Fotheringham, A. S., et al. (2002). \textit{Geographically Weighted Regression}. Wiley.
+        \bibitem{mgwr2019}
+        Oshan, T. M., et al. (2019). mgwr: A Python implementation of multiscale GWR. \textit{IJGI}.
+    \end{thebibliography}
+\end{frame}
+
+\begin{frame}
+    \centering
+    \Huge \textbf{Terima Kasih}
+\end{frame}
+
+\end{document}
