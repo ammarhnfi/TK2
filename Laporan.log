@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.23)  9 FEB 2026 10:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.23)  9 FEB 2026 10:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -468,7 +468,7 @@ Package hyperref Info: Link coloring OFF on input line 19.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-<figs/makara.png, id=89, 154.86429pt x 154.34807pt>
+<figs/makara.png, id=96, 154.86429pt x 154.34807pt>
 File: figs/makara.png Graphic file (type png)
 <use figs/makara.png>
 Package pdftex.def Info: figs/makara.png  used on input line 23.
@@ -496,51 +496,51 @@ l.42 \newpage
 
  [3] [4] [5] [6]
 (tables/data_sample.tex)
-<figs/map_boundaries.png, id=196, 867.24pt x 867.24pt>
+<figs/map_boundaries.png, id=205, 867.24pt x 867.24pt>
 File: figs/map_boundaries.png Graphic file (type png)
 <use figs/map_boundaries.png>
 Package pdftex.def Info: figs/map_boundaries.png  used on input line 173.
 (pdftex.def)             Requested size: 396.91325pt x 396.9106pt.
  [7] [8 <./figs/map_boundaries.png>]
 (tables/desc_stats.tex)
-<figs/boxplot.png, id=216, 722.7pt x 433.62pt>
+<figs/boxplot.png, id=225, 722.7pt x 433.62pt>
 File: figs/boxplot.png Graphic file (type png)
 <use figs/boxplot.png>
 Package pdftex.def Info: figs/boxplot.png  used on input line 216.
 (pdftex.def)             Requested size: 352.81552pt x 211.6883pt.
  [9 <./figs/boxplot.png>]
-<figs/pairplot.png, id=225, 722.7pt x 722.7pt>
+<figs/pairplot.png, id=234, 722.7pt x 722.7pt>
 File: figs/pairplot.png Graphic file (type png)
 <use figs/pairplot.png>
 Package pdftex.def Info: figs/pairplot.png  used on input line 227.
 (pdftex.def)             Requested size: 396.91325pt x 396.9128pt.
-<figs/heatmap.png, id=227, 578.16pt x 433.62pt>
+<figs/heatmap.png, id=236, 578.16pt x 433.62pt>
 File: figs/heatmap.png Graphic file (type png)
 <use figs/heatmap.png>
 Package pdftex.def Info: figs/heatmap.png  used on input line 236.
 (pdftex.def)             Requested size: 308.71106pt x 231.53117pt.
  [10 <./figs/pairplot.png>]
-<figs/correlation_matrix.png, id=234, 578.16pt x 433.62pt>
+<figs/correlation_matrix.png, id=243, 578.16pt x 433.62pt>
 File: figs/correlation_matrix.png Graphic file (type png)
 <use figs/correlation_matrix.png>
 Package pdftex.def Info: figs/correlation_matrix.png  used on input line 245.
 (pdftex.def)             Requested size: 264.61333pt x 198.45529pt.
-<figs/map_covid19_r.png, id=236, 722.7pt x 722.7pt>
+<figs/map_covid19_r.png, id=245, 722.7pt x 722.7pt>
 File: figs/map_covid19_r.png Graphic file (type png)
 <use figs/map_covid19_r.png>
 Package pdftex.def Info: figs/map_covid19_r.png  used on input line 256.
 (pdftex.def)             Requested size: 198.45662pt x 198.45088pt.
-<figs/map_imd.png, id=237, 722.7pt x 722.7pt>
+<figs/map_imd.png, id=246, 722.7pt x 722.7pt>
 File: figs/map_imd.png Graphic file (type png)
 <use figs/map_imd.png>
 Package pdftex.def Info: figs/map_imd.png  used on input line 257.
 (pdftex.def)             Requested size: 198.45662pt x 198.45088pt.
-<figs/map_lt_illness.png, id=238, 722.7pt x 722.7pt>
+<figs/map_lt_illness.png, id=247, 722.7pt x 722.7pt>
 File: figs/map_lt_illness.png Graphic file (type png)
 <use figs/map_lt_illness.png>
 Package pdftex.def Info: figs/map_lt_illness.png  used on input line 258.
 (pdftex.def)             Requested size: 198.45662pt x 198.45088pt.
-<figs/map_crowded.png, id=239, 722.7pt x 722.7pt>
+<figs/map_crowded.png, id=248, 722.7pt x 722.7pt>
 File: figs/map_crowded.png Graphic file (type png)
 <use figs/map_crowded.png>
 Package pdftex.def Info: figs/map_crowded.png  used on input line 259.
@@ -549,48 +549,48 @@ Package pdftex.def Info: figs/map_crowded.png  used on input line 259.
 [11 <./figs/heatmap.png> <./figs/correlation_matrix.png>]
 (tables/ols_summary.tex) [12 <./figs/map_covid19_r.png> <./figs/map_imd.png> <.
 /figs/map_lt_illness.png> <./figs/map_crowded.png>] (tables/bp_test.tex)
-<figs/map_ols_residuals.png, id=258, 722.7pt x 722.7pt>
+<figs/map_ols_residuals.png, id=267, 722.7pt x 722.7pt>
 File: figs/map_ols_residuals.png Graphic file (type png)
 <use figs/map_ols_residuals.png>
 Package pdftex.def Info: figs/map_ols_residuals.png  used on input line 292.
 (pdftex.def)             Requested size: 352.81552pt x 352.81383pt.
 
 [13] (tables/model_comparison.tex) [14 <./figs/map_ols_residuals.png>]
-<figs/residual_comparison.png, id=275, 1445.4pt x 578.16pt>
+<figs/residual_comparison.png, id=284, 1445.4pt x 578.16pt>
 File: figs/residual_comparison.png Graphic file (type png)
 <use figs/residual_comparison.png>
 Package pdftex.def Info: figs/residual_comparison.png  used on input line 315.
 (pdftex.def)             Requested size: 441.01773pt x 176.40471pt.
-<figs/gwr_beta_boxplot.png, id=277, 722.7pt x 433.62pt>
+<figs/gwr_beta_boxplot.png, id=286, 722.7pt x 433.62pt>
 File: figs/gwr_beta_boxplot.png Graphic file (type png)
 <use figs/gwr_beta_boxplot.png>
 Package pdftex.def Info: figs/gwr_beta_boxplot.png  used on input line 327.
 (pdftex.def)             Requested size: 352.81552pt x 211.6883pt.
  [15 <./figs/residual_comparison.png>]
-<figs/covid_gwr_r2.png, id=284, 722.7pt x 722.7pt>
+<figs/covid_gwr_r2.png, id=293, 722.7pt x 722.7pt>
 File: figs/covid_gwr_r2.png Graphic file (type png)
 <use figs/covid_gwr_r2.png>
 Package pdftex.def Info: figs/covid_gwr_r2.png  used on input line 337.
 (pdftex.def)             Requested size: 352.81552pt x 352.81383pt.
  [16 <./figs/gwr_beta_boxplot.png>]
-<figs/covid_gwr_imd_coef.png, id=291, 722.7pt x 722.7pt>
+<figs/covid_gwr_imd_coef.png, id=300, 722.7pt x 722.7pt>
 File: figs/covid_gwr_imd_coef.png Graphic file (type png)
 <use figs/covid_gwr_imd_coef.png>
 Package pdftex.def Info: figs/covid_gwr_imd_coef.png  used on input line 354.
 (pdftex.def)             Requested size: 211.68661pt x 211.68388pt.
-<figs/covid_gwr_imd_pval.png, id=292, 722.7pt x 722.7pt>
+<figs/covid_gwr_imd_pval.png, id=301, 722.7pt x 722.7pt>
 File: figs/covid_gwr_imd_pval.png Graphic file (type png)
 <use figs/covid_gwr_imd_pval.png>
 Package pdftex.def Info: figs/covid_gwr_imd_pval.png  used on input line 361.
 (pdftex.def)             Requested size: 211.68661pt x 211.68388pt.
  [17 <./figs/covid_gwr_r2.png>]
-<figs/covid_gwr_illness_coef.png, id=302, 722.7pt x 722.7pt>
+<figs/covid_gwr_illness_coef.png, id=311, 722.7pt x 722.7pt>
 File: figs/covid_gwr_illness_coef.png Graphic file (type png)
 <use figs/covid_gwr_illness_coef.png>
 Package pdftex.def Info: figs/covid_gwr_illness_coef.png  used on input line 37
 8.
 (pdftex.def)             Requested size: 211.68661pt x 211.68388pt.
-<figs/covid_gwr_illness_pval.png, id=303, 722.7pt x 722.7pt>
+<figs/covid_gwr_illness_pval.png, id=312, 722.7pt x 722.7pt>
 File: figs/covid_gwr_illness_pval.png Graphic file (type png)
 <use figs/covid_gwr_illness_pval.png>
 Package pdftex.def Info: figs/covid_gwr_illness_pval.png  used on input line 38
@@ -598,19 +598,19 @@ Package pdftex.def Info: figs/covid_gwr_illness_pval.png  used on input line 38
 (pdftex.def)             Requested size: 211.68661pt x 211.68388pt.
  [18 <./figs/covid_gwr_imd_coef.png> <./figs/covid_gwr_imd_pval.png> <./figs/co
 vid_gwr_illness_coef.png> <./figs/covid_gwr_illness_pval.png>]
-<figs/covid_gwr_crowded_coef.png, id=315, 722.7pt x 722.7pt>
+<figs/covid_gwr_crowded_coef.png, id=324, 722.7pt x 722.7pt>
 File: figs/covid_gwr_crowded_coef.png Graphic file (type png)
 <use figs/covid_gwr_crowded_coef.png>
 Package pdftex.def Info: figs/covid_gwr_crowded_coef.png  used on input line 40
 0.
 (pdftex.def)             Requested size: 211.68661pt x 211.68388pt.
-<figs/covid_gwr_crowded_pval.png, id=316, 722.7pt x 722.7pt>
+<figs/covid_gwr_crowded_pval.png, id=325, 722.7pt x 722.7pt>
 File: figs/covid_gwr_crowded_pval.png Graphic file (type png)
 <use figs/covid_gwr_crowded_pval.png>
 Package pdftex.def Info: figs/covid_gwr_crowded_pval.png  used on input line 40
 7.
 (pdftex.def)             Requested size: 211.68661pt x 211.68388pt.
-<figs/map_condition_number.png, id=319, 722.7pt x 722.7pt>
+<figs/map_condition_number.png, id=328, 722.7pt x 722.7pt>
 File: figs/map_condition_number.png Graphic file (type png)
 <use figs/map_condition_number.png>
 Package pdftex.def Info: figs/map_condition_number.png  used on input line 422.
@@ -628,21 +628,14 @@ fi-kan-si ter-ba-tas pa-da kantong-kantong
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
-
-
-Package rerunfilecheck Warning: File `Laporan.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Laporan.out':
-(rerunfilecheck)             Before: B6318157CFF92295EE9E9B28E826E7D6;4146
-(rerunfilecheck)             After:  24871D73A9DEC2A8B677958691A46C9D;4351.
+Package rerunfilecheck Info: File `Laporan.out' has not changed.
+(rerunfilecheck)             Checksum: FA8BDCCE5FBF5F19C2191F2C6FC1373C;4343.
  ) 
 Here is how much of TeX's memory you used:
- 12607 strings out of 467871
- 206836 string characters out of 5418376
- 638924 words of memory out of 5000000
- 41242 multiletter control sequences out of 15000+600000
+ 12605 strings out of 467871
+ 206812 string characters out of 5418376
+ 638925 words of memory out of 5000000
+ 41243 multiletter control sequences out of 15000+600000
  634564 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,10n,79p,595b,546s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -663,9 +656,9 @@ msfonts/cm/cmr8.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/p
 ublic/amsfonts/cm/cmsy10.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/font
 s/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/ammar/AppData/Local/Programs/Mi
 KTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Laporan.pdf (25 pages, 1822536 bytes).
+Output written on Laporan.pdf (25 pages, 1823101 bytes).
 PDF statistics:
- 451 PDF objects out of 1000 (max. 8388607)
- 87 named destinations out of 1000 (max. 500000)
- 282 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 455 PDF objects out of 1000 (max. 8388607)
+ 84 named destinations out of 1000 (max. 500000)
+ 298 words of extra memory for PDF output out of 10000 (max. 10000000)
 

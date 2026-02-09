@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1770607110.01923 "d:/tk1/Laporan.tex" "Laporan.pdf" "Laporan" 1770607115.92539 0
+["pdflatex"] 1770607439.92185 "d:/tk1/Laporan.tex" "Laporan.pdf" "Laporan" 1770607445.81955 0
   "C:/Users/ammar/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1770526976 82686 2381c3433487640bf26aa76a10db7eb2 ""
   "C:/Users/ammar/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk" 1769673965 14064 554ff7f41c7685fbf96f65959a990538 ""
   "C:/Users/ammar/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1769175176 13333487 f903ec6d1e50474fb369260a691f839e ""
@@ -92,13 +92,13 @@
   "C:/Users/ammar/AppData/Local/Programs/MiKTeX/tex/latex/refcount/refcount.sty" 1576433952 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "C:/Users/ammar/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1751104012 9684 a33a14b82ce60d6e77cb9be689d79ee6 ""
   "C:/Users/ammar/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "Laporan.aux" 1770607115 9190 e319204f2a0bc910fa6c004a75153584 "pdflatex"
-  "Laporan.lof" 1770607115 1637 2b451354e2ea9acd7f89b1029674cb88 "pdflatex"
-  "Laporan.lot" 1770607115 597 8c582ad143ef9350a8a4af45a53875a5 "pdflatex"
-  "Laporan.out" 1770607115 4146 b6318157cff92295ee9e9b28e826e7d6 "pdflatex"
-  "Laporan.tex" 1770607108 25334 0e4233f2f0a530eb508c590a088988ab ""
-  "Laporan.toc" 1770607115 2197 5284913d0cee493aaf456c18b6c64954 "pdflatex"
-  "d:/tk1/Laporan.tex" 1770607108 25334 0e4233f2f0a530eb508c590a088988ab ""
+  "Laporan.aux" 1770607445 9374 4475aec69896e842e6a65be5951b0f0d "pdflatex"
+  "Laporan.lof" 1770607445 1637 2b451354e2ea9acd7f89b1029674cb88 "pdflatex"
+  "Laporan.lot" 1770607445 597 8c582ad143ef9350a8a4af45a53875a5 "pdflatex"
+  "Laporan.out" 1770607445 4343 fa8bdcce5fbf5f19c2191f2c6fc1373c "pdflatex"
+  "Laporan.tex" 1770607434 25937 aeeb230d47258553f6ae4f5edfbabb7f ""
+  "Laporan.toc" 1770607445 2299 842621f1259f8bb8b168fbe79c456bd8 "pdflatex"
+  "d:/tk1/Laporan.tex" 1770607434 25937 aeeb230d47258553f6ae4f5edfbabb7f ""
   "figs/boxplot.png" 1770606566 14424 a1c7aeae7e49f136699b1b5a6e29d5bb ""
   "figs/correlation_matrix.png" 1770606572 29941 dd5c09a70ad622f86f5aa4f275f7d174 ""
   "figs/covid_gwr_crowded_coef.png" 1770606586 109984 14fc25250c2694bc04a171eeb3ef480a ""
