@@ -8,10 +8,11 @@
 
 \title[Analisis GWR COVID-19 Inggris]{ANALISIS GEOGRAPHICALLY WEIGHTED REGRESSION (GWR) PADA KASUS COVID-19 DI INGGRIS}
 \subtitle{MAKALAH}
-\author[Ammar, Norman, Kirono]{
+\author[Ammar, Norman, Kirono, Devana]{
     Ammar Hanafi (2206051582) \texorpdfstring{\\}{, }
     Norman Mowlana Aziz (2206025470) \texorpdfstring{\\}{, }
-    Kirono Dwi Saputro (2106656365)
+    Kirono Dwi Saputro (2106656365) \texorpdfstring{\\}{, }
+    Devana Solea (2306262402)
 }
 \institute[Univ. Indonesia]{
     Program Studi Sarjana Statistika \\
@@ -42,7 +43,7 @@
     \textbf{Tujuan}
     \begin{itemize}
         \item Memodelkan tingkat kasus COVID-19 di Inggris.
-        \item Menganalisis pengaruh Etnis Non-Kulit Putih dan Penyakit Jangka Panjang.
+        \item Menganalisis pengaruh Deprivasi (IMD), Penyakit, dan Kepadatan Hunian.
         \item Membandingkan model OLS dan GWR.
         \item Memetakan variasi koefisien lokal.
     \end{itemize}
@@ -59,23 +60,39 @@
             \textbf{Variabel} & \textbf{Deskripsi} \\
             \midrule
             $Y$ (Dependen) & Rate COVID-19 per 100k penduduk \\
-            $X_1$ (Independen) & Proporsi Etnis Non-Kulit Putih \\
+            $X_1$ (Independen) & Index of Multiple Deprivation (IMD) \\
             $X_2$ (Independen) & Proporsi Penyakit Jangka Panjang \\
+            $X_3$ (Independen) & Proporsi Rumah Tangga Padat (Crowded) \\
             \bottomrule
         \end{tabular}
     \end{table}
+    \vspace{0.2cm}
+    \small \textit{*Seluruh variabel dilakukan standardisasi (Z-score) sebelum pemodelan agar koefisien dapat diperbandingkan.}
 \end{frame}
 
 \begin{frame}{Metode Analisis}
     \begin{enumerate}
         \item \textbf{Analisis Deskriptif}: Eksplorasi data dan peta sebaran.
-        \item \textbf{Global OLS}: $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \epsilon$
+        \item \textbf{Global OLS}: $Y = \beta_0 + \beta_1 \text{IMD} + \beta_2 \text{Illness} + \beta_3 \text{Crowded} + \epsilon$
         \item \textbf{Uji Asumsi}: Breusch-Pagan Test untuk heteroskedastisitas.
         \item \textbf{GWR (Geographically Weighted Regression)}:
         \[ y_i = \beta_0(u_i,v_i) + \sum \beta_k(u_i,v_i) x_{ik} + \epsilon_i \]
         Menggunakan kernel \textit{Adaptive Bisquare}.
         \item \textbf{Diagnostik}: Local Condition Number (Multikolinearitas).
     \end{enumerate}
+\end{frame}
+
+\begin{frame}{Wilayah Studi dan Data Referensi}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{figs/map_boundaries.png} \\
+        \tiny Peta Batas Wilayah \& Koordinat
+        \column{0.5\textwidth}
+        \tiny
+        \textbf{Sampel Data (Lokasi \& Variabel)}:
+        \input{tables/data_sample.tex}
+    \end{columns}
 \end{frame}
 
 \section{Hasil dan Pembahasan}
@@ -87,12 +104,25 @@
         \tiny Sebaran Kasus COVID-19
         \column{0.5\textwidth}
         \centering
-        \includegraphics[width=0.9\textwidth]{figs/map_ethnic.png} \\
-        \tiny Sebaran Etnis Non-Kulit Putih
+        \includegraphics[width=0.9\textwidth]{figs/map_imd.png} \\
+        \tiny Sebaran Skor IMD (Deprivasi)
     \end{columns}
     \vspace{0.3cm}
     \centering
     \tiny Pola spasial terlihat mengelompok (cluster), mengindikasikan autokorelasi spasial.
+\end{frame}
+
+\begin{frame}{Korelasi Antar Variabel}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figs/pairplot.png} \\
+        \tiny Pairplot Distribusi Variabel
+        \column{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figs/heatmap.png} \\
+        \tiny Matriks Korelasi
+    \end{columns}
 \end{frame}
 
 \begin{frame}{Hasil Model Global (OLS)}
@@ -102,9 +132,9 @@
         \input{tables/ols_summary.tex}
     \end{table}
     \begin{itemize}
-        \item $R^2$ sangat rendah (0.019).
-        \item Hanya variabel Etnis yang signifikan pada taraf nyata 10\%.
-        \item Model global tidak mampu menjelaskan variasi data dengan baik.
+        \item $R^2$ rendah (0.038).
+        \item Hanya variabel IMD yang signifikan pada taraf nyata 5\%.
+        \item Model global kurang mampu menjelaskan variasi data.
     \end{itemize}
 \end{frame}
 
@@ -124,45 +154,80 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}{Hasil Model GWR}
+\begin{frame}{Perbandingan Model GWR (Bisquare vs Gaussian)}
     \begin{table}
         \centering
-        \input{tables/gwr_summary.tex}
+        \input{tables/model_comparison.tex}
     \end{table}
     \begin{itemize}
-        \item \textbf{AICc Turun}: 814.5 $\rightarrow$ 793.3 (Model Membaik).
-        \item \textbf{$R^2$ Naik}: 0.019 $\rightarrow$ 0.221.
-        \item GWR berhasil menangkap variasi lokal yang dilewatkan OLS.
+        \item \textbf{Adaptive Bisquare} terpilih sebagai model terbaik.
+        \item \textbf{AICc Terendah}: 797.0 (vs Gaussian 798.2 vs OLS 813.6).
+        \item \textbf{$R^2$ Tertinggi}: 0.204 (vs Gaussian 0.197 vs OLS 0.038).
+        \item Model lokal (GWR) jauh lebih unggul dibanding Global.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Peta Koefisien Lokal: Etnis}
+\begin{frame}{Perbandingan Residual (Goodness of Fit)}
+    \centering
+    \includegraphics[width=1.0\textwidth]{figs/residual_comparison.png} \\
+    \tiny Perbandingan Residual: OLS (Kiri) vs GWR Bisquare (Tengah) vs GWR Gaussian (Kanan) \\
+    \vspace{0.2cm}
+    \small
+    Residual GWR lebih acak dan variansnya lebih kecil, menandakan model lebih fit.
+\end{frame}
+
+\begin{frame}{Peta Koefisien Lokal: IMD}
     \begin{columns}
         \column{0.5\textwidth}
         \centering
-        \includegraphics[width=1\textwidth]{figs/ethnic_sig.png}
+        \includegraphics[width=0.9\textwidth]{figs/covid_gwr_imd_coef.png} \\
+        \tiny Koefisien
         \column{0.5\textwidth}
-        \textbf{Interpretasi}:
-        \begin{itemize}
-            \item Area Abu-abu: Tidak signifikan ($|t| < 1.96$).
-            \item Area Berwarna: Signifikan.
-            \item Pengaruh etnis positif kuat di wilayah tertentu (Kuning/Hijau).
-        \end{itemize}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figs/covid_gwr_imd_pval.png} \\
+        \tiny P-Value
     \end{columns}
+    \vspace{0.2cm}
+    \begin{itemize}
+        \item P-value rendah (gelap) menunjukkan pengaruh signifikan.
+        \item Semakin tinggi deprivasi, semakin tinggi kasus COVID-19 (Koefisien Positif/Merah).
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Peta Koefisien Lokal: Penyakit Jangka Panjang}
     \begin{columns}
         \column{0.5\textwidth}
         \centering
-        \includegraphics[width=1\textwidth]{figs/illness_sig.png}
+        \includegraphics[width=0.9\textwidth]{figs/covid_gwr_illness_coef.png} \\
+        \tiny Koefisien
         \column{0.5\textwidth}
-        \textbf{Interpretasi}:
-        \begin{itemize}
-            \item Variabel ini tidak signifikan di model OLS global, TAPI signifikan positif di beberapa wilayah lokal (GWR).
-            \item Menunjukkan pentingnya analisis lokal untuk mengungkap hubungan tersembunyi.
-        \end{itemize}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figs/covid_gwr_illness_pval.png} \\
+        \tiny P-Value
     \end{columns}
+    \vspace{0.2cm}
+    \begin{itemize}
+        \item Signifikan hanya di sebagian wilayah (cluster tertentu).
+        \item Mengungkap hubungan lokal yang tidak terlihat di OLS (Global tidak signifikan).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Peta Koefisien Lokal: Kepadatan Hunian}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figs/covid_gwr_crowded_coef.png} \\
+        \tiny Koefisien
+        \column{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figs/covid_gwr_crowded_pval.png} \\
+        \tiny P-Value
+    \end{columns}
+    \vspace{0.2cm}
+    \begin{itemize}
+        \item Variasi pengaruh kepadatan hunian terlihat jelas.
+        \item Signifikansi terbatas pada area spesifik (p-value rendah).
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Diagnostik Multikolinearitas Lokal}
@@ -176,9 +241,14 @@
 \section{Kesimpulan}
 \begin{frame}{Kesimpulan}
     \begin{enumerate}
-        \item Model GWR jauh lebih \textbf{superior} dibandingkan OLS (AICc lebih rendah, $R^2$ lebih tinggi).
-        \item Terdapat \textbf{heterogenitas spasial} yang signifikan dalam pengaruh Etnis dan Kesehatan terhadap COVID-19.
-        \item Kebijakan penanganan COVID-19 harus \textbf{spesifik wilayah}, tidak bisa disamaratakan secara nasional.
+        \item \textbf{Standardisasi Data}: Penting untuk membandingkan pengaruh relatif variabel ($X_1, X_2, X_3$).
+        \item \textbf{Superioritas GWR}: Kernel \textbf{Adaptive Bisquare} meningkatkan $R^2$ dari 0.038 (OLS) menjadi 0.204.
+        \item \textbf{Heterogenitas Spasial}:
+        \begin{itemize}
+            \item \textbf{IMD}: Konsisten berpengaruh positif signifikan.
+            \item \textbf{Illness \& Crowded}: Pengaruhnya bersifat lokal (hanya signifikan di beberapa area).
+        \end{itemize}
+        \item \textbf{Implikasi}: Kebijakan kesehatan harus mempertimbangkan karakteristik lokal masing-masing wilayah.
     \end{enumerate}
 \end{frame}
 

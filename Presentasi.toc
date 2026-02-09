@@ -1,4 +1,4 @@
 \beamer@sectionintoc {1}{Pendahuluan}{3}{0}{1}
 \beamer@sectionintoc {2}{Metodologi}{4}{0}{2}
-\beamer@sectionintoc {3}{Hasil dan Pembahasan}{6}{0}{3}
-\beamer@sectionintoc {4}{Kesimpulan}{13}{0}{4}
+\beamer@sectionintoc {3}{Hasil dan Pembahasan}{7}{0}{3}
+\beamer@sectionintoc {4}{Kesimpulan}{17}{0}{4}
