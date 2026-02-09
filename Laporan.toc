@@ -24,3 +24,5 @@
 \contentsline {subsubsection}{\numberline {4.4.4}Diagnostik Multikolinearitas Lokal}{19}{subsubsection.4.4.4}%
 \contentsline {subsubsection}{\numberline {4.4.5}Pengelompokan Wilayah Berdasarkan Signifikansi}{20}{subsubsection.4.4.5}%
 \contentsline {section}{BAB V KESIMPULAN}{22}{Item.9}%
+\contentsline {section}{DAFTAR PUSTAKA}{23}{section*.26}%
+\contentsline {section}{LAMPIRAN}{24}{section*.28}%

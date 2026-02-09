@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.23)  9 FEB 2026 10:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.23)  9 FEB 2026 10:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -623,17 +623,24 @@ Overfull \hbox (1.75323pt too wide) in paragraph at lines 441--442
 fi-kan-si ter-ba-tas pa-da kantong-kantong
  []
 
-[20 <./figs/map_condition_number.png>] [21] [22] [23] (Laporan.aux)
+[20 <./figs/map_condition_number.png>] [21] [22] [23] [24] (Laporan.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
-Package rerunfilecheck Info: File `Laporan.out' has not changed.
-(rerunfilecheck)             Checksum: B6318157CFF92295EE9E9B28E826E7D6;4146.
+
+
+Package rerunfilecheck Warning: File `Laporan.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Laporan.out':
+(rerunfilecheck)             Before: B6318157CFF92295EE9E9B28E826E7D6;4146
+(rerunfilecheck)             After:  24871D73A9DEC2A8B677958691A46C9D;4351.
  ) 
 Here is how much of TeX's memory you used:
- 12604 strings out of 467871
- 206807 string characters out of 5418376
+ 12607 strings out of 467871
+ 206836 string characters out of 5418376
  638924 words of memory out of 5000000
  41242 multiletter control sequences out of 15000+600000
  634564 words of font info for 64 fonts, out of 8000000 for 9000
@@ -656,9 +663,9 @@ msfonts/cm/cmr8.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/p
 ublic/amsfonts/cm/cmsy10.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/font
 s/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/ammar/AppData/Local/Programs/Mi
 KTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Laporan.pdf (24 pages, 1818173 bytes).
+Output written on Laporan.pdf (25 pages, 1822536 bytes).
 PDF statistics:
- 441 PDF objects out of 1000 (max. 8388607)
- 84 named destinations out of 1000 (max. 500000)
+ 451 PDF objects out of 1000 (max. 8388607)
+ 87 named destinations out of 1000 (max. 500000)
  282 words of extra memory for PDF output out of 10000 (max. 10000000)
 
