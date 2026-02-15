@@ -1,0 +1,280 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[indonesian]{babel}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{subcaption}
+
+\geometry{
+	left=3cm,
+	right=2.5cm,
+	top=3cm,
+	bottom=2.5cm,
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \includegraphics[width=3.5cm]{figs/makara.png} \par\vspace{1cm}
+    {\normalsize \textbf{UNIVERSITAS INDONESIA}} \par\vspace{3cm}
+
+    {\normalsize \textbf{ANALISIS REGRESI SPASIAL (SAR/SEM) PADA SEKTOR PEKERJAAN KESEHATAN DAN SOSIAL DI INGGRIS}} \par\vspace{4cm}
+
+    {\normalsize \textbf{LAPORAN}} \par\vspace{3cm}
+
+    {\normalsize \textbf{AMMAR HANAFI (2206051582)}} \par
+    {\normalsize \textbf{NORMAN MOWLANA AZIZ (2206025470)}} \par
+    {\normalsize \textbf{KIRONO DWI SAPUTRO (2106656365)}} \par
+    {\normalsize \textbf{DEVANA SOLEA (2306262402)}} \par\vfill
+
+    {\normalsize \textbf{FAKULTAS MATEMATIKA DAN ILMU PENGETAHUAN ALAM}} \par
+    {\normalsize \textbf{PROGRAM STUDI SARJANA STATISTIKA}} \par
+    {\normalsize \textbf{DEPOK}} \par
+    {\normalsize \textbf{FEBRUARI 2026}}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+\listoftables
+\newpage
+\listoffigures
+\newpage
+
+%===================================
+% BAB 1 - PENDAHULUAN
+%===================================
+\newpage
+\begin{center}
+    \bfseries\large
+    BAB I \\
+    PENDAHULUAN
+\end{center}
+\addcontentsline{toc}{section}{BAB I PENDAHULUAN}
+\setcounter{section}{1}
+\setcounter{subsection}{0}
+
+\subsection{Latar Belakang}
+Sektor kesehatan dan pekerjaan sosial merupakan komponen vital dalam struktur ekonomi dan kesejahteraan masyarakat di suatu negara. Distribusi tenaga kerja di sektor ini seringkali tidak merata dan dipengaruhi oleh karakteristik wilayah sekitarnya. Pemahaman mengenai faktor-faktor yang mempengaruhi proporsi tenaga kerja di sektor ini, seperti pendidikan, sektor keuangan, dan real estat, sangat penting untuk perencanaan kebijakan. Data spasial mengenai ketenagakerjaan ini seringkali memiliki ketergantungan antar lokasi (spatial dependence), di mana nilai di satu lokasi dipengaruhi oleh lokasi tetangganya. Penggunaan regresi linear klasik (Ordinary Least Squares - OLS) seringkali melanggar asumsi kebebasan antar pengamatan (independensi) jika terdapat autokorelasi spasial pada sisaan (error). Oleh karena itu, pendekatan \textbf{Regresi Spasial}, seperti \textit{Spatial Autoregressive Model} (SAR) dan \textit{Spatial Error Model} (SEM), diperlukan untuk memodelkan fenomena ini secara lebih akurat.
+
+\subsection{Rumusan Masalah}
+\begin{enumerate}
+    \item Apakah terdapat ketergantungan spasial (spatial dependence) dalam model proporsi pekerja sektor kesehatan dan sosial di Inggris?
+    \item Bagaimana pengaruh variabel sektor pekerjaan (Education, Finance, Info-Comm, Real Estate) terhadap tingkat pekerja di sektor Kesehatan dan Sosial (Human Health and Social Work)?
+    \item Model spasial manakah (SAR atau SEM) yang terbaik untuk menjelaskan data tersebut?
+\end{enumerate}
+
+\subsection{Tujuan}
+Tujuan dari analisis ini adalah untuk mengidentifikasi dan memodelkan hubungan antara variabel-variabel prediktor dengan variabel respon dengan memperhitungkan efek spasial, serta menentukan model terbaik antara OLS, SAR, dan SEM.
+
+%===================================
+% BAB 2 - LANDASAN TEORI
+%===================================
+\newpage
+\begin{center}
+    \bfseries\large
+    BAB II \\
+    LANDASAN TEORI
+\end{center}
+\addcontentsline{toc}{section}{BAB II LANDASAN TEORI}
+\setcounter{section}{2}
+\setcounter{subsection}{0}
+
+\subsection{Matriks Pembobot Spasial (Spatial Weights Matrix)}
+Matriks pembobot spasial $W$ adalah komponen kunci dalam analisis spasial yang merepresentasikan struktur hubungan antar lokasi. Dalam analisis ini, digunakan pembobot \textbf{Queen Contiguity}, di mana lokasi $i$ dan $j$ dianggap bertetangga jika mereka berbagi sisi atau sudut perbatasan yang sama.
+
+\subsection{Uji Moran's I}
+Uji Moran's I digunakan untuk mendeteksi adanya autokorelasi spasial global. Hipotesis nol adalah tidak terdapat autokorelasi spasial (spatial randomness). Nilai Moran's I yang positif dan signifikan menunjukkan adanya pengelompokan spasial (clustering), sedangkan nilai negatif menunjukkan pola penyebaran (dispersion).
+
+\subsection{Uji Lagrange Multiplier (LM)}
+Uji Lagrange Multiplier (LM) digunakan untuk memilih antara model SAR dan SEM. Uji ini terdiri dari:
+\begin{itemize}
+    \item \textbf{LM-Lag}: Menguji signifikansi lag spasial pada variabel dependen.
+    \item \textbf{LM-Error}: Menguji signifikansi korelasi spasial pada error.
+\end{itemize}
+Jika LM-Lag signifikan dan LM-Error tidak, maka model SAR dipilih (dan sebaliknya). Jika keduanya signifikan, maka dilihat varian Robust LM.
+
+\subsection{Spatial Lag Model (SAR)}
+Model SAR mengasumsikan bahwa nilai variabel dependen di suatu lokasi dipengaruhi oleh nilai variabel dependen di lokasi tetangganya.
+\[ y = \rho W y + X\beta + \epsilon \]
+di mana $\rho$ adalah parameter lag spasial.
+
+\subsection{Spatial Error Model (SEM)}
+Model SEM mengasumsikan bahwa ketergantungan spasial terdapat pada error (sisaan), yang mungkin disebabkan oleh variabel tak teramati yang berkorelasi spasial.
+\[ y = X\beta + u \]
+\[ u = \lambda W u + \epsilon \]
+di mana $\lambda$ adalah parameter error spasial.
+
+%===================================
+% BAB 3 - METODE PENELITIAN
+%===================================
+\newpage
+\begin{center}
+    \bfseries\large
+    BAB III \\
+    METODE PENELITIAN
+\end{center}
+\addcontentsline{toc}{section}{BAB III METODE PENELITIAN}
+\setcounter{section}{3}
+\setcounter{subsection}{0}
+
+\subsection{Data dan Variabel}
+Analisis ini menggunakan data statistik regional di Inggris dengan unit analisis Upper Tier Local Authority. Variabel yang digunakan adalah:
+\begin{itemize}
+    \item \textbf{Variabel Dependen ($Y$)}: \texttt{Human\_health\_and\_social\_work}
+    \item \textbf{Variabel Independen ($X$)}:
+    \begin{itemize}
+        \item \texttt{Education}
+        \item \texttt{Financial\_and\_insurance}
+        \item \texttt{Information\_and\_communication}
+        \item \texttt{Real\_estate}
+    \end{itemize}
+\end{itemize}
+Seluruh variabel dilakukan standardisasi (Z-score) sebelum analisis untuk memudahkan interpretasi dan komputasi.
+
+\subsection{Tahapan Analisis}
+\begin{enumerate}
+    \item \textbf{Eksplorasi Data}: Memeriksa struktur data dan variabel.
+    \item \textbf{Pembentukan Matriks Pembobot ($W$)}: Menggunakan kriteria Queen Contiguity dan row-standardized.
+    \item \textbf{Estimasi Model OLS}: Sebagai model dasar (baseline).
+    \item \textbf{Diagnostik Spasial}: Melakukan uji Moran's I pada sisaan OLS dan uji LM (Lag \& Error) untuk mendeteksi autokorelasi spasial dan menentukan model yang tepat.
+    \item \textbf{Estimasi Model Spasial}: Mengestimasi model terpilih (SAR/SEM) menggunakan metode Maximum Likelihood.
+    \item \textbf{Evaluasi Model}: Membandingkan kebaikan model menggunakan AIC (Akaike Information Criterion) dan Log-Likelihood.
+\end{enumerate}
+
+%===================================
+% BAB 4 - ANALISIS DAN PEMBAHASAN
+%===================================
+\newpage
+\begin{center}
+    \bfseries\large
+    BAB IV \\
+    ANALISIS DAN PEMBAHASAN
+\end{center}
+\addcontentsline{toc}{section}{BAB IV ANALISIS DAN PEMBAHASAN}
+\setcounter{section}{4}
+\setcounter{subsection}{0}
+
+\subsection{Hasil Regresi OLS (Global)}
+Sebagai langkah awal, dilakukan estimasi menggunakan Ordinary Least Squares (OLS). Ringkasan hasilnya adalah sebagai berikut:
+
+\begin{table}[H]
+    \centering
+    \caption{Ringkasan Hasil Regresi OLS}
+    \label{tab:ols_results}
+    \begin{tabular}{lrrrr}
+        \toprule
+        Variabel & Koefisien & Std. Error & t-Statistic & Prob. \\
+        \midrule
+        CONSTANT & -0.0000 & 0.0148 & -0.0000 & 1.000 \\
+        Education & 0.8892 & 0.0447 & 19.912 & 0.000 \\
+        Financial & -0.0234 & 0.0328 & -0.714 & 0.476 \\
+        Info \& Comm & -0.2829 & 0.0292 & -9.705 & 0.000 \\
+        Real Estate & 0.3422 & 0.0639 & 5.356 & 0.000 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Model OLS menghasilkan nilai $R^2$ yang sangat tinggi yaitu \textbf{0.968}, yang menunjukkan model ini sangat baik dalam menjelaskan variasi data. Variabel \texttt{Education}, \texttt{Information\_and\_communication}, dan \texttt{Real\_estate} berpengaruh signifikan terhadap variabel respon. Namun, diagnosis spasial diperlukan untuk memastikan validitas model.
+
+\subsection{Diagnostik Dependensi Spasial}
+Untuk mendeteksi adanya autokorelasi spasial, dilakukan uji pada sisaan OLS.
+
+\begin{table}[H]
+    \centering
+    \caption{Hasil Uji Diagnostik Spasial}
+    \label{tab:spatial_diag}
+    \begin{tabular}{lrr}
+        \toprule
+        Uji & Nilai Statistik & Probabilitas (p-value) \\
+        \midrule
+        Moran's I (error) & 4.145 & 0.0000 \\
+        LM (Lag) & 0.176 & 0.6746 \\
+        Robust LM (Lag) & 0.029 & 0.8647 \\
+        LM (Error) & 13.867 & 0.0002 \\
+        Robust LM (Error) & 13.719 & 0.0002 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Berdasarkan Tabel \ref{tab:spatial_diag}:
+\begin{itemize}
+    \item Uji \textbf{Moran's I} pada error signifikan ($p < 0.05$), menunjukkan adanya autokorelasi spasial positif pada sisaan.
+    \item Uji \textbf{LM-Error} signifikan ($p=0.0002$), sedangkan \textbf{LM-Lag} tidak signifikan ($p=0.6746$).
+\end{itemize}
+Sesuai dengan kaidah keputusan Anselin, karena LM-Error signifikan dan LM-Lag tidak, maka model yang paling tepat adalah \textbf{Spatial Error Model (SEM)}. Ini mengindikasikan bahwa ketergantungan spasial terjadi melalui error, mungkin karena adanya variabel yang tidak dimasukkan ke dalam model (omitted variables) yang memiliki pola spasial.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{figs/residual_comparison.png}
+    \caption{Peta Sisaan (Residuals): OLS vs SAR vs SEM}
+    \label{fig:resid_comp}
+\end{figure}
+
+\subsection{Hasil Regresi Spasial (SEM)}
+Berdasarkan hasil diagnostik, model SEM diestimasi menggunakan metode Maximum Likelihood.
+
+\begin{table}[H]
+    \centering
+    \caption{Ringkasan Hasil Spatial Error Model (SEM)}
+    \label{tab:sem_results}
+    \begin{tabular}{lrrrr}
+        \toprule
+        Variabel & Koefisien & Std. Error & z-Statistic & Prob. \\
+        \midrule
+        CONSTANT & 0.0001 & 0.0197 & 0.005 & 0.996 \\
+        Education & 0.8580 & 0.0464 & 18.486 & 0.000 \\
+        Financial & -0.0111 & 0.0324 & -0.342 & 0.733 \\
+        Info \& Comm & -0.2714 & 0.0306 & -8.866 & 0.000 \\
+        Real Estate & 0.3616 & 0.0647 & 5.587 & 0.000 \\
+        Lambda ($\lambda$) & 0.2829 & 0.1028 & 2.752 & 0.006 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Perbandingan Model}
+\begin{table}[H]
+    \centering
+    \caption{Perbandingan Kebaikan Model}
+    \label{tab:model_comp}
+    \begin{tabular}{lrrr}
+        \toprule
+        Kriteria & OLS & SAR & SEM \\
+        \midrule
+        AIC & -81.72 & -79.88 & \textbf{-91.17} \\
+        Log Likelihood & 45.86 & 45.94 & 50.58 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Model \textbf{SEM} memiliki nilai AIC terendah (-91.17) dibandingkan OLS (-81.72) dan SAR (-79.88), menegaskan bahwa SEM adalah model terbaik untuk data ini. Nilai koefisien $\lambda$ (lambda) sebesar 0.283 yang signifikan menunjukkan adanya korelasi spasial yang moderat pada error yang berhasil ditangani oleh model.
+
+\subsection{Interpretasi}
+Dari model SEM, variabel \texttt{Education} dan \texttt{Real\_estate} memiliki pengaruh positif signifikan terhadap \texttt{Human\_health\_and\_social\_work}. Artinya, wilayah dengan proporsi sektor pendidikan dan real estate yang tinggi cenderung memiliki proporsi pekerja sektor kesehatan yang tinggi pula. Sebaliknya, \texttt{Information\_and\_communication} memiliki pengaruh negatif signifikan.
+
+%===================================
+% BAB 5 - KESIMPULAN
+%===================================
+\newpage
+\begin{center}
+    \bfseries\large
+    BAB V \\
+    KESIMPULAN
+\end{center}
+\addcontentsline{toc}{section}{BAB V KESIMPULAN}
+\setcounter{section}{5}
+\setcounter{subsection}{0}
+
+Berdasarkan analisis yang dilakukan, dapat disimpulkan bahwa:
+\begin{enumerate}
+    \item Terdapat autokorelasi spasial yang signifikan pada sisaan model OLS, sehingga model OLS klasik tidak sepenuhnya memadai.
+    \item Berdasarkan uji Lagrange Multiplier, model yang paling sesuai adalah \textbf{Spatial Error Model (SEM)}.
+    \item Model SEM memberikan performa terbaik dengan AIC terendah (-91.17).
+    \item Faktor Pendidikan dan Real Estate berpengaruh positif signifikan, sedangkan Informasi \& Komunikasi berpengaruh negatif signifikan terhadap variabel respon.
+\end{enumerate}
+
+\end{document}
