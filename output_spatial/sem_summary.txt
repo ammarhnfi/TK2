@@ -1,0 +1,26 @@
+REGRESSION RESULTS
+------------------
+
+SUMMARY OF OUTPUT: ML SPATIAL ERROR (METHOD = full)
+---------------------------------------------------
+Data set            : covid19_eng
+Weights matrix      :     unknown
+Dependent Variable  :Human_health_and_social_work                Number of Observations:         149
+Mean dependent var  :      0.0000                Number of Variables   :           5
+S.D. dependent var  :      1.0034                Degrees of Freedom    :         144
+Pseudo R-squared    :      0.9680
+Log likelihood      :     50.5829
+Sigma-square ML     :      0.0292                Akaike info criterion :     -91.166
+S.E of regression   :      0.1709                Schwarz criterion     :     -76.146
+
+------------------------------------------------------------------------------------
+            Variable     Coefficient       Std.Error     z-Statistic     Probability
+------------------------------------------------------------------------------------
+            CONSTANT         0.00009         0.01965         0.00472         0.99623
+           Education         0.85796         0.04641        18.48571         0.00000
+Financial_and_insurance        -0.01108         0.03241        -0.34174         0.73254
+Information_and_communication        -0.27138         0.03061        -8.86613         0.00000
+         Real_estate         0.36164         0.06473         5.58731         0.00000
+              lambda         0.28289         0.10280         2.75199         0.00592
+------------------------------------------------------------------------------------
+================================ END OF REPORT =====================================

@@ -1102,14 +1102,14 @@ File: figs/map_boundaries.png Graphic file (type png)
 <use figs/map_boundaries.png>
 Package pdftex.def Info: figs/map_boundaries.png  used on input line 96.
 (pdftex.def)             Requested size: 171.14764pt x 171.14238pt.
-(tables/data_sample.tex)
-Overfull \hbox (141.37178pt too wide) in paragraph at lines 96--96
-[] 
- []
-
+(taap_imd.png, id=202, 722.7pt x 722.7pt>
+File: figs/map_imd.png Graphic file (type png)
+<use figs/map_imd.png>
+Package pdftex.def Info: figs/map_imd.png  used on input line 100.
+(pdftex.def)             Requested size: 154.03183pt x 154.0321pt.
 File: figs/makara.png Graphic file (type png)
 <use figs/makara.png>
-Package pdftex.def Info: figs/makara.png  used on input line 96.
+Package pdftex.def Info: figs/makara.png  used on input line 100.
 (pdftex.def)             Requested size: 28.54782pt x 28.45274pt.
 
 Overfull \hbox (17.63217pt too wide) has occurred while \output is active
@@ -1118,17 +1118,16 @@ Overfull \hbox (17.63217pt too wide) has occurred while \output is active
 
 [6
 
- <./figs/map_boundaries.png>]
-Overfull \hbox (17.63217pt too wide) in paragraph at lines 113--113
- [][]  \OT1/cmss/m/n/6 ([])  
- []
-
-<figs/map_covid19_r.png, id=230, 722.7pt x 722.7pt>
-File: figs/map_covid19_r.png Graphic file (type png)
-<use figs/map_covid19_r.png>
-Package pdftex.def Info: figs/map_covid19_r.png  used on input line 113.
-(pdftex.def)             Requested size: 154.03183pt x 154.0321pt.
-<figs/map_imd.png, id=231, 722.7pt x 722.7pt>
+ <./figs/map_covid19_r.png> <./figs/map_imd.png>])
+Runaway argument?
+\@kernel@before@enddocument \UseOneTimeHook {enddocument}\@kernel@after@enddocu
+ment \ETC.
+! File ended while scanning use of \beamer@collect@@body.
+<inserted text> 
+                \par 
+<*> ./Presentasi.tex
+                    
+? .7pt>
 File: figs/map_imd.png Graphic file (type png)
 <use figs/map_imd.png>
 Package pdftex.def Info: figs/map_imd.png  used on input line 113.

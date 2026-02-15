@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.23)  9 FEB 2026 10:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.23)  15 FEB 2026 23:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./Laporan.tex
-(Laporan.tex
+**./laporan2copy.tex
+(laporan2copy.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
 (C:\Users\ammar\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -380,8 +380,12 @@ Package caption Info: New subtype `subtable' on input line 238.
 tex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count321
-) (Laporan.aux)
-\openout1 = `Laporan.aux'.
+) (laporan2copy.aux
+
+LaTeX Warning: Label `tab:spatial_diag' multiply defined.
+
+)
+\openout1 = `laporan2copy.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
 LaTeX Font Info:    ... okay on input line 19.
@@ -462,13 +466,13 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package hyperref Info: Link coloring OFF on input line 19.
-(Laporan.out) (Laporan.out)
+(laporan2copy.out) (laporan2copy.out)
 \@outlinefile=\write3
-\openout3 = `Laporan.out'.
+\openout3 = `laporan2copy.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-<figs/makara.png, id=96, 154.86429pt x 154.34807pt>
+<figs/makara.png, id=124, 154.86429pt x 154.34807pt>
 File: figs/makara.png Graphic file (type png)
 <use figs/makara.png>
 Package pdftex.def Info: figs/makara.png  used on input line 23.
@@ -476,9 +480,9 @@ Package pdftex.def Info: figs/makara.png  used on input line 23.
  [1
 
 {C:/Users/ammar/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./figs/makar
-a.png>] (Laporan.toc)
+a.png>] (laporan2copy.toc)
 \tf@toc=\write4
-\openout4 = `Laporan.toc'.
+\openout4 = `laporan2copy.toc'.
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
@@ -486,197 +490,130 @@ been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.42 \newpage
-              [1] (Laporan.lot)
+              [1] (laporan2copy.lot)
 \tf@lot=\write5
-\openout5 = `Laporan.lot'.
+\openout5 = `laporan2copy.lot'.
 
- [2] (Laporan.lof)
+ [2] (laporan2copy.lof)
 \tf@lof=\write6
-\openout6 = `Laporan.lof'.
+\openout6 = `laporan2copy.lof'.
 
- [3] [4] [5] [6]
-(tables/data_sample.tex)
-<figs/map_boundaries.png, id=205, 867.24pt x 867.24pt>
-File: figs/map_boundaries.png Graphic file (type png)
-<use figs/map_boundaries.png>
-Package pdftex.def Info: figs/map_boundaries.png  used on input line 173.
-(pdftex.def)             Requested size: 396.91325pt x 396.9106pt.
- [7] [8 <./figs/map_boundaries.png>]
-(tables/desc_stats.tex)
-<figs/boxplot.png, id=225, 722.7pt x 433.62pt>
-File: figs/boxplot.png Graphic file (type png)
-<use figs/boxplot.png>
-Package pdftex.def Info: figs/boxplot.png  used on input line 216.
-(pdftex.def)             Requested size: 352.81552pt x 211.6883pt.
- [9 <./figs/boxplot.png>]
-<figs/pairplot.png, id=234, 722.7pt x 722.7pt>
-File: figs/pairplot.png Graphic file (type png)
-<use figs/pairplot.png>
-Package pdftex.def Info: figs/pairplot.png  used on input line 227.
-(pdftex.def)             Requested size: 396.91325pt x 396.9128pt.
-<figs/heatmap.png, id=236, 578.16pt x 433.62pt>
-File: figs/heatmap.png Graphic file (type png)
-<use figs/heatmap.png>
-Package pdftex.def Info: figs/heatmap.png  used on input line 236.
-(pdftex.def)             Requested size: 308.71106pt x 231.53117pt.
- [10 <./figs/pairplot.png>]
-<figs/correlation_matrix.png, id=243, 578.16pt x 433.62pt>
-File: figs/correlation_matrix.png Graphic file (type png)
-<use figs/correlation_matrix.png>
-Package pdftex.def Info: figs/correlation_matrix.png  used on input line 245.
-(pdftex.def)             Requested size: 264.61333pt x 198.45529pt.
-<figs/map_covid19_r.png, id=245, 722.7pt x 722.7pt>
-File: figs/map_covid19_r.png Graphic file (type png)
-<use figs/map_covid19_r.png>
-Package pdftex.def Info: figs/map_covid19_r.png  used on input line 256.
-(pdftex.def)             Requested size: 198.45662pt x 198.45088pt.
-<figs/map_imd.png, id=246, 722.7pt x 722.7pt>
-File: figs/map_imd.png Graphic file (type png)
-<use figs/map_imd.png>
-Package pdftex.def Info: figs/map_imd.png  used on input line 257.
-(pdftex.def)             Requested size: 198.45662pt x 198.45088pt.
-<figs/map_lt_illness.png, id=247, 722.7pt x 722.7pt>
-File: figs/map_lt_illness.png Graphic file (type png)
-<use figs/map_lt_illness.png>
-Package pdftex.def Info: figs/map_lt_illness.png  used on input line 258.
-(pdftex.def)             Requested size: 198.45662pt x 198.45088pt.
-<figs/map_crowded.png, id=248, 722.7pt x 722.7pt>
-File: figs/map_crowded.png Graphic file (type png)p_lt_illness
-.png> <./figs/map_crowded.png>] (tables/bp_test.tex)
-<figs/map_ols_residuals.png, id=232, 722.7pt x 722.7pt>
-File: figs/map_ols_residuals.png Graphic file (type png)
-<use figs/map_ols_residuals.png>
-Package pdftex.def Info: figs/map_ols_residuals.png  used on input line 268.
-(pdftex.def)             Requested size: 352.81552pt x 352.81383pt.
-
-[12] (tables/model_comparison.tex) [13 <./figs/map_ols_residuals.png>]
-
-LaTeX Warning: File `figs/residual_comparison.png' not found on input line 291.
-
-
-
-! Package pdftex.def Error: File `figs/residual_comparison.png' not found: usin
-g draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.291 ...\textwidth]{figs/residual_comparison.png}
-                                                  
-? _comparison.png>
-Package pdftex.def Info: figs/residual_comparison.png  used on input line 321.
-(pdftex.def)             Requested size: 441.01773pt x 176.40471pt.
-
-
-LaTeX Warning: File `figs/gwr_beta_boxplot.png' not found on input line 333.
-
-
-! Package pdftex.def Error: File `figs/gwr_beta_boxplot.png' not found: using d
-raft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.333 ...0.8\textwidth]{figs/gwr_beta_boxplot.png}
-                                                  
-? ence `fig:coef_imd' on page 11 undefined on input line 202.
-
-
-
-LaTeX Warning: File `figs/covid_gwr_coef_imd_sig.png' not found on input line 2
-06.
-
-
-! Package pdftex.def Error: File `figs/covid_gwr_coef_imd_sig.png' not found: u
-sing draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.206 ...xtwidth]{figs/covid_gwr_coef_imd_sig.png}
-                                                  
-? md_pval.png>
-Package pdftex.def Info: figs/covid_gwr_imd_pval.png  used on input line 361.
-(pdftex.def)             Requested size: 211.68661pt x 211.68388pt.
- [17 <./figs/covid_gwr_r2.png>]
-<figs/covid_gwr_illness_coef.png, id=311, 722.7pt x 722.7pt>
-File: figs/covid_gwr_illness_coef.png Graphic file (type png)
-<use figs/covid_gwr_illness_coef.png>
-Package pdftex.def Info: figs/covid_gwr_illness_coef.png  used on input line 37
-8.
-(pdftex.def)             Requested size: 211.68661pt x 211.68388pt.
-<figs/covid_gwr_illness_pval.png, id=312, 722.7pt x 722.7pt>
-File: figs/covid_gwr_illness_pval.png Graphic file (type png)
-<use figs/covid_gwr_illness_pval.png>
-Package pdftex.def Info: figs/covid_gwr_illness_pval.png  used on input line 38
-5.
-(pdftex.def)             Requested size: 211.68661pt x 211.68388pt.
- [18 <./figs/covid_gwr_imd_coef.png> <./figs/covid_gwr_imd_pval.png> <./figs/co
-vid_gwr_illness_coef.png> <./figs/covid_gwr_illness_pval.png>]
-<figs/covid_gwr_crowded_coef.png, id=324, 722.7pt x 722.7pt>
-File: figs/covid_gwr_crowded_coef.png Graphic file (type png)
-<use figs/covid_gwr_crowded_coef.png>
-Package pdftex.def Info: figs/covid_gwr_crowded_coef.png  used on input line 40
-0.
-(pdftex.def)             Requested size: 211.68661pt x 211.68388pt.
-<figs/covid_gwr_crowded_pval.png, id=325, 722.7pt x 722.7pt>
-File: figs/covid_gwr_crowded_pval.png Graphic file (type png)
-<use figs/covid_gwr_crowded_pval.png>
-Package pdftex.def Info: figs/covid_gwr_crowded_pval.png  used on input line 40
-7.
-(pdftex.def)             Requested size: 211.68661pt x 211.68388pt.
-<figs/map_condition_number.png, id=328, 722.7pt x 722.7pt>
-File: figs/map_condition_number.png Graphic file (type png)
-<use figs/map_condition_number.png>
-Package pdftex.def Info: figs/map_condition_number.png  used on input line 422.
-
-(pdftex.def)             Requested size: 352.81552pt x 352.81383pt.
-
-[19 <./figs/covid_gwr_crowded_coef.png> <./figs/covid_gwr_crowded_pval.png>]
-Overfull \hbox (1.75323pt too wide) in paragraph at lines 441--442
-[]\OT1/cmr/bx/n/12 Klaster Ke-se-hat-an & Ke-pa-dat-an\OT1/cmr/m/n/12 : Sig-ni-
-fi-kan-si ter-ba-tas pa-da kantong-kantong
+ [3] [4] [5]
+[6] [7] [8] [9] [10]
+Overfull \hbox (23.58107pt too wide) in paragraph at lines 381--382
+\OT1/cmr/m/n/12 yang be-ker-ja di bi-dang in-for-ma-si dan ko-mu-ni-ka-si (\OT1
+/cmtt/m/n/12 Information[]and[]communication\OT1/cmr/m/n/12 ). 
  []
 
-[20 <./figs/map_condition_number.png>] [21] [22] [23] [24] (Laporan.aux)
+[11]
+
+LaTeX Warning: Reference `tab:desc_stats' on page 12 undefined on input line 41
+4.
+
+<figs/histograms.png, id=264, 867.24pt x 722.7pt>
+File: figs/histograms.png Graphic file (type png)
+<use figs/histograms.png>
+Package pdftex.def Info: figs/histograms.png  used on input line 440.
+(pdftex.def)             Requested size: 396.91325pt x 330.75882pt.
+[12]
+<figs/boxplots.png, id=273, 722.7pt x 433.62pt>
+File: figs/boxplots.png Graphic file (type png)
+<use figs/boxplots.png>
+Package pdftex.def Info: figs/boxplots.png  used on input line 447.
+(pdftex.def)             Requested size: 352.81552pt x 211.6883pt.
+
+
+LaTeX Warning: Reference `fig:histograms' on page 13 undefined on input line 45
+2.
+
+
+LaTeX Warning: Reference `fig:boxplots' on page 13 undefined on input line 452.
+
+
+<figs/correlation_matrix.png, id=274, 578.16pt x 433.62pt>
+File: figs/correlation_matrix.png Graphic file (type png)
+<use figs/correlation_matrix.png>
+Package pdftex.def Info: figs/correlation_matrix.png  used on input line 456.
+(pdftex.def)             Requested size: 308.71106pt x 231.53117pt.
+[13 <./figs/histograms.png> <./figs/boxplots.png>]
+
+LaTeX Warning: Reference `fig:corr_matrix' on page 14 undefined on input line 4
+61.
+
+
+LaTeX Warning: Reference `fig:quantile_map' on page 14 undefined on input line 
+464.
+
+<figs/y_quantile_map.png, id=283, 722.7pt x 578.16pt>
+File: figs/y_quantile_map.png Graphic file (type png)
+<use figs/y_quantile_map.png>
+Package pdftex.def Info: figs/y_quantile_map.png  used on input line 468.
+(pdftex.def)             Requested size: 352.81552pt x 282.25105pt.
+[14 <./figs/correlation_matrix.png>] [15 <./figs/y_quantile_map.png>]
+<figs/residual_comparison.png, id=298, 1300.86pt x 433.62pt>
+File: figs/residual_comparison.png Graphic file (type png)
+<use figs/residual_comparison.png>
+Package pdftex.def Info: figs/residual_comparison.png  used on input line 571.
+(pdftex.def)             Requested size: 441.01773pt x 147.00539pt.
+ [16]
+[17 <./figs/residual_comparison.png>] [18] [19] [20] [21] [22]
+(laporan2copy.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
-Package rerunfilecheck Info: File `Laporan.out' has not changed.
-(rerunfilecheck)             Checksum: FA8BDCCE5FBF5F19C2191F2C6FC1373C;4343.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+
+Package rerunfilecheck Warning: File `laporan2copy.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `laporan2copy.out':
+(rerunfilecheck)             Before: 6C921DA509122D40F9130873D5FD5E2C;5269
+(rerunfilecheck)             After:  4EA93ACC075E8D58159500A2836605F9;5890.
  ) 
 Here is how much of TeX's memory you used:
- 12605 strings out of 467871
- 206812 string characters out of 5418376
- 638925 words of memory out of 5000000
- 41243 multiletter control sequences out of 15000+600000
- 634564 words of font info for 64 fonts, out of 8000000 for 9000
+ 12474 strings out of 467871
+ 202765 string characters out of 5418376
+ 634611 words of memory out of 5000000
+ 41101 multiletter control sequences out of 15000+600000
+ 634123 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,10n,79p,595b,546s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\ammar\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
-1200.pk><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmbx10.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmbx12.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmex10.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/ammar/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/ammar/AppData/Lo
-cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/ammar/Ap
-pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/
-ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C
-:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
-2.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
-/cm/cmr6.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
-msfonts/cm/cmr8.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmsy10.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/ammar/AppData/Local/Programs/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Laporan.pdf (25 pages, 1823101 bytes).
+ 75i,9n,79p,855b,535s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{table.caption.13} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.caption.12} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.caption.11} has been referenced but does not 
+exist, replaced by a fixed one
+
+ <C:\Users\ammar\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm12
+00.pk><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmbx12.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public
+/amsfonts/cm/cmex10.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmmi12.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/ammar/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/ammar/AppData/Local/
+Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/ammar/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/amma
+r/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Us
+ers/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.p
+fb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmtt12.pfb>
+Output written on laporan2copy.pdf (23 pages, 555138 bytes).
 PDF statistics:
- 455 PDF objects out of 1000 (max. 8388607)
- 84 named destinations out of 1000 (max. 500000)
- 298 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 417 PDF objects out of 1000 (max. 8388607)
+ 111 named destinations out of 1000 (max. 500000)
+ 279 words of extra memory for PDF output out of 10000 (max. 10000000)
 

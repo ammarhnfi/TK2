@@ -1,0 +1,35 @@
+REGRESSION RESULTS
+------------------
+
+SUMMARY OF OUTPUT: MAXIMUM LIKELIHOOD SPATIAL LAG (METHOD = FULL)
+-----------------------------------------------------------------
+Data set            : covid19_eng
+Weights matrix      :     unknown
+Dependent Variable  :Human_health_and_social_work                Number of Observations:         149
+Mean dependent var  :      0.0000                Number of Variables   :           6
+S.D. dependent var  :      1.0034                Degrees of Freedom    :         143
+Pseudo R-squared    :      0.9684
+Spatial Pseudo R-squared:  0.9683
+Log likelihood      :     45.9421
+Sigma-square ML     :      0.0316                Akaike info criterion :     -79.884
+S.E of regression   :      0.1778                Schwarz criterion     :     -61.861
+
+------------------------------------------------------------------------------------
+            Variable     Coefficient       Std.Error     z-Statistic     Probability
+------------------------------------------------------------------------------------
+            CONSTANT        -0.00339         0.01684        -0.20127         0.84049
+           Education         0.88661         0.04429        20.01905         0.00000
+Financial_and_insurance        -0.02395         0.03228        -0.74198         0.45810
+Information_and_communication        -0.28036         0.02929        -9.57164         0.00000
+         Real_estate         0.34345         0.06285         5.46418         0.00000
+W_Human_health_and_social_work         0.00719         0.01809         0.39753         0.69098
+------------------------------------------------------------------------------------
+
+SPATIAL LAG MODEL IMPACTS
+Impacts computed using the 'simple' method.
+            Variable         Direct        Indirect          Total
+           Education         0.8866          0.0064          0.8930
+Financial_and_insurance        -0.0240         -0.0002         -0.0241
+Information_and_communication        -0.2804         -0.0020         -0.2824
+         Real_estate         0.3434          0.0025          0.3459
+================================ END OF REPORT =====================================

@@ -6,14 +6,19 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from libpysal.weights import Queen
 from spreg import OLS, ML_Lag, ML_Error
+from esda.moran import Moran, Moran_Local
+from splot.esda import moran_scatterplot, lisa_cluster
 import os
 
 # Set working directory and file paths
 DATA_PATH = r"d:\tk2\san_ref\data\assignment_2_covid\covid19_eng.gpkg"
 OUTPUT_DIR = r"d:\tk2\output_spatial"
+FIGS_DIR = r"d:\tk2\figs"
 
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
+if not os.path.exists(FIGS_DIR):
+    os.makedirs(FIGS_DIR)
 
 # Load Data
 print("Loading data...")
@@ -31,6 +36,55 @@ x_vars = [
 # Subset and Drop NAs
 gdf_subset = gdf[[y_var] + x_vars + ["geometry"]].dropna()
 print(f"Data shape after subsetting: {gdf_subset.shape}")
+
+# --- Data Exploration & Visualization ---
+
+# 1. Descriptive Statistics
+print("Generating descriptive statistics...")
+desc_stats = gdf_subset[[y_var] + x_vars].describe().T
+desc_stats['skew'] = gdf_subset[[y_var] + x_vars].skew()
+desc_stats['kurtosis'] = gdf_subset[[y_var] + x_vars].kurtosis()
+with open(os.path.join(OUTPUT_DIR, "descriptive_stats.tex"), "w") as f:
+    f.write(desc_stats.to_latex(float_format="%.3f"))
+
+# 2. Boxplots
+print("Generating Boxplots...")
+plt.figure(figsize=(10, 6))
+sns.boxplot(data=gdf_subset[[y_var] + x_vars])
+plt.xticks(rotation=45)
+plt.title("Boxplot Variabel Penelitian")
+plt.tight_layout()
+plt.savefig(os.path.join(FIGS_DIR, "boxplots.png"))
+plt.close()
+
+# 3. Histograms
+print("Generating Histograms...")
+gdf_subset[[y_var] + x_vars].hist(figsize=(12, 10), bins=20, edgecolor='black')
+plt.suptitle("Distribusi Variabel", fontsize=16)
+plt.tight_layout()
+plt.savefig(os.path.join(FIGS_DIR, "histograms.png"))
+plt.close()
+
+# 4. Correlation Matrix
+print("Generating Correlation Matrix...")
+plt.figure(figsize=(8, 6))
+corr_matrix = gdf_subset[[y_var] + x_vars].corr()
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title("Matriks Korelasi")
+plt.tight_layout()
+plt.savefig(os.path.join(FIGS_DIR, "correlation_matrix.png"))
+plt.close()
+
+# 5. Quantile Map of Y
+print("Generating Y Variable Quantile Map...")
+fig, ax = plt.subplots(1, 1, figsize=(10, 8))
+gdf_subset.plot(column=y_var, scheme='quantiles', k=5, cmap='viridis', legend=True, ax=ax)
+ax.set_title(f"Peta Sebaran {y_var} (Quantiles)")
+ax.axis('off')
+plt.savefig(os.path.join(FIGS_DIR, "y_quantile_map.png"))
+plt.close()
+
+# --- End Data Exploration ---
 
 # Standardization (Z-score)
 # Important: spreg expects numpy arrays for X and y
@@ -107,6 +161,29 @@ axes[2].axis('off')
 
 plt.tight_layout()
 plt.savefig(os.path.join(OUTPUT_DIR, "residual_comparison.png"))
+# Copy to figs dir for report inclusion
+import shutil
+shutil.copy(os.path.join(OUTPUT_DIR, "residual_comparison.png"), os.path.join(FIGS_DIR, "residual_comparison.png"))
 plt.close()
 
-print("Analysis complete. Results saved to d:\\tk2\\output_spatial")
+# --- LISA Analysis ---
+print("Generating LISA Cluster Map...")
+# Calculate Moran's I Local
+lisa = Moran_Local(gdf_subset[y_var], w)
+
+# Plot LISA Cluster Map
+fig, ax = plt.subplots(figsize=(10, 8))
+lisa_cluster(lisa, gdf_subset, p=0.05, ax=ax)
+plt.title(f"LISA Cluster Map - {y_var}")
+plt.savefig(os.path.join(FIGS_DIR, "lisa_cluster_map.png"))
+plt.close()
+
+# Moran Scatterplot
+print("Generating Moran Scatterplot...")
+fig, ax = moran_scatterplot(Moran(gdf_subset[y_var], w), p=0.05)
+plt.title(f"Moran Scatterplot - {y_var}")
+plt.savefig(os.path.join(FIGS_DIR, "moran_scatterplot.png"))
+plt.close()
+
+
+print("Analysis complete. Results saved to d:\\tk2\\output_spatial and d:\\tk2\\figs")
