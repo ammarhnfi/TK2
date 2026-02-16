@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.23)  15 FEB 2026 22:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.23)  16 FEB 2026 00:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -390,7 +390,7 @@ Package hyperref Info: Link coloring OFF on input line 19.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-<figs/makara.png, id=115, 154.86429pt x 154.34807pt>
+<figs/makara.png, id=136, 154.86429pt x 154.34807pt>
 File: figs/makara.png Graphic file (type png)
 <use figs/makara.png>
 Package pdftex.def Info: figs/makara.png  used on input line 23.
@@ -414,70 +414,67 @@ l.42 \newpage
 \tf@lof=\write6
 \openout6 = `laporan2.lof'.
 
- [3] [4] [5] [6] [7] [8]
-Overfull \hbox (23.58107pt too wide) in paragraph at lines 234--235
-\OT1/cmr/m/n/12 yang be-ker-ja di bi-dang in-for-ma-si dan ko-mu-ni-ka-si (\OT1/cmtt/m/n/12 Information[]and[]communication\OT1/cmr/m/n/12 ). 
- []
-
-[9]
-<figs/histograms.png, id=238, 867.24pt x 722.7pt>
+ [3] [4] [5] [6] [7] [8] [9] [10] [11]
+<figs/histograms.png, id=297, 867.24pt x 722.7pt>
 File: figs/histograms.png Graphic file (type png)
 <use figs/histograms.png>
-Package pdftex.def Info: figs/histograms.png  used on input line 293.
+Package pdftex.def Info: figs/histograms.png  used on input line 458.
 (pdftex.def)             Requested size: 396.91325pt x 330.75882pt.
- [10]
-<figs/boxplots.png, id=244, 722.7pt x 433.62pt>
+ [12]
+<figs/boxplots.png, id=304, 722.7pt x 433.62pt>
 File: figs/boxplots.png Graphic file (type png)
 <use figs/boxplots.png>
-Package pdftex.def Info: figs/boxplots.png  used on input line 300.
+Package pdftex.def Info: figs/boxplots.png  used on input line 465.
 (pdftex.def)             Requested size: 352.81552pt x 211.6883pt.
-<figs/correlation_matrix.png, id=247, 578.16pt x 433.62pt>
+<figs/correlation_matrix.png, id=307, 578.16pt x 433.62pt>
 File: figs/correlation_matrix.png Graphic file (type png)
 <use figs/correlation_matrix.png>
-Package pdftex.def Info: figs/correlation_matrix.png  used on input line 309.
+Package pdftex.def Info: figs/correlation_matrix.png  used on input line 474.
 (pdftex.def)             Requested size: 308.71106pt x 231.53117pt.
- [11 <./figs/histograms.png> <./figs/boxplots.png>]
-<figs/y_quantile_map.png, id=256, 722.7pt x 578.16pt>
+ [13 <./figs/histograms.png> <./figs/boxplots.png>]
+<figs/y_quantile_map.png, id=316, 722.7pt x 578.16pt>
 File: figs/y_quantile_map.png Graphic file (type png)
 <use figs/y_quantile_map.png>
-Package pdftex.def Info: figs/y_quantile_map.png  used on input line 321.
+Package pdftex.def Info: figs/y_quantile_map.png  used on input line 486.
 (pdftex.def)             Requested size: 352.81552pt x 282.25105pt.
- [12 <./figs/correlation_matrix.png>] [13 <./figs/y_quantile_map.png>]
-<figs/residual_comparison.png, id=269, 1300.86pt x 433.62pt>
+ [14 <./figs/correlation_matrix.png>] [15 <./figs/y_quantile_map.png>]
+<figs/residual_comparison.png, id=329, 1300.86pt x 433.62pt>
 File: figs/residual_comparison.png Graphic file (type png)
 <use figs/residual_comparison.png>
-Package pdftex.def Info: figs/residual_comparison.png  used on input line 377.
+Package pdftex.def Info: figs/residual_comparison.png  used on input line 589.
 (pdftex.def)             Requested size: 441.01773pt x 147.00539pt.
-<figs/moran_scatterplot.png, id=270, 505.89pt x 505.89pt>
-File: figs/moran_scatterplot.png Graphic file (type png)
-<use figs/moran_scatterplot.png>
-Package pdftex.def Info: figs/moran_scatterplot.png  used on input line 385.
-(pdftex.def)             Requested size: 211.68661pt x 211.68498pt.
-<figs/lisa_cluster_map.png, id=271, 722.7pt x 578.16pt>
+ [16] [17 <./figs/residual_comparison.png>]
+<figs/PetaResidual.png, id=339, 414.8298pt x 381.5856pt>
+File: figs/PetaResidual.png Graphic file (type png)
+<use figs/PetaResidual.png>
+Package pdftex.def Info: figs/PetaResidual.png  used on input line 630.
+(pdftex.def)             Requested size: 441.01773pt x 405.68988pt.
+ [18] [19 <./figs/PetaResidual.png>] [20]
+<figs/lisa_cluster_map.png, id=355, 456.95718pt x 480.29437pt>
 File: figs/lisa_cluster_map.png Graphic file (type png)
 <use figs/lisa_cluster_map.png>
-Package pdftex.def Info: figs/lisa_cluster_map.png  used on input line 391.
-(pdftex.def)             Requested size: 211.68661pt x 169.3471pt.
- [14 <./figs/residual_comparison.png>] [15 <./figs/moran_scatterplot.png> <./figs/lisa_cluster_map.png>] [16] [17] [18] [19] (laporan2.aux)
+Package pdftex.def Info: figs/lisa_cluster_map.png  used on input line 677.
+(pdftex.def)             Requested size: 352.81552pt x 370.84648pt.
+ [21 <./figs/lisa_cluster_map.png>] [22] [23] [24] [25] (laporan2.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
 Package rerunfilecheck Info: File `laporan2.out' has not changed.
-(rerunfilecheck)             Checksum: 90EA78E0B2D4E4AF4363181B59C3E17F;4888.
+(rerunfilecheck)             Checksum: 4EA93ACC075E8D58159500A2836605F9;5890.
  ) 
 Here is how much of TeX's memory you used:
- 12471 strings out of 467871
- 203005 string characters out of 5418376
- 634103 words of memory out of 5000000
- 41126 multiletter control sequences out of 15000+600000
- 634423 words of font info for 63 fonts, out of 8000000 for 9000
+ 12502 strings out of 467871
+ 203256 string characters out of 5418376
+ 635162 words of memory out of 5000000
+ 41123 multiletter control sequences out of 15000+600000
+ 634482 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,9n,79p,856b,538s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\ammar\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on laporan2.pdf (20 pages, 624620 bytes).
+ 75i,9n,79p,856b,582s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\ammar\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/ammar/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on laporan2.pdf (26 pages, 723139 bytes).
 PDF statistics:
- 381 PDF objects out of 1000 (max. 8388607)
- 81 named destinations out of 1000 (max. 500000)
- 273 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 465 PDF objects out of 1000 (max. 8388607)
+ 114 named destinations out of 1000 (max. 500000)
+ 313 words of extra memory for PDF output out of 10000 (max. 10000000)
 

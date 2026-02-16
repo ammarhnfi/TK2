@@ -91,12 +91,10 @@ plt.close()
 y = gdf_subset[y_var].values.reshape(-1, 1)
 X = gdf_subset[x_vars].values
 
-# Standardize
-y_mean, y_std = y.mean(), y.std()
-X_mean, X_std = X.mean(axis=0), X.std(axis=0)
-
-y_stdz = (y - y_mean) / y_std
-X_stdz = (X - X_mean) / X_std
+# Use Raw Data (No Standardization as requested by User)
+print("Using Raw Data (No Standardization)...")
+y_stdz = y  # Keep variable name for minimal code change, but content is raw
+X_stdz = X  # Keep variable name for minimal code change, but content is raw
 
 # Create Spatial Weights Matrix
 print("Creating Spatial Weights Matrix...")

@@ -6,28 +6,28 @@ SUMMARY OF OUTPUT: ORDINARY LEAST SQUARES
 Data set            : covid19_eng
 Weights matrix      :     unknown
 Dependent Variable  :Human_health_and_social_work                Number of Observations:         149
-Mean dependent var  :      0.0000                Number of Variables   :           5
-S.D. dependent var  :      1.0034                Degrees of Freedom    :         144
+Mean dependent var  :  20947.9060                Number of Variables   :           5
+S.D. dependent var  :  15772.2003                Degrees of Freedom    :         144
 R-squared           :      0.9684
 Adjusted R-squared  :      0.9675
-Sum squared residual:      4.7139                F-statistic           :   1101.9112
-Sigma-square        :       0.033                Prob(F-statistic)     :  7.304e-107
-S.E. of regression  :       0.181                Log likelihood        :      45.859
-Sigma-square ML     :       0.032                Akaike info criterion :     -81.717
-S.E of regression ML:      0.1779                Schwarz criterion     :     -66.698
+Sum squared residual: 1.16477e+09                F-statistic           :   1101.9112
+Sigma-square        : 8088684.996                Prob(F-statistic)     :  7.304e-107
+S.E. of regression  :    2844.061                Log likelihood        :   -1393.874
+Sigma-square ML     : 7817252.614                Akaike info criterion :    2797.748
+S.E of regression ML:   2795.9350                Schwarz criterion     :    2812.768
 
 ------------------------------------------------------------------------------------
             Variable     Coefficient       Std.Error     t-Statistic     Probability
 ------------------------------------------------------------------------------------
-            CONSTANT        -0.00000         0.01482        -0.00000         1.00000
-           Education         0.88916         0.04465        19.91193         0.00000
-Financial_and_insurance        -0.02344         0.03281        -0.71440         0.47614
-Information_and_communication        -0.28290         0.02915        -9.70462         0.00000
-         Real_estate         0.34222         0.06390         5.35554         0.00000
+            CONSTANT      1289.14260       393.28374         3.27789         0.00131
+           Education         1.06582         0.05353        19.91193         0.00000
+Financial_and_insurance        -0.05273         0.07381        -0.71440         0.47614
+Information_and_communication        -0.72527         0.07473        -9.70462         0.00000
+         Real_estate         2.92873         0.54686         5.35554         0.00000
 ------------------------------------------------------------------------------------
 
 REGRESSION DIAGNOSTICS
-MULTICOLLINEARITY CONDITION NUMBER           9.802
+MULTICOLLINEARITY CONDITION NUMBER          18.238
 
 TEST ON NORMALITY OF ERRORS
 TEST                             DF        VALUE           PROB
@@ -36,24 +36,24 @@ Jarque-Bera                       2         72.922           0.0000
 DIAGNOSTICS FOR HETEROSKEDASTICITY
 RANDOM COEFFICIENTS
 TEST                             DF        VALUE           PROB
-Breusch-Pagan test                4        150.915           0.0000
-Koenker-Bassett test              4         57.541           0.0000
+Breusch-Pagan test                4        152.170           0.0000
+Koenker-Bassett test              4         58.020           0.0000
 
 DIAGNOSTICS FOR SPATIAL DEPENDENCE
 - SARERR -
 TEST                           MI/DF       VALUE           PROB
 Moran's I (error)              0.2193        4.145           0.0000
-Lagrange Multiplier (lag)         1          0.176           0.6746
-Robust LM (lag)                   1          0.029           0.8647
+Lagrange Multiplier (lag)         1          0.175           0.6760
+Robust LM (lag)                   1          0.026           0.8710
 Lagrange Multiplier (error)       1         13.867           0.0002
-Robust LM (error)                 1         13.719           0.0002
-Lagrange Multiplier (SARMA)       2         13.896           0.0010
+Robust LM (error)                 1         13.718           0.0002
+Lagrange Multiplier (SARMA)       2         13.893           0.0010
 
 - Spatial Durbin -
 TEST                              DF       VALUE           PROB
-LM test for WX                    4          7.988           0.0920
-Robust LM WX test                 4         21.678           0.0002
-Lagrange Multiplier (lag)         1          0.176           0.6746
-Robust LM Lag - SDM               1         13.867           0.0002
-Joint test for SDM                5         21.854           0.0006
+LM test for WX                    4          7.982           0.0923
+Robust LM WX test                 4         21.668           0.0002
+Lagrange Multiplier (lag)         1          0.175           0.6760
+Robust LM Lag - SDM               1         13.861           0.0002
+Joint test for SDM                5         21.842           0.0006
 ================================ END OF REPORT =====================================

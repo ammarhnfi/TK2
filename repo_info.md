@@ -6,9 +6,10 @@ The changes have been successfully pushed to the repository.
 [https://github.com/ammarhnfi/TK2](https://github.com/ammarhnfi/TK2)
 
 **Latest Commit:**
-`825cd6a` - Add spatial regression analysis (SEM) report and script
+`5fc10a9` - Update reports with EDA, spatial diagnostics, and sync copy
 
 **Files Pushed:**
-- `laporan2.tex` (Updated report)
-- `run_spatial_analysis.py` (Analysis script)
-- `figs/residual_comparison.png` (Residual plot)
+- `laporan2copy.tex` (Synced and updated report)
+- `laporan2.tex` (Original updated report)
+- `run_spatial_analysis.py` (Script with EDA)
+- `figs/*.png` (New visualization figures)
