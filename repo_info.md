@@ -6,10 +6,11 @@ The changes have been successfully pushed to the repository.
 [https://github.com/ammarhnfi/TK2](https://github.com/ammarhnfi/TK2)
 
 **Latest Commit:**
-`5fc10a9` - Update reports with EDA, spatial diagnostics, and sync copy
+`a895e96` - Update reports with raw data analysis, add data_analysis2.csv, and refine conclusions
 
 **Files Pushed:**
-- `laporan2copy.tex` (Synced and updated report)
-- `laporan2.tex` (Original updated report)
-- `run_spatial_analysis.py` (Script with EDA)
-- `figs/*.png` (New visualization figures)
+- `laporan2.tex` (Updated data table & narrative)
+- `data_analysis2.csv` (New data file)
+- `create_csv.py` (Script to generate data)
+- `laporan2.pdf` (Combined report)
+- `figs/` (Updated figures)

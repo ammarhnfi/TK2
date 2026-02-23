@@ -1,0 +1,26 @@
+REGRESSION RESULTS
+------------------
+
+SUMMARY OF OUTPUT: ML SPATIAL ERROR (METHOD = full)
+---------------------------------------------------
+Data set            : covid19_eng
+Weights matrix      :     unknown
+Dependent Variable  :Long_term_ill                Number of Observations:         149
+Mean dependent var  :  62769.0336                Number of Variables   :           5
+S.D. dependent var  :  47181.3705                Degrees of Freedom    :         144
+Pseudo R-squared    :      0.9913
+Log likelihood      :  -1443.8580
+Sigma-square ML     :14648738.8725                Akaike info criterion :    2897.716
+S.E of regression   :   3827.3671                Schwarz criterion     :    2912.736
+
+------------------------------------------------------------------------------------
+            Variable     Coefficient       Std.Error     z-Statistic     Probability
+------------------------------------------------------------------------------------
+            CONSTANT      1084.63666       680.78899         1.59321         0.11111
+        Age_65_to_84         0.41780         0.03438        12.15124         0.00000
+     Crowded_housing        -0.14806         0.24757        -0.59804         0.54981
+          Unemployed         0.69962         0.23633         2.96035         0.00307
+   No_qualifications         0.51010         0.05395         9.45506         0.00000
+              lambda         0.43599         0.09217         4.73030         0.00000
+------------------------------------------------------------------------------------
+================================ END OF REPORT =====================================

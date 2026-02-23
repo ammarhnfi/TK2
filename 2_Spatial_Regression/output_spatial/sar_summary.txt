@@ -1,0 +1,35 @@
+REGRESSION RESULTS
+------------------
+
+SUMMARY OF OUTPUT: MAXIMUM LIKELIHOOD SPATIAL LAG (METHOD = FULL)
+-----------------------------------------------------------------
+Data set            : covid19_eng
+Weights matrix      :     unknown
+Dependent Variable  :Long_term_ill                Number of Observations:         149
+Mean dependent var  :  62769.0336                Number of Variables   :           6
+S.D. dependent var  :  47181.3705                Degrees of Freedom    :         143
+Pseudo R-squared    :      0.9915
+Spatial Pseudo R-squared:  0.9917
+Log likelihood      :  -1458.8128
+Sigma-square ML     :18689172.0405                Akaike info criterion :    2929.626
+S.E of regression   :   4323.0975                Schwarz criterion     :    2947.649
+
+------------------------------------------------------------------------------------
+            Variable     Coefficient       Std.Error     z-Statistic     Probability
+------------------------------------------------------------------------------------
+            CONSTANT      3400.26854      1074.14249         3.16557         0.00155
+        Age_65_to_84         0.43630         0.03524        12.38027         0.00000
+     Crowded_housing        -0.30300         0.23401        -1.29480         0.19539
+          Unemployed         0.70994         0.25926         2.73839         0.00617
+   No_qualifications         0.48752         0.05726         8.51414         0.00000
+     W_Long_term_ill        -0.01551         0.00922        -1.68237         0.09250
+------------------------------------------------------------------------------------
+
+SPATIAL LAG MODEL IMPACTS
+Impacts computed using the 'simple' method.
+            Variable         Direct        Indirect          Total
+        Age_65_to_84         0.4363         -0.0067          0.4296
+     Crowded_housing        -0.3030          0.0046         -0.2984
+          Unemployed         0.7099         -0.0108          0.6991
+   No_qualifications         0.4875         -0.0074          0.4801
+================================ END OF REPORT =====================================

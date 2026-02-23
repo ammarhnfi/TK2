@@ -1,0 +1,59 @@
+REGRESSION RESULTS
+------------------
+
+SUMMARY OF OUTPUT: ORDINARY LEAST SQUARES
+-----------------------------------------
+Data set            : covid19_eng
+Weights matrix      :     unknown
+Dependent Variable  :Long_term_ill                Number of Observations:         149
+Mean dependent var  :  62769.0336                Number of Variables   :           5
+S.D. dependent var  :  47181.3705                Degrees of Freedom    :         144
+R-squared           :      0.9914
+Adjusted R-squared  :      0.9911
+Sum squared residual: 2.83719e+09                F-statistic           :   4144.3973
+Sigma-square        :19702678.333                Prob(F-statistic)     :  1.534e-147
+S.E. of regression  :    4438.770                Log likelihood        :   -1460.201
+Sigma-square ML     :19041514.630                Akaike info criterion :    2930.401
+S.E of regression ML:   4363.6584                Schwarz criterion     :    2945.421
+
+------------------------------------------------------------------------------------
+            Variable     Coefficient       Std.Error     t-Statistic     Probability
+------------------------------------------------------------------------------------
+            CONSTANT      1960.20009       678.30705         2.88984         0.00445
+        Age_65_to_84         0.44831         0.03543        12.65331         0.00000
+     Crowded_housing        -0.27273         0.23973        -1.13763         0.25716
+          Unemployed         0.78853         0.26174         3.01268         0.00306
+   No_qualifications         0.46502         0.05714         8.13872         0.00000
+------------------------------------------------------------------------------------
+
+REGRESSION DIAGNOSTICS
+MULTICOLLINEARITY CONDITION NUMBER          34.735
+
+TEST ON NORMALITY OF ERRORS
+TEST                             DF        VALUE           PROB
+Jarque-Bera                       2        181.971           0.0000
+
+DIAGNOSTICS FOR HETEROSKEDASTICITY
+RANDOM COEFFICIENTS
+TEST                             DF        VALUE           PROB
+Breusch-Pagan test                4        188.817           0.0000
+Koenker-Bassett test              4         53.401           0.0000
+
+DIAGNOSTICS FOR SPATIAL DEPENDENCE
+- SARERR -
+TEST                           MI/DF       VALUE           PROB
+Moran's I (error)              0.4465        8.147           0.0000
+Lagrange Multiplier (lag)         1          2.718           0.0992
+Robust LM (lag)                   1          5.154           0.0232
+Lagrange Multiplier (error)       1         57.495           0.0000
+Robust LM (error)                 1         59.932           0.0000
+Lagrange Multiplier (SARMA)       2         62.649           0.0000
+
+- Spatial Durbin -
+TEST                              DF       VALUE           PROB
+LM test for WX                    4         11.712           0.0196
+Robust LM WX test                 4         66.760           0.0000
+Lagrange Multiplier (lag)         1          2.718           0.0992
+Robust LM Lag - SDM               1         57.766           0.0000
+Joint test for SDM                5         69.478           0.0000
+================================ END OF REPORT =====================================

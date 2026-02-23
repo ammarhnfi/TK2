@@ -1,4 +1,0 @@
-OLS AIC: 2797.7484
-SAR AIC: 2799.5830
-SEM AIC: 2788.3000
-Best model based on AIC: SEM
