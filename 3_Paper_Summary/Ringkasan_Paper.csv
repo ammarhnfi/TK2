@@ -1,0 +1,66 @@
+﻿No,Pengarang & Tahun,Judul Paper,Tujuan Penelitian,Data dan Variabel,Metode,Langkah-langkah Penelitian,Hasil dan Kesimpulan,Ide Baru untuk Penelitian
+1,"Meliyana, S. M., et al. (2025)",Geographically Weighted Poisson Regression (GWPR) Model with Fixed Gaussian Kernel and Fixed Bi-square Kernel Weights,Memodelkan sebaran kasus tuberkulosis (TB) di Kota Makassar dengan GWPR serta membandingkan fungsi pembobot Fixed Gaussian dan Fixed Bi-square.,"Data: Kasus TB tahun 2022 di 15 distrik Kota Makassar.
+Y: Total kasus TB.
+X1-X5: % usia produktif, Jml faskes, % penduduk miskin, Jml RT PHBS, Kepadatan penduduk.","Metode: Geographically Weighted Poisson Regression (GWPR).
+Pembobot: Fixed Gaussian Kernel & Bi-square Kernel.","1. Analisis Deskriptif
+2. Uji Multikolinearitas
+3. Regresi Poisson Global
+4. Uji Heterogenitas Spasial (BP)
+5. Estimasi BW dengan CV
+6. Estimasi Parameter GWPR
+7. Pemilihan model (AIC/R²).","Hasil: Model GWPR Fixed Bi-square terbaik (AIC = 97.69). Hubungan variabel bervariasi secara lokal.
+Kesimpulan: GWPR efektif menangkap keheterogenan spasial ketimbang regresi Poisson global.",Implementasi *Geographically and Temporally Weighted Poisson Regression* (GTWPR) dengan optimasi *bandwidth* algoritma metaheuristik.
+2,"Halleck Vega, S., & Elhorst, J. P. (2015)",The SLX model,Mengusulkan model Spatial Lag of X (SLX) sebagai alternatif yang fleksibel dan mudah diestimasi dibandingkan Spatial Durbin Model (SDM).,"Data: Data simulasi Monte Carlo spasial grid.
+Variabel: Y tersimulasi dengan korelasi X terkonfigurasi pada berbagai parameter ketetanggaan ($k$-NN).","Metode Utama: Spatial Lag of X (SLX).
+Estimator: OLS vs Maximum Likelihood (MLE) untuk SDM.","1. Formulasi model SLX murni teori.
+2. Desain algoritma Monte Carlo berbasis k-NN.
+3. Estimasi bias koefisien & RMSE.
+4. Perbandingan kecepatan komputasi SLX vs SDM.","Hasil: SLX dapat diestimasi dengan OLS tanpa asumsi ketat, menangkap spillover sempurna pada ukuran sampel masif.
+Kesimpulan: SLX sangat reliabel pada *Big Data* spasial.",Transformasi arsitektur SLX konvensional menjadi ranah fungsional spasial skala besar berbasis Jaringan Saraf Tiruan (SLX-ANN).
+3,"Dong, Y., & Harris, R. (2015)",Spatial autoregressive models for geographically hierarchical data structures,Mengembangkan spesifikasi model regresi SAR untuk struktur data hierarkis (Multilevel Spatial Models/HSAR).,"Data: Set data hierarkis tersimulasi.
+Variabel: Efek spasial ($\\rho$), varian level-grup, intercept, kemiringan iterasi berdistribusi normal.","Metode Utama: Hierarchical Spatial Autoregressive (HSAR).
+Estimator: Markov Chain Monte Carlo (MCMC).","1. Penurunan spesifikasi likelihood HSAR.
+2. Algoritma MCMC Gibbs sampler.
+3. Generasi sampel simulasi hierarkis spasial.
+4. Pembuktian tingkat kekonvergenan bias estimasi.","Hasil: HSAR sukses mendekomposisi variasi heterogen level spesifik wilayah dan dependensi spasial secara simultan.
+Kesimpulan: Evaluasi MCMC terbukti unggul pada data hierarkis mikro, mendatangkan estimator yang tidak berbias.","Riset ide ekstensi HSAR dengan panel temporal, merumuskan *Spatio-Temporal HSAR* (ST-HSAR) untuk mengisolasi tren hierarki observasi individu."
+4,"Murakami, D., & Griffith, D. A. (2015)",Random effects specifications in eigenvector spatial filtering: a simulation study,Mengatasi overfitting dan kerumitan komputasi dari metode Eigenvector Spatial Filtering (ESF) lewat teori *Random Effects*.,"Data: Data spasial buatan di pola grid topologi.
+Variabel: Vektor autokorelasi positif bervariasi dengan pembobot matriks Queen Contiguity.","Metode Utama: Random Effects Eigenvector Spatial Filtering (RE-ESF).
+Estimator: Restricted Maximum Likelihood (REML).","1. Ekstraksi vektor eigen dari matriks pembobot W.
+2. Formulasi Random Effect untuk distribusi seleksi Eigenvector.
+3. Generasi simulasi dan perhitungan RMSE membandingkan RE-ESF dengan SAR.","Hasil: Penemuan skema RE mereduksi run-time dan kecepatan algoritma hingga 100x lipat lebih efisien.
+Kesimpulan: Menjamin stabilisasi tanpa kompromi performa dibanding ML SAR tradisional.",Mengaplikasikan teori *Random Effects Eigenvector* pendugaan peta satelit/GIS untuk mendeteksi distorsi non-stasioner tanpa macet komputasi (*scalable* algoritm).
+5,"Lu, B., Charlton, M., et al. (2014)",Geographically weighted regression with a non-Euclidean distance metric: a case study,Membuktikan bahwa jarak ruang (network/Minkowski) pada pembobot merevolusi akurasi GWR melampaui metrik Euclid abstrak.,"Data: Simulasi harga aset berdasar graf topologi jaringan rute.
+Variabel: Penilaian simulasi parameter via jaringan *point-to-point* terpisah.","Metode Utama: GWR bermetrik non-Euclid (Network-based).
+Estimator: Jarak *Shortest Network Path* (Dijkstra), Weighted Least Squares.","1. Formulasi kernel jarak network-Minkowski pada GWR.
+2. Bangkitan simulasi GWR topologi jalan raya.
+3. Estimasi rasio performa Euclidean vs Non-Euclidean.","Hasil: Estimasi kernel numerik jarak jaringan terbukti mempersempit bias ekologis yang memotong wilayah mati.
+Kesimpulan: Akurasi lokal (R²) signifikan membaik karena mengadaptasi realita batasan gerak ruang.",Mengembangkan *Network GWR* berbasis matriks mobilitas dinamis (*real-time traffic API*) sebagai landasan matriks terhubung antar titik spasial.
+6,"Golgher, A. B., & Voss, P. R. (2016)","How to interpret the coefficients of spatial models: Spillovers, direct and indirect effects",Memberikan pijakan formulasi dampak langsung dan tak langsung (spillover) atas regresi linier spasial (SAR/SDM/SEM).,"Data: Data Generating Process (DGP) *Monte Carlo* model SAR, SEM, SDM, SAC, SDEM.
+Variabel: Parameter terkontrol $\\rho$ dan $\\lambda$, vektor X stokastik.","Metode Utama: Analisis Dampak Marginal Matematis (LeSage & Pace).
+Kalkulasi: $(1 - \\rho W)^{-1}$.","1. Turunan aljabar eksplisit pada tiap varian spasial.
+2. Re-simulasi dengan efek limpahan eksak.
+3. Penghitungan estimator bias parsial.","Hasil: Pembuktian teori konklusif: koefisien SAR & SDM pantang dibaca murni seperti OLS karena ada efek *multiplier inverse*.
+Kesimpulan: Efek spasial menjadi standar utama interpretasi.",Derivasi metrik dampak parsial yang digabung dengan elemen Spatio-Temporal non-linear (misal: *Dynamic Spatial Probit Panel Impact*) untuk data diskrit.
+7,"Arbia, G., Espa, G., & Quah, D. (2008)",A class of spatial econometric methods in the empirical analysis of clusters of firms,Mengembangkan kerangka probabilitas pembuktian teori klasifikasi aglomerasi entitas spasial secara absolut.,"Data: Eksperimen *point pattern data* spasial koordinat XY.
+Variabel: Proses *Conditional Poisson* dan *Complete Spatial Randomness* (CSR).",Metode Dasar: Spatial Point Pattern Theory dengan Ripley's K-density.,"1. Fungsi derivatif kluster menggunakan *edge correction bias*.
+2. Simulasi Monte Carlo CSR vs agregasi cluster.
+3. Kalkulasi fungsi T berbasisk kernel agregasi.","Hasil: Fungsi jarak poin membebaskan interpretasi kluster dari anomali MAUP (Modifiable Areal Unit Problem).
+Kesimpulan: Analisis *point pattern* kuantifikasi sentrosimetris lebih robus dibanding analisis *areal*.",Menjalankan regresi spasial Poisson fungsional titik koordinat GPS riil utuk mendeteksi tren aglomerasi lokal berskala mikro bebas agregasi area politis.
+8,"Lee, L. F., & Yu, J. (2010)",Estimation of spatial autoregressive panel data models with fixed effects,Mengekstrak perumusan QMLE yang stabil serta koreksi bias dalam model Autoregresif Panel Spasial berisiko *Incidental Parameter Problem*.,"Data: Simulasi Panel Monte Carlo matriks lokasi $N$ dan waktu $T$.
+Variabel: Varians $\\sigma$, parameter autokorelatif $\\rho$, $N$ sd 500 & $T=5$.","Metode Dasar: Model SAR Data Panel dengan *Fixed Effects*.
+Estimasi: Orthonormal transformation QMLE & *Bias-Corrected Estimator*.","1. Postulasi rumusan dasar panel spasial efek tetap murni matematika.
+2. Limitasi pembuktian asimtotik dengan deviasi matriks.
+3. Eliminasi orde satu pseudo-likelihood.","Hasil: QML *Fixed Effects* mendulang bias substansial bila rentang waktu sempit (T kecil) tanpa transformasi khusus.
+Kesimpulan: Transformasi estimasi QMLE *bias-corrected* merevolusi efikasi statistik panel spasial mikro temporal.","Menyuntikkan teorema Bias-Corrected QML pada ranah asimetris, seperti pemodelan panel spasial GWPR (spatio-temporal panel data regression model)."
+9,"Kelejian, H. H., & Piras, G. (2014)","Estimation of spatial models with endogenous weighting matrices, and an application",Mengokohkan secara teori cara mengestimasi model spasial bilamana Matriks pembobot W tidak eksogen (endogen) terhadap *error*.,"Data: DGP terkontaminasi dengan endogen struktural W.
+Variabel: Interkoneksi fungsi endogen variabel jarak stokastik instrumen.",Metode Dasar: Instrumen spasial *Generalized Spatial Two-Stage Least Squares* (GS2SLS).,"1. Turunan teorema ekspektasi probabilitas aljabar Taylor series untuk W endogen.
+2. Desain instrumen IV ortogonal GS2SLS.
+3. Bias kontaminasi teori MLE vs GS2SLS.","Hasil: Estimator Maksimum Likelihood gagal konvergen atau menderita bias parah ketika matriks W disusupi kelatehan (endogenitas simultan).
+Kesimpulan: Skema algoritma GS2SLS asimtotik sukses menyembuhkan instabilitas koefisien akibat W endogen.",Mengeksplorasi penggunaan fungsi matriks yang tersusupi aliran endogen gravitasi manusia (berbasis big data GPS real-time) dan distabilisasi mempraktekan integrasi *Spatial General Method of Moments* (SGMM).
+10,"Oshan, T. M., Li, Z., et al. (2019)",mgwr: A Python implementation of multiscale geographically weighted regression,Membuktikan formulasi bandwidth multiskala (MGWR) agar masing-masing variabel bebas memiliki estimasi resolusi jarak *heterogen*.,"Data: Permukaan 3D (Spatial Surfaces) dari DGP *sine/cosine* tersimulatif spasio.
+Variabel: Variansi stasioner global, semi-regional & deviasi akut lokal.","Metode Basis: Multiscale Geographically Weighted Regression (MGWR).
+Integrasi Teori: Algoritma Iterasi Backfitting dengan fungsi *adaptive multi-level kernel*.","1. Implementasi dekomposisi struktur matematika Backfitting.
+2. Simulasi pola DGP spesifik prediktor fiktif.
+3. Iterasi kalkulasi RMSE antara GWR (Single BW) dan MGWR (Multi BW).","Hasil: Rasio error mutlak MGWR memecahkan dominasi resolusi tunggal. Tidak mengalami sindrom kompensasi koefisien palsu (no bias over-smoothing).
+Kesimpulan: Bandwidth terpisah memitigasi distorsi estimasi yang dipaksa selagam secara spasial.",Inovasi teoritis *Multiscale Geographically Weighted Quantile Regression (MGWQR)* untuk mengungkap dampak kuantil yang diisolasi antar sensitivitas spasial spesifik berbagai parameter regresi secara simultan bertingkat.
