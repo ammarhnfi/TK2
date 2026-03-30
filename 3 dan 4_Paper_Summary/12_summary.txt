@@ -1,0 +1,80 @@
+Econometrics 2014, 2, 217-249; doi:10.3390/econometrics2040217
+OPEN ACCESS
+econometrics
+ISSN 2225-1146
+www.mdpi.com/journal/econometrics
+Article
+The Biggest Myth in Spatial Econometrics
+James P. LeSage 1,* and R. Kelley Pace 2
+1 Department of Finance and Economics, McCoy College of Business Administration,
+Texas State University, 601 University Drive, San Marcos, TX 78666, USA
+2 Department of Finance, E.J. Ourso College of Business Administration, Louisiana State University,
+Baton Rouge, LA 70803, USA; E-Mail: kelley@pace.am
+* Author to whom correspondence should be addressed; E-Mail: james.lesage@txstate.edu;
+Tel.: +1-512-245-0256.
+External Editor: Kerry Patterson
+Received: 29 September 2014; in revised form: 18 November 2014 / Accepted: 8 December 2014 /
+Published: 23 December 2014
+Abstract: There is near universal agreement that estimates and inferences from spatial
+regression models are sensitive to particular speciﬁcations used for the spatial weight
+structure in these models. We ﬁnd little theoretical basis for this commonly held belief, if
+estimates and inferences are based on the true partial derivatives for a well-speciﬁed spatial
+regression model. We conclude that this myth may have arisen from past applied work that
+incorrectly interpreted the model coefﬁcients as if they were partial derivatives, or from use
+of misspeciﬁed models.
+Keywords: indirect effects; spatial regression estimates; sensitivity to spatial weights
+JEL classiﬁcations: C18, C21
+1. Introduction
+It has become a near universal criticism of spatial regression models that estimates and inferences
+are sensitive to the spatial weight matrix used in the model. For concreteness in our discussion we let a
+spatial regression (SAR) model take the form:
+y
+=
+αιn + ρWy + Xβ + ε
+(1)
+ε
+∼
+N(0, σ2In)
+Econometrics 2014, 2
+218
+where y is an n × 1 vector of observations on the dependent variable and X is an n × k matrix of
+observations on the explanatory variables. Each of these observations on the dependent and explanatory
+variables comes from regions or points in space. Also, β is a k × 1 vector of parameters associated with
+the explanatory variables, ιn is a vector of ones, α is the associated intercept parameter, and ρ is the scalar
+dependence parameter (commonly in the interval [0, 1]).1 The n disturbances ε are distributed normally
+with constant variance σ2 and zero covariance across observations. The matrix W is the spatial weight
+matrix that contains non-zero elements wij if observations j and i are neighbors and zero otherwise.
+Typically, the matrix W is row-stochastic, so the n × 1 spatial lag vector Wy contains values constructed
+from an average of neighboring observations.2 A more elaborate variant of the SAR model, labeled the
+spatial Durbin model (SDM) in the literature, replaces the matrix X with
+
+X
+WX
+
+.
+In their introduction to a special issue of Papers in Regional Science entitled:
+“New spatial
+econometric techniques and applications in regional science,” Arbia and Fingleton [2] summarize the
+criticism of spatial regression models as being sensitive to weight matrix speciﬁcations stating:
+This problem of what the spatial lag actually represents is bound up with the problem of deﬁnition
+of the spatial weights matrix, which is assumed to be a nonstochastic matrix capturing our
+hypothesis about the nature of the spatial interactions we are modelling. The problem is that,
+unlike the simple notion of a time series lag, the spatial lag is a very ﬂuid and complex entity
+open to multiple deﬁnitions within a single study. Critics of spatial econometrics almost always
+in our experience home in on the arbitrary nature of the weights matrix, asking “how is it deﬁned
+and why is it precisely like that when it could easily have been like this, what does it mean,
+and are not the results obtained conditional on somewhat arbitrary decisions taken about its
+structure?”. Some future research on the robustness of outcomes to variations in assumptions about
+the weight matrix structure would be helpful in allaying such criticisms, although ideally carefully
+structured arguments coming from theory and leading precisely to the typical reduced form spatial
+econometric model, with a spatial lag and exogenous lags also, are the preferred option.
+We view the notion that the explanatory variable effects and inferences are sensitive to use of a
+particular weight matrix as perhaps the biggest myth about spatial regression models. For the model
+in Equation (1) consider two model speciﬁcations based on weight matrices Wa and Wb, with the same
+sample data y, X. If Way and Wby are highly correlated, it would seem difﬁcult to reach materially
+different conclusions about the partial derivative impact of changes in the explanatory variables in the
+1
+Theoretical bounds for this parameter are set forth in LeSage and Pace [1], and depend on minimum and maximum
+eigenvalues of the spatial weight matrix W.
+2
+In linear algebra a row-stochastic matrix has non-negative entrie

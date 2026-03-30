@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{Brunsdon, C., Fotheringham, A. S., \& Charlton, M. E. (1996)}{3}{0}{1}
+\beamer@sectionintoc {2}{Lee, L. F., \& Yu, J. (2010)}{7}{0}{2}
+\beamer@sectionintoc {3}{Kelejian, H. H., \& Piras, G. (2014)}{11}{0}{3}
+\beamer@sectionintoc {4}{Oshan, T. M., Li, Z., Kang, W., Wolf, L. J., \& Fotheringham, A. S. (2019)}{15}{0}{4}
+\beamer@sectionintoc {5}{Wheeler, D., \& Tiefelsdorf, M. (2005)}{19}{0}{5}
+\beamer@sectionintoc {6}{LeSage, J. P., \& Pace, R. K. (2014)}{23}{0}{6}

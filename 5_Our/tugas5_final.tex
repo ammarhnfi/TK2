@@ -1,0 +1,257 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[indonesian]{babel}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{subcaption}
+
+\geometry{
+	left=3cm,
+	right=2.5cm,
+	top=3cm,
+	bottom=2.5cm,
+}
+
+\begin{document}
+
+%===================================
+% COVER PAGE
+%===================================
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    {\normalsize \textbf{UNIVERSITAS INDONESIA}} \par\vspace{3cm}
+
+    {\large \textbf{ANALISIS GEOGRAPHICALLY WEIGHTED REGRESSION (GWR) PADA KASUS VALUASI HARGA RUMAH DI DKI JAKARTA 2024}} \par\vspace{4cm}
+
+    {\normalsize \textbf{MAKALAH}} \par\vspace{3cm}
+
+    {\normalsize \textbf{AMMAR HANAFI (2206051582)}} \par
+    {\normalsize \textbf{NORMAN MOWLANA AZIZ (2206025470)}} \par
+    {\normalsize \textbf{KIRONO DWI SAPUTRO (2106656365)}} \par\vfill
+
+    {\normalsize \textbf{FAKULTAS MATEMATIKA DAN ILMU PENGETAHUAN ALAM}} \par
+    {\normalsize \textbf{PROGRAM STUDI SARJANA STATISTIKA}} \par
+    {\normalsize \textbf{DEPOK}} \par
+    {\normalsize \textbf{JUNI 2026}}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+\listoftables
+\newpage
+\listoffigures
+\newpage
+
+%===================================
+% BAB 1 - PENDAHULUAN
+%===================================
+\begin{center}
+    \bfseries\large
+    BAB I \\
+    PENDAHULUAN
+\end{center}
+\addcontentsline{toc}{section}{BAB I PENDAHULUAN}
+\setcounter{section}{1}
+\setcounter{subsection}{0}
+
+\subsection{Latar Belakang}
+Pasar properti di DKI Jakarta, sebagai pusat gravitasi ekonomi di negara Indonesia, memiliki daya tarik nilai jual yang dipengaruhi secara dinamis oleh aksesibilitas sarana dan karakteristik tanah-bangunan (luas fisik). Valuasi harga rumah di wilayah megapolitan seperti ini sangat kental akan distorsi keruangan, dikarenakan adanya fenomena jarak atau titik simpul kemacetan yang menciptakan area unggul terhadap area lain di Jakarta. Metode regresi konvensional \textit{Ordinary Least Squares} (OLS) kerap kali kesulitan mencerminkan aspek keruangan dinamis (\textit{spatial heterogeneity}) ini. Untuk mengatasi hal tersebut dan dalam rangka penentuan harga rumah yang presisi, model lokal ruang yaitu pendekatan \textit{Geographically Weighted Regression} (GWR) menjadi solusi tepat mendemonstrasikan heterogenitas spasial.
+
+\subsection{Rumusan Masalah}
+\begin{enumerate}
+    \item Apakah terdapat efek autokorelasi spasial dan efek heterogenitas spasial dalam menaksir valuasi harga rumah di Jakarta?
+    \item Bagaimana kebaikan kecocokan model estimasi global (OLS) berbanding dengan pemodelan lokal spasial (GWR)?
+    \item Sejauh mana variasi spasial yang ditimbulkan jarak aksesibilitas (\textit{poi}) dan rasio fisik dalam menaksir harga rumah di tiap titik lokasi geografis yang berbeda?
+\end{enumerate}
+
+\subsection{Tujuan}
+Penelitian ini bertujuan mengkaji urgensi pemodelan jarak spasial dalam analisis harga rumah di DKI Jakarta di era Tahun 2024 dengan membandingkan model global OLS dan mengevaluasi fungsi pembobot Kernel dari *Geographically Weighted Regression* tipe *Bisquare* dan tipe *Gaussian*.
+
+\newpage
+%===================================
+% BAB 2 - LANDASAN TEORI
+%===================================
+\begin{center}
+    \bfseries\large
+    BAB II \\
+    LANDASAN TEORI
+\end{center}
+\addcontentsline{toc}{section}{BAB II LANDASAN TEORI}
+\setcounter{section}{2}
+\setcounter{subsection}{0}
+
+\subsection{Regresi Linear Global (OLS)}
+\textit{Ordinary Least Squares} (OLS) adalah teknik deterministik klasik di mana parameter estimasi regresi diasumsikan stagnan dan stasioner (1 set untuk semua ruang sampel). Persamaan matematiknya:
+\[ Y = \beta_0 + \sum_{k=1}^{p} \beta_k X_k + \epsilon \]
+
+\subsection{Autokorelasi Spasial (Moran's I)}
+Moran's I adalah indeks matematis standar yang beroperasi layaknya koefisien korelasi namun untuk mengukur dependensi spasial antar titik pengamatan beda kordinat.
+\[ I = \frac{n}{S_0} \frac{\sum_i \sum_j w_{ij} (x_i - \bar{x})(x_j - \bar{x})}{\sum_i (x_i - \bar{x})^2} \]
+
+\subsection{Geographically Weighted Regression (GWR)}
+Dikembangkan dari regresi OLS, GWR memecah estimasi menjadi fungsi diferensial lokal spasial yang mengizinkan set koefisien ($\beta$) fleksibel. Hal ini dilakukan dengan memberikan bobot spasial untuk tiap estimasi:
+\[ y_i = \beta_0(u_i, v_i) + \sum_{k=1}^{p} \beta_k(u_i, v_i) x_{ik} + \epsilon_i \]
+
+Mekanisme bobot diberikan dengan Fungsi Kernel ($w_{ij})$. Dalam perbandingan di makalah kali ini, kami mengadopsi 2 fungsi pembobot *Adaptive* berdasarkan algoritma Akaike Information Criterion bandwidth pencarian:
+\begin{itemize}
+    \item \textbf{Adaptive Gaussian}: \[ w_{ij} = \exp \left( - \frac{1}{2}\left(\frac{d_{ij}}{b_i}\right)^2 \right) \]
+    \item \textbf{Adaptive Bisquare}: \[ w_{ij} = \left( 1 - \left( \frac{d_{ij}}{b_i} \right)^2 \right)^2 \quad \text{untuk} \quad d_{ij} < b_i \]
+\end{itemize}
+
+\newpage
+%===================================
+% BAB 3 - METODE PENELITIAN
+%===================================
+\begin{center}
+    \bfseries\large
+    BAB III \\
+    METODE PENELITIAN
+\end{center}
+\addcontentsline{toc}{section}{BAB III METODE PENELITIAN}
+\setcounter{section}{3}
+\setcounter{subsection}{0}
+
+\subsection{Data dan Variabel}
+Data primer diturunkan dari GeoJSON Dataset pasar sekunder perumahan DKI Jakarta Tahun 2024. Adapun variabel-variabel yang ditautkan dalam persamaan pemodelan sebagai berikut:
+\begin{itemize}
+    \item \textbf{Variabel Dependen ($Y$)}: Harga Rumah dalam satuan Miliar Rupiah (\texttt{Hrg\_Mlr}).
+    \item \textbf{Sifat Fisik ($X_1, X_2, X_3$)}: Ketersediaan luas bangunan ($X_1$), luas kaveling tanah ($X_2$), dan kapasitas kamar ($X_3$).
+    \item \textbf{Spasial Geometris ($X_4$) }: Jarak absolut keruangan antara titik rumah dan Tugu Monumen Nasional / Monas ($km$).
+    \item \textbf{Aksesibilitas ($X_5, X_6, X_7$)}: Jarak terpendek menempuh institusi pendidikan ($X_5$), rumah sakit terkemuka ($X_6$), dan jaringan jalan besar ($X_7$).
+\end{itemize}
+
+\subsection{Langkah Analisis}
+Penelitian ditempuh dengan ekskavasi data, tinjauan *pairwise correlation*, diestimasikan pada matriks regresi OLS untuk meninjau *error* lokal spasial, *Modelling* Dual-GWR optimasi AICc, lalu divisualisasikan menggunakan perangkat sistem informasi geografis / Matplotlib.
+
+\newpage
+%===================================
+% BAB 4 - ANALISIS DAN PEMBAHASAN
+%===================================
+\begin{center}
+    \bfseries\large
+    BAB IV \\
+    ANALISIS DAN PEMBAHASAN
+\end{center}
+\addcontentsline{toc}{section}{BAB IV ANALISIS DAN PEMBAHASAN}
+\setcounter{section}{4}
+\setcounter{subsection}{0}
+
+\subsection{Eksplorasi Karakteristik Data Uji}
+
+\input{tabel_desc_stats.tex}
+
+Merujuk pada Tabel \ref{tab:desc_stats}, statistik deskriptif menunjukkan rentang nilai perumahan Jakarta yang lebar (maksimum mencapai ratusan miliar dengan variansi dan *stdev* yang sangat sensitif). Hubungan korelasional awal (*pairwise correlation*) digambarkan melaui Heatmap Gambar \ref{fig:korelasi_matriks}.
+
+\input{tabel_korelasi.tex}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{peta_heatmap.png}
+    \caption{Matriks Korelasi (Heatmap) Pearson}
+    \label{fig:korelasi_matriks}
+\end{figure}
+
+Korelasi tertinggi nampak positif antar fisik bangunan (Luas dengan Harga Y), sedari ada sifat reduksi pada jarak terhadap monas yang menjauhi pusat (Korelasi minus).
+
+\subsection{Estimasi Regresi (Global OLS) dan Heteroskedastisitas Spasial}
+Di hadapan instrumen estimasi global OLS, rangkuman probabilitas parsial diramu di Tabel \ref{tab:ols_result}.
+
+\input{tabel_ols.tex}
+
+\input{tabel_bp.tex}
+Sebagaimana ditunjukan uji \textit{Breusch-Pagan} (Tabel \ref{tab:bp_test}), terdefinisikan galat signifikansi heteroskedastisitas pada prediksi OLS. Jika kita memetakan Peta sisaan regresi (Residual), fenomena \textit{spatial clustering error} di peta OLS memberikan kita sinyal tak terelakkan bahwa model global tidak cukup adekuat.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{map_ols_residuals.png}
+    \caption{Sebaran Spasial Heterogenitas Error (OLS Residual)}
+    \label{fig:map_resid}
+\end{figure}
+
+\subsection{Autokorelasi Spasial}
+Penjabaran Moran's Index atas Harga Rumah menegaskan efek persentuhan antar ruang di administrasi DKI Jakarta ($P<0.05$) pada tingkat yang signifikan, melegitimasi transisi pemodelan OLS menuju ke \textit{Geographic Weighted Regression}.
+\input{tabel_moran.tex}
+
+\subsection{Evaluasi Model dan Eksekusi Dual-GWR}
+Mengingat kompleksitas fungsi Kernel, efikasi spasial harga hunian diestimasi dengan mengadu Fungsi Adaptif *Gaussian* dan *Bisquare* guna mencetak Bandwidth terbaik.
+
+\input{tabel_model_comparison.tex}
+Berdasarkan metrik perbandingan pada Tabel \ref{tab:model_comparison}, fungsi Kernel \textbf{Bisquare} memiliki keunggulan yang jauh menekan rasio *Akaike Information Criterion* (AICc) dan secara masif mendongkrak penjelas *R-Squared* melebihi OLS biasa maupun fungsi kernel Gaussian. Atas pembuktian komparatif ini, penarikan koefisien beta ($\beta$) akan didasari murni dari hasil simulasi \textit{GWR Bisquare}.
+
+\input{tabel_gwr_coef.tex}
+
+\subsection{Distribusi Koefisien Lokal (Local Spatial Mapping)}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{peta_Local_R2.png}
+    \caption{Gradasi Akurasi Fit Model (Local $R^2$) DKI Jakarta}
+    \label{fig:local_r2_map}
+\end{figure}
+
+Peta penyebaran Lokal $R^2$ menunjukkan keragaman fit kecocokan di setiap distrik. Ini adalah justifikasi geografis bahwa Jakarta tak bisa di-\textit{gebyah-uyah} dengan 1 formula konstan. Di bawah ini disajikan pemetaan gradasi parameter koefisien pembentuk harga rumah di beberapa variabel prediktor pilihan.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{peta_koefisien_Luas.png}
+        \caption{Distribusi Koef: Luas Bangunan ($X_1$)}
+        \label{fig:coef_x1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{peta_koefisien_Jarak.png}
+        \caption{Distribusi Koef: Jarak Pusat ($X_4$ \& $X_6$)}
+        \label{fig:coef_x4}
+    \end{subfigure}
+    \caption{Visualisasi Sebaran Spasial Sensitivitas Harga Perumahan}
+    \label{fig:coef_peta}
+\end{figure}
+
+\newpage
+%===================================
+% BAB 5 - KESIMPULAN
+%===================================
+\begin{center}
+    \bfseries\large
+    BAB V \\
+    KESIMPULAN DAN SARAN
+\end{center}
+\addcontentsline{toc}{section}{BAB V KESIMPULAN DAN SARAN}
+\setcounter{section}{5}
+\setcounter{subsection}{0}
+
+Berdasarkan keseluruhan uji spasial spasial parametrik valuta properti Jakarta, ditarik pilar kesimpulan sebagai berikut:
+\begin{enumerate}
+    \item Fenomena heterogenitas *spatial over-dispersion* sangat rentan di Jakarta yang mana estimasi OLS klasik kehilangan pijakan ($R^2=0.55$) dan menghasilkan bias residual uji autokorelasi *Breusch-Pagan* heteroskedastik yang mengelompok di wilayah utara dan pusat Jakarta.
+    \item Geographically Weighted Regression (GWR) secara empirik membuktikan keunggulannya, dan terkhusus Algoritma Pembobot Adaptive Kernel Bisquare keluar sebagai model terbaik yang paling optimal beradaptasi dengan keragaman densitas rumah Jakarta.
+\end{enumerate}
+Para pengembang *(Developer)* patut menyoroti dinamika kofisien *Jarak ke Rumah Sakit* dan *Jarak ke Jalan* yang berefek sensitif terhadap anjlok-tidaknya harga di area urban Jakarta demi pertimbangan investasi berjangka.
+
+\newpage
+\begin{center}
+    {\Large \textbf{DAFTAR PUSTAKA}}
+\end{center}
+\addcontentsline{toc}{section}{DAFTAR PUSTAKA}
+\vspace{10pt}
+
+\begingroup
+\renewcommand{\section}[2]{} % Suppress default title
+\begin{thebibliography}{9}
+\bibitem{fotheringham2002}
+Fotheringham, A. S., Brunsdon, C., \& Charlton, M. (2002). \textit{Geographically Weighted Regression: The Analysis of Spatially Varying Relationships}. John Wiley \& Sons.
+\bibitem{mgwr2019}
+Oshan, T. M., Li, Z., Kang, W., Wolf, L. J., \& Fotheringham, A. S. (2019). mgwr: A Python implementation of multiscale geographically weighted regression for investigating process spatial heterogeneity and scale. \textit{ISPRS International Journal of Geo-Information}, 8(6), 269.
+\bibitem{jaktar}
+Pemerintah Provinsi DKI Jakarta (2024). Analisis Tata Ruang Real Estate Open Data Portal Jakarta.
+\end{thebibliography}
+\endgroup
+
+\end{document}

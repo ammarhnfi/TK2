@@ -1,0 +1,91 @@
+Journal of Econometrics 154 (2010) 165–185
+Contents lists available at ScienceDirect
+Journal of Econometrics
+journal homepage: www.elsevier.com/locate/jeconom
+Estimation of spatial autoregressive panel data models with fixed effects
+$
+Lung-fei Lee a,∗, Jihai Yu b
+a Department of Economics, Ohio State University, 43210 Columbus, OH, United States
+b Department of Economics, University of Kentucky, United States
+a r t i c l e
+i n f o
+Article history:
+Received 4 March 2008
+Received in revised form
+4 June 2009
+Accepted 1 August 2009
+Available online 12 August 2009
+JEL classification:
+C13
+C23
+R15
+Keywords:
+Spatial autoregression
+Panel data
+Fixed effects
+Quasi-maximum likelihood estimation
+Conditional likelihood
+a b s t r a c t
+This paper establishes asymptotic properties of quasi-maximum likelihood estimators for SAR panel data
+models with fixed effects and SAR disturbances. A direct approach is to estimate all the parameters
+including the fixed effects. Because of the incidental parameter problem, some parameter estimators may
+be inconsistent or their distributions are not properly centered. We propose an alternative estimation
+method based on transformation which yields consistent estimators with properly centered distributions.
+For the model with individual effects only, the direct approach does not yield a consistent estimator of
+the variance parameter unless T is large, but the estimators for other common parameters are the same as
+those of the transformation approach. We also consider the estimation of the model with both individual
+and time effects.
+© 2009 Elsevier B.V. All rights reserved.
+1. Introduction
+Spatial econometrics consists of econometric techniques deal-
+ing with the interactions of economic units in space, which can
+have physical or economic characteristic. The spatial autoregres-
+sive (SAR) model by Cliff and Ord (1973) has received the most
+attention in economics.1 Panel data with spatial interaction is
+also of great interest, as it enables researchers to take into ac-
+count the dynamics and control for the unobservable heterogene-
+ity (e.g., Anselin, 1988; Baltagi et al., 2003, 2007; Elhorst, 2003;
+Kapoor et al., 2007; Yu et al., 2007, 2008; Yu and Lee, forthcoming).
+For panel data models with fixed individual effects, when the
+time dimension T is fixed, we are likely to encounter the inciden-
+tal parameter problem discussed in Neyman and Scott (1948). This
+is because the introduction of fixed effects increases the number
+of parameters. For the linear panel regression model with fixed
+$ We would like to thank participants of the seminars at Syracuse University and
+the University of Kentucky, and two anonymous referees for helpful comments. Lee
+acknowledges financial support from NSF Grant No. SES-0519204.
+∗Corresponding author. Tel.: +1 614 292 5508; fax: +1 614 292 4192.
+E-mail addresses: lflee@econ.ohio-state.edu (L.-f. Lee), jihai.yu@uky.edu (J. Yu).
+1 Early development in estimation and testing for cross sectional data can be
+found in Anselin (1988), Cressie (1993), Kelejian and Robinson (1993), and Anselin
+and Bera (1998), among others.
+effects, the direct maximum likelihood (ML) approach estimates
+jointly the common parameters and fixed effects. The correspond-
+ing ML estimates (MLEs) of the regression coefficients are known
+as the within estimates, which happen to be the likelihood esti-
+mates conditional on the time means of the dependent variables.
+However, the MLE of the variance parameter is inconsistent when
+T is finite. The inconsistency of the variance parameter is the one il-
+lustrated in Neyman and Scott (1948). For the SAR panel data mod-
+els with fixed individual effects, similar findings of the direct ML
+approach are found in this paper. The direct approach will yield
+consistent estimates for the spatial and regression coefficients, ex-
+cept for the variance parameter when T is small (but the number of
+spatial units n is large).2 For the SAR panel models with both fixed
+individual and time effects, the direct approach will be inconsis-
+tent for the estimation of the common parameters unless n is large.
+Even when both n and T are large, the distribution of the estimates
+of the common parameters would not be properly centered.
+To eliminate the fixed effects, the method of conditional
+likelihood is used when sufficient statistics can be found for the
+2 When a dynamic effect is considered into the SAR panel data, we will have
+an ‘‘initial condition’’ problem which will cause the inconsistency of the direct
+likelihood estimates for all the parameters unless T is large (see Yu et al., 2007, 2008
+and Yu and Lee, forthcoming). The initial value problem for the dynamic panel data
+model is well known (Nickell, 1981).
+0304-4076/$ – see front matter © 2009 Elsevier B.V. All rights reserved.
+doi:10.1016/j.jeconom.2009.08.001
+166
+L.-f. Lee, J. Yu / Journal of Econometrics 154 (2010) 165–185
+fixed effects. For the linear regression and logit panel models, the
+time average of the depend

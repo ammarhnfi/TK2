@@ -1,0 +1,81 @@
+David Wheeler Æ Michael Tiefelsdorf
+Multicollinearity and correlation
+among local regression coefﬁcients
+in geographically weighted regression
+Received: 25 October 2004 / Accepted: 21 February 2005
+ Springer-Verlag 2005
+Abstract Present methodological research on geographically weighted
+regression (GWR) focuses primarily on extensions of the basic GWR
+model, while ignoring well-established diagnostics tests commonly used in
+standard global regression analysis. This paper investigates multicollin-
+earity issues surrounding the local GWR coeﬃcients at a single location
+and the overall correlation between GWR coeﬃcients associated with two
+diﬀerent exogenous variables. Results indicate that the local regression
+coeﬃcients are potentially collinear even if the underlying exogenous
+variables in the data generating process are uncorrelated. Based on these
+ﬁndings, applied GWR research should practice caution in substantively
+interpreting the spatial patterns of local GWR coeﬃcients. An empirical
+disease-mapping example is used to motivate the GWR multicollinearity
+problem. Controlled experiments are performed to systematically explore
+coeﬃcient dependency issues in GWR. These experiments specify global
+models that use eigenvectors from a spatial link matrix as exogenous
+variables.
+This study was supported by grant number 1 R1 CA95982-01, Geographic-Based
+Research in Cancer Control and Epidermiology, from the National Cancer Institute.
+The author thank the anonymous reviewers and the editor for their helpful comments.
+D. Wheeler (&)
+Department of Geography, The Ohio State University,
+1036 Derby Hall, Columbus, OH 43210, USA
+E-mail: wheeler.173@osu.edu
+M. Tiefelsdorf
+School of Social Sciences,
+University of Texas at Dallas, Richardson, TX 75083, USA
+E-mail: tiefelsdorf@utdallas.edu
+J Geograph Syst (2005) 7: 161–187
+DOI: 10.1007/s10109-005-0155-6
+ORIGINAL PAPER
+Keywords Geographically weighted regression Æ Multicollinearity Æ
+Local regression diagnostics Æ Spatial eigenvectors Æ Experimental
+spatial design
+1 Introduction
+Geographically weighted regression (GWR) aims at identifying spatial het-
+erogeneities in regression models of geo-referenced data. The spatial vari-
+ability of the estimated local regression coeﬃcients is usually examined to
+determine whether the underlying data generating process exhibits spatial
+heterogeneities or local deviations from a global regression model. A com-
+mon procedure is to map the spatial GWR coeﬃcient pattern associated with
+each exogenous variable. This approach, however, ignores potential depen-
+dencies among the local regression coeﬃcients associated with diﬀerent
+exogenous variables. Attention in this paper centers on these potential
+dependencies among the local coeﬃcients. They can be expressed either as
+the correlation between pairs of local regression coeﬃcients at one location or
+as the correlation between two overall sets of local coeﬃcient estimates
+associated with two exogenous variables at all locations. Weak dependencies
+of either form hamper a substantive interpretation of the local GWR esti-
+mates, whereas strong dependencies induce artifacts that invalidate any
+meaningful interpretation and search for spatial heterogeneities because the
+regression coeﬃcients are no longer uniquely deﬁned.
+The development of GWR started from local regression and smoothing
+techniques (Brunsdon et al. 1996; Fotheringham et al. 1998) and became
+increasingly more sophisticated by considering, for example, maximum
+likelihood estimation of the kernel bandwidths (Pa´ ez et al. 2002a), spatial
+autocorrelation among the residuals (Pa´ ez et al. 2002b), generalized linear
+model speciﬁcations (Fotheringham et al. 2002) and Bayesian GWR (LeSage
+2001, 2004). Some diagnostic tests in GWR have also become more
+sophisticated, for instance, the development of formal test statistics for
+spatial nonstationarity and heterogeneity of the local model parameters
+(Leung et al. 2000). Aside from coeﬃcient maps associated with single
+exogenous variables and local t-values, however, none of these developments
+pay much attention to fundamental regression diagnostics, such as residual
+analysis or the overall stability of the model. In general terms, model stability
+depends very much on the joint-distribution of the exogenous variables as
+demonstrated in the classical analysis by Longley (1967), where regression
+coeﬃcients changed signs depending on whether speciﬁc exogenous variables
+or particular observations were in or excluded in the model. The uncer-
+tainties and numerical instabilities in this classical analysis are induced by the
+multicollinearity among the exogenous variables that lead to correlation
+among the estimated regression coeﬃcients. In addition to these technical
+dimensions of multicollinearity, there are also more substantive ramiﬁcations
+aﬀecting our ability to conduct an informed model interpretation: Fox (1997,
+p 351) states that ‘‘collinearity deals fundamentally with the inability to
+se

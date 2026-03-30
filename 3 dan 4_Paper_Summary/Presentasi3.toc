@@ -1,0 +1,7 @@
+\beamer@sectionintoc {1}{Meliyana, S. M., Ahmar, A. S., \& Auliah, S. N. (2025)}{3}{0}{1}
+\beamer@sectionintoc {2}{Halleck Vega, S., \& Elhorst, J. P. (2015)}{6}{0}{2}
+\beamer@sectionintoc {3}{Dong, G., \& Harris, R. (2014)}{8}{0}{3}
+\beamer@sectionintoc {4}{Murakami, D., \& Griffith, D. A. (2015)}{10}{0}{4}
+\beamer@sectionintoc {5}{Lu, B., Charlton, M., Harris, P., \& Fotheringham, A. S. (2014)}{12}{0}{5}
+\beamer@sectionintoc {6}{Golgher, A. B., \& Voss, P. R. (2016)}{14}{0}{6}
+\beamer@sectionintoc {7}{Kesimpulan Umum}{16}{0}{7}

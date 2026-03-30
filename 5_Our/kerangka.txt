@@ -1,0 +1,55 @@
+1 Kerangka Penelitian
+1.1 Konsep Penelitian
+Penelitian ini bertujuan untuk menganalisis faktor-faktor yang mempengaruhi harga rumah secara spasial menggunakan metode Geographically Weighted Regression (GWR). Harga rumah tidak hanya dipengaruhi oleh karakteristik fisik bangunan, tetapi juga oleh faktor aksesibilitas dan fasilitas lingkungan di sekitarnya.
+Model regresi global seperti Ordinary Least Squares (OLS) mengasumsikan bahwa hubungan antara variabel independen dan variabel dependen bersifat konstan di seluruh wilayah penelitian. Namun dalam fenomena spasial, hubungan tersebut seringkali berbeda pada setiap lokasi. Oleh karena itu digunakan pendekatan Geographically Weighted Regression (GWR) yang memungkinkan parameter regresi berbeda pada setiap lokasi geografis.
+
+1.2 Variabel Penelitian
+Variabel yang digunakan dalam penelitian ini terdiri dari variabel dependen dan variabel independen.
+
+1.2.1 Variabel Dependen
+Variabel dependen dalam penelitian ini adalah:
+• Harga Rumah (Y)
+Harga rumah merupakan nilai jual properti yang dipengaruhi oleh berbagai faktor seperti karakteristik bangunan, aksesibilitas lokasi, serta fasilitas lingkungan sekitar.
+
+1.2.2 Variabel Independen
+Variabel independen yang digunakan dalam penelitian ini adalah sebagai berikut:
+• X1 : Luas bangunan (m2)
+• X2 : Luas tanah (m2)
+• X3 : Jumlah kamar tidur
+• X4 : Jarak ke pusat kota (km)
+• X5 : Jarak ke sekolah terdekat (km)
+• X6 : Jarak ke rumah sakit terdekat (km)
+• X7 : Jarak ke jalan utama (km)
+
+1.3 Tabel Operasional Variabel
+Y : Harga Rumah (Rupiah) - Harga jual rumah
+X1 : Luas Bangunan (m2) - Total luas bangunan rumah
+X2 : Luas Tanah (m2) - Total luas tanah rumah
+X3 : Jumlah Kamar (Unit) - Jumlah kamar tidur
+X4 : Jarak ke Pusat Kota (km) - Jarak rumah ke pusat kota
+X5 : Jarak ke Sekolah (km) - Jarak rumah ke sekolah terdekat
+X6 : Jarak ke Rumah Sakit (km) - Jarak rumah ke rumah sakit terdekat
+X7 : Jarak ke Jalan Utama (km) - Jarak rumah ke jalan utama
+
+1.4 Model Regresi Global
+(Ordinary Least Squares)
+
+1.5 Uji Autokorelasi Spasial
+Sebelum melakukan analisis GWR, dilakukan pengujian autokorelasi spasial menggunakan Moran’s I untuk mengetahui apakah terdapat pola spasial pada data harga rumah.
+
+1.6 Geographically Weighted Regression
+Model GWR digunakan untuk menangkap variasi hubungan antar variabel yang berbeda pada setiap lokasi geografis.
+
+1.7 Fungsi Pembobot Spasial
+Fungsi kernel Gaussian digunakan untuk menghitung bobot spasial. Bandwidth optimal ditentukan dengan meminimalkan nilai Akaike Information Criterion (AIC).
+
+1.8 Tahapan Penelitian
+Tahapan penelitian dalam studi ini meliputi:
+1. Pengumpulan data harga rumah dan data spasial
+2. Pengolahan dan pembersihan data
+3. Analisis statistik deskriptif
+4. Uji autokorelasi spasial menggunakan Moran's I
+5. Estimasi model regresi global (OLS)
+6. Estimasi model Geographically Weighted Regression
+7. Visualisasi peta koefisien regresi lokal
+8. Evaluasi dan interpretasi hasil

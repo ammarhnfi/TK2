@@ -1,0 +1,74 @@
+-~ 
+____ 
+Chris Brunsdon, A. Stewart Fotheringham 
+and Martin E. Charlton 
+Geographically Weighted Regression: A Method 
+for Exploring Spatial Nonstationarity 
+Spatial nonstationarity is a condition in which a simple ‘global” model cannot 
+explain the relationships between some sets of variables. The nature of the 
+model must alter over space to reflect the structure within the data. In this 
+paper, a technique is developed, termed geogra hically weighted regression, 
+model which allows diferent relationships to exist at diferent points in space. 
+This technique is loosely based on kernel regression. The method itself is intro- 
+duced and related issues such as the choice of a spatial weighting function are 
+discussed. Following this, a series of related statistical tests are considered 
+which can be described generally as tests for spatial nonstationarity. Using 
+Monte Carlo methods, techniques are proposed for investigatin 
+the null 
+non-stationa y one and also for testing whether individual regression coefi- 
+cients are stable over geographic space. These techniques are demonstrated on a 
+data set from the 1991 U. 
+K. census relating car ownership rates to social class 
+and mule unemployment. The paper concludes by discussing ways in which the 
+technique can be extended. 
+which attempts to capture this variation by Cali E rating a multiple regression 
+hypothesis that the data m y  be described by a global model rat a er than a 
+1. INTRODUCTION 
+One of the main objectives in spatial analysis is to identify the nature of rela- 
+tionships that exist between variables. Typically this is undertaken by calculating 
+statistics or estimating parameters with observations taken from different spatial 
+units across a study area. The resulting statistics or parameter estimates are 
+assumed to be constant across space although this might be a very questionable 
+assumption to make in many circumstances. It seems reasonable to assume that 
+there might be intrinsic differences in relationships over space or that there 
+might be some problem with the specification of the model from which the rela- 
+tionships are being measured and which manifests itself in terms of spatially 
+Dr. Chris Brunsdon is lecturer in computer-based methods in the Department of Town 
+and County Planning, A. Stewart Fotheringham is Professor of Quantitative Geography, 
+and Martin Charlton is lecturer in GIS in the Department of Geography, all at Newcastle 
+University. 
+Geographical Analysis, Vol. 28, No. 4 (October 1996) 0 
+1996 Ohio State University Press 
+Submitted 6/7/95. Revised version accepted 2/16/96. 
+282 / Geographical Analysis 
+varying parameter estimates. In either case it would be useful to have a means 
+of describing and map ing such spatial variations as an exploratory tool for 
+Several techniques already exist for this purpose although we argue that the 
+method we develop in this paper has several important advantages. Perhaps the 
+most well-known framework in which parameter “drift” has been measured is 
+that of Casetti’s expansion method (Casetti 1972; Casetti and Jones 1992). In 
+this framework, parameters in a global model can be made functions of geo- 
+graphic space so that trends in parameter variation over space can be measured 
+(inter alia, Fotheringham and Pitts 1995; Eldridge and Jones 1991). While this 
+is an important framework in which improved models can be developed, it is a 
+trend-fitting exercise which is of limited use in situations where parameters 
+exhibit complex variation over the space being studied. The method pro- 
+posed here, that of geographically weighted regression (GWR), allows the 
+actual parameters for each location in space to be estimated and mapped as 
+opposed to having a trend surface fitted to them. 
+The method of spatial adaptive filtering (SAF) has also been proposed to 
+handle spatially varying relationships (Foster and Gorr 1986; Gorr and Olligs- 
+chlaeger 1994). However, this approach incorporates spatial relationships in a 
+rather ad hoc manner and produces parameter estimates that cannot be tested 
+statistically so that it is of limited applicability. 
+Two other methods that model spatial variations in parameter estimates are 
+the random coefficients model (Aitken 1996) and multilevel modeling (Gold- 
+stein 1987). In both these ap roaches the parameter estimates in regression 
+models are assumed to be ran dp om variables. In multilevel modeling, the distri- 
+bution of the parameter estimates is assumed to be Gaussian, while in the ran- 
+dom coefficients model, the parameters are modeled as finite mixture distribu- 
+tions. In either case, by using Bayes’ theorem it is possible to obtain an estimate 
+of each parameter although in neither case is any spatial dependency assumed 
+in the parameter estimates which seems unrealistic in models of spatial phenom- 
+ena. Although geographical variations of multilevel models have been applied 
+(Jones 1991), these rely heavily on an assumed hierarchy of

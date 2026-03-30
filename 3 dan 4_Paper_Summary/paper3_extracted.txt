@@ -1,0 +1,2581 @@
+Spatial Autoregressive Models for Geographically
+Hierarchical Data Structures
+Guanpeng Dong, Richard Harris
+School of Geographical Sciences, University of Bristol, Bristol, U.K.
+This article discusses how standard spatial autoregressive models and their estimation can
+be extended to accommodate geographically hierarchical data structures. Whereas stan-
+dard spatial econometric models normally operate at a single geographical scale, many
+geographical data sets are hierarchical in nature—for example, information about houses
+nested into data about the census tracts in which those houses are found. Here we outline
+four model speciﬁcations by combining different formulations of the spatial weight matrix
+W and of ways of modeling regional effects. These are (1) groupwise W and ﬁxed regional
+effects; (2) groupwise W and random regional effects; (3) proximity-based W and ﬁxed
+regional effects; and (4) proximity-based W and random regional effects. We discuss each
+of these model speciﬁcations and their associated estimation methods, giving particular
+attention to the fourth. We describe this as a hierarchical spatial autoregressive model. We
+view it as having the most potential to extend spatial econometrics to accommodate
+geographically hierarchical data structures and as offering the greatest coming together of
+spatial econometric and multilevel modeling approaches. Subsequently, we provide Bayes-
+ian Markov Chain Monte Carlo algorithms for implementing the model. We demonstrate its
+application using a two-level land price data set where land parcels nest into districts in
+Beijing, China, ﬁnding signiﬁcant spatial dependence at both the land parcel level and the
+district level.
+Introduction
+Many geographical data sets have hierarchical structures—for example, houses nested into
+districts into regions in an urban housing market (Jones 1991). Using the language of the
+multilevel modeling literature (Goldstein 2003), the ﬁner spatial scale at which outcomes of
+interest are measured is termed the lower level, and the higher levels are the more aggregate
+spatial scales such as regions. The assumption of multilevel modeling is that there is both
+difference between objects at the higher level and some level of group dependence within those
+objects. In other words, difference between regions and correlations within regions are expected:
+Correspondence: Guanpeng Dong, School of Geographical Sciences, University of Bristol, University
+Road, Bristol, BS8 1SS, UK
+e-mail: guanpeng.dong@bris.ac.uk
+Submitted: April 30, 2013. Revised version accepted: February 14, 2014.
+Geographical Analysis (2014), 1–19
+Geographical Analysis ISSN 0016-7363
+doi: 10.1111/gean.12049
+© 2014 The Ohio State University
+1
+the outcomes of lower level units in the same region tend to be correlated because they are
+impacted by the same effects. This can be described as vertical group dependence.
+However, horizontal dependence cannot be modeled using classic multilevel approaches.
+This is the sort of spatial dependence associated with spatial econometric modeling of single-
+level spatial data sets; it arises from the interactions or spillovers among spatial entities due to
+their geographic proximity. When working with geographically hierarchical data sets, we can
+expect (or at least allow for) both types of dependence: the vertical and the horizontal. The ﬁrst,
+a top-down group dependence, is due to regional (or contextual) effects; the second to the
+traditional spatial dependence concern of spatial econometrics. Essentially, the distinction we are
+making is between spatial interaction (at lower levels) and spatial heterogeneity (at regional
+levels). Deﬁned as such, both types of dependency are clearly spatial. However, the phrase group
+dependency acknowledges that the allocation of individuals to regions need not be geographical
+(hierarchical models need not be modeling a geographical hierarchy).
+Conceptually, in this article, we distinguish these two types of dependency by providing a
+general methodological framework for simultaneously modeling the spatial interaction and
+regional effects. The merits associated with this methodology are several. Generally, it will
+provide more efﬁcient and accurate model estimation for regression coefﬁcients by recognizing
+the hierarchical data structure. The regional effects estimated by the model can be mapped to
+explicitly investigate the spatial patterns in the outcomes of interest at the regional level. In
+addition, it provides more accurate estimates of the intensity of spatial interaction at the
+lower level by separating measurement from the regional effects with which it may be
+confounded.
+We build the methodological framework based on the standard spatial econometric
+methods, especially the spatial simultaneous autoregressive model (Cliff and Ord 1981; Anselin
+1988; Grifﬁth 1988; Haining 2003; LeSage and Pace 2009). Within spatial econometrics, there
+has been interest in the use of hierarchical data sets where regional variables are used to control
+possible regional effects when modeling outcomes observed at a subregional scale. For
+example, when modeling house prices, regional-level variables such as crime rates, school
+quality, or socioeconomic description are incorporated into the model using data for census
+tracts or districts (see, e.g., Bowen, Mikelbank, and Prestegaard 2001; Baumont 2009). The
+logic is that the spatial interaction effect indicated by a signiﬁcant autoregressive parameter (in
+a lagged y model: LeSage and Pace 2009, pp. 16–20) might merely be a statistical artifact
+created by ignoring regional effects. Unfortunately, simply adding regional variables is not
+sufﬁcient to model the outcome of interest appropriately. Treating a regional covariate as a
+repeated measurement, whereby all individuals within the same region are assigned identical
+values of the regional variable, will lead to inefﬁcient model estimation and incorrect statistical
+inference (Goldstein 2003).
+Given the prevalence of geographically hierarchical data sets, it is surprising that studies on
+modifying standard spatial autoregressive (SAR) models to better accommodate a geographically
+hierarchical structure remain rare (exceptions being Smith and LeSage 2004; Corrado and
+Fingleton 2012; LeSage and Llano 2013). In the context of modeling 1996 presidential election
+results for U.S. counties, Smith and LeSage (2004) build a spatial probit model in which election
+outcomes of each county are not independent of each other. The dependence is due to these
+counties being taken to be nested into U.S. states. It is assumed that counties within the same state
+share the same state-level (regional) effect. Moreover, these regional effects themselves are
+spatially dependent at the state level. There are spatial patterns to voting at the state level, and the
+Geographical Analysis
+2
+interaction between these state-level voting behaviors is estimated with a spatial interaction term.
+What is not considered is the equivalent interaction at a county level. The assumption that the
+lower level interaction can be discarded or is subsumed by the higher level interaction is not
+reasonable in many situations (Case 1992; McMillen 1992; LeSage 2000; LeSage et al. 2011).
+Corrado and Fingleton (2012) propose an approach to estimate spatial dependence among lower
+level units (speciﬁed in a groupwise way, see below) by ﬁnding valid instrumental variables for
+the endogenous lagged outcome variable. The concern here is that their groupwise speciﬁcation
+of lower level spatial dependence violates the notion of distance decay, the core concept in spatial
+analysis (Getis and Ord 1992; Haining, Kerry, and Oliver 2010; Anselin and Arribas-Bel 2013).
+Moreover, the regional effects in their framework are assumed to be independent rather than
+dependent.
+What we are proposing is similar to the spatial misalignment perspective on hierarchical
+structures of spatial data that is found in the spatial statistics literature. The problem of spatial
+misalignment, or a change of support problem, refers to analysis or inference on a variable at one
+spatial scale based on data at another spatial hierarchy, or on relationships between spatial
+variables at different scales (Gotway and Young 2002; Banerjee, Carlin, and Gelfand 2004, p.
+175). For example, in an analysis of the impact of air pollution on health outcomes, the air
+pollution data are from a number of monitoring locations scattered across the study area whereas
+the health outcomes are only available at the scale of census tracts. The solution is in two steps
+(Agarwal, Gelfand, and Silander 2002; Zhu, Carlin, and Gelfand 2003). The ﬁrst step is to
+“realign” variables to the same spatial scale by interpolating census tract-level air pollution from
+point-level information (using methodologies described by Mugglin and Carlin 1998; Gelfand,
+Zhu, and Carlin 2001). The next step is to relate the health outcomes to the newly realigned
+census tract air pollution variable.
+In particular, Banerjee, Carlin, and Gelfand (2004, pp. 206–212) demonstrate a two-level
+spatially misaligned regression model where the interest is to explain the relationship between
+land uses and population at the pixel level but with a key problem being that the population
+variable is only observed at the town level. They have constructed a full Bayesian framework for
+estimating such types of spatial multilevel models to capture the impact of the latent pixel-level
+population on land uses by conditioning on the higher level town population. The similarities
+between their framework and our approach are in modeling a spatially hierarchical data structure
+and examining the impacts of covariates at both the lower and higher levels on outcomes
+measured at the lower level. However, several differences can also be identiﬁed. First, their higher
+level variable plays an important and explicit role in inferring the relationship between the
+corresponding unobserved variable at the lower level and the outcome variable. By contrast, in
+our approach, the higher level covariate effects are directly interpreted as the observed contextual
+effects on outcomes measured at the lower level in a way that is similar with a typical regression
+model. Another important difference is that spatial interaction effects at the lower level are not
+modeled in their framework, which is a major concern in this article.
+Proximity-based and groupwise spatial weight matrices and hierarchical
+data structures
+In spatial econometrics, the spatial connectivity matrix, W, speciﬁes the interaction structure
+among the modeled entities. It deﬁnes the connection between those entities that will be exam-
+ined for spatial dependence. Most often the strength of spatial dependency is assumed to be
+proximity based, deﬁned by geographic distance, nearest neighbors, or by contiguity (see detailed
+Guanpeng Dong and Richard Harris
+Hierarchical Spatial Autoregressive Models
+3
+discussions in Cliff and Ord 1981; Grifﬁth 1988, 2003; Bavaud 1998). However, W could also
+deﬁne purely groupwise effects, regarding entities within the same region as neighbors of each
+other and leaving entities between regions as unconnected. This groupwise W has been discussed
+extensively in the social interaction literature where the primary interest is to estimate the
+endogenous group effects or peer effects on an individual’s behavior (Manski 1993; Durlauf and
+Ioannides 2010; Lin 2010). The statistical properties of estimators using this groupwise W have
+been investigated by Lee (2007; see also Kelejian and Prucha 2002; Lin 2010; Anselin and
+Arribas-Bel 2013). The essential departure of the groupwise spatial dependence from the
+proximity-based dependence is that the former conceptualizes spatial dependence as discontinu-
+ous, bounded by regional boundaries. Consequently, two lower level units located either side of
+a boundary are assumed independent even though they are in close proximity.
+Given the groupwise spatial dependence speciﬁcation, W is reduced to a block diagonal
+matrix. Following the notation in Corrado and Fingleton (2012), for J groups or regions, W is
+W
+W
+W
+WJ
+=
+⎡
+⎣
+⎢
+⎢
+⎢
+⎢
+⎤
+⎦
+⎥
+⎥
+⎥
+⎥
+1
+2
+0
+0
+0
+0
+0
+0
+
+
+
+
+
+
+
+(1)
+where W
+nj
+j
+nj
+nj
+=
+×
+′
+(
+)
+1
+1 1
+, nj is the number of lower level units in group j, 1nj is a nj × 1 column
+vector of ones.
+In this article, we focus on extending SAR models for a two-level hierarchical data structure.
+Slightly adapting the diagrammatic description in Corrado and Fingleton (2012, p. 227, ﬁg. 4), a
+typical two-level geographically hierarchical data structure can be represented as in Fig. 1.
+Here Lj (j = 1, 2 . . . J) denotes regions, as discussed above, and Ii (i = 1, 2 . . . N) indicates
+lower level units. Under this data structure, lower level units within the same region are correlated
+as they are exposed to the same regional effects.
+SAR models for hierarchical data structures
+Following LeSage and Pace (2009), the standard SAR model (the spatial lag model in Anselin
+1988) can be speciﬁed as
+I1
+I2
+I3
+I4
+I5
+...
+IN-2
+IN-1
+IN
+...
+Level 1
+Level 2
+L1
+L2
+LJ
+Figure 1. A two-level hierarchical data structure.
+Geographical Analysis
+4
+Y
+WY
+X
+N
+IN
+=
++
++
+(
+)
+ρ
+β
+ε
+ε
+σ
+~
+,0
+2
+(2)
+where Y is an N by 1 column vector of outcome variable values; X is an N by K matrix denoting
+the independent variables; ρ is the SAR parameter indicating the strength of spatial interaction;
+β is a K by 1 vector of regression coefﬁcients to estimate; and ε is an independent, normally
+distributed error term.
+To incorporate the regional effects, the SAR model can be modiﬁed as
+Y
+WY
+X
+Z
+=
++
++
++
++
+ρ
+β
+γ
+ε
+Δq
+(3)
+where Δ is a N by J block diagonal design matrix with a structure in the form of equation (1); Z
+is an N by P matrix consisting of higher level variables, and γ is the corresponding P by 1
+coefﬁcient vector to estimate. We note that the value for each regional variable is the same for all
+lower level units belonging to the same region; therefore, Z could be replaced by ΔZ* where Z*
+is a J by P matrix.
+The J by 1 column vector θ, θ [θ1, θ2, . . . , θJ] denotes the regional effects that could be
+treated as either ﬁxed or random. It is useful to note that, in the case of ﬁxed group effects, Δ
+should be an N by (J −1) block diagonal design matrix as the intercept term is in the X. For
+simplicity, we assume that ε
+σ
+~
+,
+N
+IN
+e
+0
+2
+(
+). When θ is assumed as random effects, θ has a normal
+distribution with mean equal to 0 and covariance σ
+θ
+σ
+u
+u
+u
+u
+N
+2
+2
+0
+Ω
+Ω
+,
+~
+,
+(
+). If θ is independent, Ωu
+reduces to a diagonal matrix IJ; otherwise, Ωu represents the correlation structure for θ.
+Given the two speciﬁcations of W, proximity-based W and groupwise-based W, and also
+noting that the regional effects can be treated as either ﬁxed or random, then equation (3) can be
+conceptualized as four different model speciﬁcations, as shown in Fig. 2. We now consider each
+of these models in turn.
+Model (a): Groupwise W and ﬁxed-effects θ
+The ﬁrst of the models shown in Fig. 2 is groupwise spatial dependence with ﬁxed regional
+effects. For expositional clarity, we re-express equation (3) as
+Model (a):
+Groupwise W
+Fixed effects (θ)
+Groupwise W
+Model (b):
+Random effects (θ)
+Model (d):
+Random effects (θ)
+Proximity-based W
+Model (c):
+Proximity-based W
+Fixed effects (θ)
+W
+Regional effects θ
+Figure 2. A typology of four model speciﬁcations from combining different forms of W and θ.
+Guanpeng Dong and Richard Harris
+Hierarchical Spatial Autoregressive Models
+5
+y
+WY
+x
+ij
+i
+ij
+j
+ij
+=
++
++
++
+ρ
+β
+θ
+ε
+(4)
+where i and j indicate the lower level and regional level, respectively. We note that regional
+variables cannot be included in the model speciﬁcation with ﬁxed regional effects. Wi = [wi1, wi2,
+. . . , wiN] denotes the ith row of the groupwise W and θj is the jth regional effect. Under the
+assumption of groupwise spatial dependence, WiY is equal to the mean of the jth region, yJ. Then
+equation (4) is equivalent to
+y
+y
+x
+ij
+J
+ij
+j
+ij
+=
++
++
++
+ρ
+β
+θ
+ε
+(5)
+Because yJ varies only between regions, the SAR parameter ρ cannot be identiﬁed in this model
+because of the ﬁxed regional effects (ρ is also known as the endogenous group effect in the
+situation of groupwise W; see Corrado and Fingleton 2012). If we assume that lower level units
+cannot inﬂuence themselves, the structure of the groupwise W deﬁned above can be changed
+slightly by re-assigning the diagonal elements to 0 s. Consequently, WiY will not be exactly equal
+to yJ, as Wii is 0. Even so, and as Anselin and Arribas-Bel (2013), based on Kelejian and Prucha
+(2002) show, WiY remains very close to a constant for units within the same region. Therefore, ρ
+can be very weakly identiﬁed at best. If the spatial dependence effect exists in the form of
+groupwise dependence, then ρyJ can be dropped from the model and the ﬁxed-effect models will
+then fully control this form of spatial dependence and provide consistent estimates of β (Anselin
+and Arribas-Bel 2013).
+Model (b): Groupwise W and random effects θ
+This is the second of the models in Fig. 2. Under the assumption of random regional effects θ and
+further assumption of independence between θ and ε, the question of interest in the social
+interaction literature is whether the model parameters, especially ρ, are identiﬁable.
+As a simple illustration, let xij = [1, xij, zj] and β = [β0, β1, β2]. Given this, equation (5) can
+be rewritten as
+y
+y
+x
+z
+ij
+J
+ij
+j
+j
+ij
+=
++
++
++
++
++
+ρ
+β
+β
+β
+θ
+ε
+0
+1
+2
+(6)
+where θ is distributed as N
+IJ
+u
+0
+2
+,
+σ
+(
+), zj is a regional-level variable, and β2 represents the
+contextual effect.
+Following Corrado and Fingleton (2012, p. 232), after taking group/regional means of both
+sides of equation (6), and rearranging, we obtain
+y
+x
+z
+J
+j
+j
+j
+=
+−
+(
+)
++
+−
+(
+)
++
+−
+(
+)
++ ′
+−
+−
+−
+1
+1
+1
+1
+0
+1
+1
+1
+2
+ρ
+β
+ρ
+β
+ρ
+β
+θ
+(7)
+where ρ < 1, which is true when W is normalized either through row normalization or adjusted
+by the maximum eigenvalue of W (for detailed discussions, see Cliff and Ord 1981; Grifﬁth 1988;
+Haining 2003; LeSage and Pace 2009), and where
+′ =
+−
+(
+)
++
+(
+)
+−
+θ
+ρ
+ε
+θ
+j
+J
+j
+1
+1
+.
+Then we take equation (7) into equation (6) and center xij by the group means, from which
+equation (8) is obtained:
+y
+x
+z
+x
+x
+ij
+ij
+j
+j
+ij
+J
+J
+=
+−
+(
+)
++
+−
+(
+)
++
+−
+(
+) +
+−
+(
+)
++ ′′+
+−
+−
+−
+1
+1
+1
+1
+0
+1
+1
+1
+1
+2
+ρ
+β
+ρ
+β
+β
+ρ
+β
+θ
+ε
+(8)
+where
+′′ =
+′ +
+θ
+ρθ
+θ
+j
+j
+j. As illustrated by Corrado and Fingleton (2012), under the assumption of the
+equivalence of zj and xJ, the classic Manski’s reﬂection problem will emerge: the endogenous
+Geographical Analysis
+6
+group effects ρ and contextual effects β2 are not identiﬁable simultaneously (Manski 1993). They
+further show that if both these parameters need to be identiﬁed, the dependence between groups
+like the out-of-group zj and xJ should also be included in the model speciﬁcation.
+Model (c): Proximity-based W and ﬁxed-effects θ
+For the third of the model types, we can re-arrange equation (3) as
+Y
+WY
+X
+=
++
++
++
+ρ
+β
+ε
+Δq
+.
+(9)
+For the estimation of this model, we ﬁrst eliminate the ﬁxed regional effects θ using a de-group-
+mean transformation (see, e.g., Lee 2007; Lin 2010) by multiplying equation (9) by a block
+diagonal transformation matrix Q. Q = diagonal {Q1, Q2, . . . , QJ} where the jth block is Qj:
+Q
+nj
+j
+nj
+nj
+nj
+=
+−
+×
+′
+−
+I
+1
+1 1
+(10)
+in which nj and 1nj have the same deﬁnition as above, and Inj is an identity matrix with order of
+nj. After this, equation (9) is changed as
+Y
+WY
+X
+*
+*
+*
+*
+=
++
++
+ρ
+β
+ε
+(11)
+where Y* = QY, X* = QX and ε* = Qε.
+On ﬁrst inspection, it seems that equation (11) is a SAR model as in equation (2), and that
+standard estimation methods like maximum likelihood estimation (MLE) could therefore be
+employed directly. However, as pointed out by Lee (2007) and Lin (2010), the transformed error
+terms, ε*, are not independent and identically distributed as is assumed of ε in equation (2). In
+contrast, they are heteroskedastic and groupwise correlated. Therefore, in order to employ the
+standard estimation method for SAR models, those authors propose further transformation of
+equation (11) using eigenvalue–eigenvectors decomposition techniques to ensure the error terms
+in the equation are independent and homoscedastic.
+Model (d): Proximity-based W and random effects θ
+Finally, in the case of model (d), the model is speciﬁed as
+Y
+WY
+X
+Z
+IN
+u
+=
++
++
++
++
+( ) =
+( ) =
+(
+) =
+ρ
+β
+γ
+ε
+ε
+σ
+σ
+ε
+Δ
+Ω
+q
+q
+q
+cov
+; cov
+; cov
+,
+e
+u
+2
+2
+0
+(12)
+Instead of assuming independent random regional effects θ, as in the standard multilevel mod-
+eling literature (Jones 1991; Goldstein 2003), we relax this restriction by allowing for dependent
+θ. In the context that spatial regions are also geographically contiguous, it is expected that the
+effect of region j, θj may be similar to that of its neighboring regions. Following Smith and
+LeSage (2004) and in line with the spatial econometrics literature (e.g., Cliff and Ord 1981;
+Grifﬁth 1988, 2003; Anselin 1988; LeSage and Pace 2009), we postulate that the random regional
+effects follow a spatial simultaneous autoregressive speciﬁcation:
+q
+q
+=
++
+(
+)
+λ
+σ
+M
+u
+u
+N
+IJ
+u
+,
+~
+,0
+2
+(13)
+where M is a normalized spatial weight matrix at the region level (e.g., deﬁned by geographic
+distance, nearest neighbors, or by contiguity), and λ measures the extent to which these regional
+Guanpeng Dong and Richard Harris
+Hierarchical Spatial Autoregressive Models
+7
+effects are spatially interacted. The residuals u are assumed to be independent normal variates.
+Solving equation (13), we get
+q =
+−
+(
+)
+=
+−
+−
+I
+M
+u
+B u
+J
+λ
+1
+1
+(14)
+where B = IJ −λM. Therefore, the covariance matrix for θ, cov q( ) =
+=
+′
+(
+)
+−
+σ
+σ
+u
+u
+2
+2
+1
+Ωu
+B B
+given the
+non-singular B. The distribution of θ is multivariate normal with means 0 s and covariance σu
+2Ωu,
+thus q ~
+,
+N
+B B
+u
+0
+2
+1
+σ
+′
+(
+)
+(
+)
+−.
+Combining equation (12) and (13), we get our complete speciﬁcation for model (d):
+Y
+WY
+X
+Z
+M
+u
+=
++
++
++
++
+=
++
+ρ
+β
+γ
+ε
+λ
+Δq
+q
+q
+;
+(15)
+In the subsequent analysis, we term this speciﬁcation a hierarchical SAR model (HSAR) in the
+sense that it extends the standard SAR model to accommodate hierarchical data structures.
+Recalling that the motivation of this study is to distinguish the horizontal spatial dependence and
+vertical group dependence arising from (dependent) regional effects θ, it is helpful to write the
+covariance matrix of Y, which is
+cov
+cov
+Y
+A
+A
+A A
+A
+A
+u
+u
+( ) =
++
+(
+)(
+) =
+(
+)
++
+(
+)
+(
+)
+−
+−
+−
+−
+−
+1
+1
+2
+1
+2
+1
+1
+Δ
+Ω
+Δ
+Δ
+q
+ε
+σ
+σ
+T
+e
+T
+T
+(16)
+where A = IN −ρW. The ﬁrst part of the covariance matrix of Y is due to the simultaneous
+autoregressive process of Y, that is, the horizontal spatial interactions among lower level units.
+The second component refers to the inﬂuence of group dependence. To see the group dependence
+more clearly, imagine an extremely simple case where there is no spatial dependence (ρ = 0) and
+independent group effects θ (λ = 0). The covariance matrix for Y is then σ
+σ
+e
+N
+u
+I
+2
+2
++
+(
+)
+ΔΔT and the
+group dependence is measured by
+σ
+σ
+σ
+u
+e
+u
+2
+2
+2
++
+(
+)
+(
+).
+As is well established by LeSage and Pace (2009), because of the spatial interaction effect
+(through ρ), the marginal effect of a covariate (like ∂y/∂Xk) normally does not equal the estimated
+coefﬁcient βk in a SAR model. The same situation is true for the HSAR. For deriving marginal
+effects for each covariate, we rewrite equation (15) as one equation by replacing θ with equation
+(14) and Z with ΔZ*:
+Y
+I
+W
+X
+Z
+B u
+N
+=
+−
+(
+)
++
++
++
+(
+)
+−
+−
+ρ
+β
+γ
+ε
+1
+1
+Δ
+Δ
+*
+.
+(17)
+The marginal effects for a lower level variable xk in HSAR is
+∂
+∂
+=
+−
+(
+)
+=
+(
+)
+(
+) =
+−
+(
+)
+=
++
++
++…
+(
+−
+−
+y
+x
+I
+W
+I
+S W I
+S W
+I
+W
+I
+W
+W
+k
+N
+N
+k
+k
+N
+k
+k
+N
+N
+ρ
+β
+β
+ρ
+ρ
+ρ
+1
+1
+2
+2
+)
+(18)
+which is exactly the same as in the SAR model (see LeSage and Pace 2009, p. 38) because the
+regional effects are irrelevant to X. The total impact on each lower level unit of a one unit increase
+associated with xk is the sum of each row of Sk(W)INβk through multiplying equation (18) by N by
+1 vector of ones, lN:
+(
+)
+∂
+∂
+=
+(
+)
+=
++
++
++…
+(
+)
+=
+−
+(
+)
+×
+y
+x
+S W I
+l
+l
+l
+k
+N
+k
+N
+k N
+k N
+k
+N
+1
+2
+1
+1
+β
+ρ
+ρ
+β
+β
+ρ
+(19)
+which is N by 1 vector of βk /(1 −ρ) and thus the average total impacts is also βk /(1 −ρ). In other
+words, a one unit change of xk induces the same amount of increase/decrease in y for each
+Geographical Analysis
+8
+observation. However, this situation could be easily modiﬁed, for example, by including the
+spatially lagged X, WX. Then the total effects of a unit change of xk for each observation will vary
+(LeSage and Pace 2009; Elhorst 2010). The direct impact on each observation of a unit increase
+associated with xk is the diagonal elements of Sk(W)INβk, which is observation speciﬁc. The
+average direct impact is calculated by trace(Sk(W)INβk)/N. The indirect impact is obtained by
+subtracting the direct impact from the total impacts.
+Similarly, the marginal effects for a regional variable zp are
+∂
+∂
+=
+−
+(
+)
+=
++
++
++…
+−
+y
+z
+I
+W
+I
+I
+W
+W
+p
+N
+J
+p
+N
+p
+p
+p
+ρ
+γ
+γ
+ρ
+γ
+ρ
+γ
+1
+2
+2
+Δ
+Δ
+Δ
+Δ
+(20)
+The ﬁrst term INΔγp implies that the impact of a unit change in zp is shifted to all obser-
+vations with magnitude of γp. The second term ρWΔγp reﬂects the further inﬂuence of the
+N by 1 vector γplN through the ﬁrst-order spatial weight matrix W discounted by ρ. These
+impacts repeat for higher order spatial weight matrices (like W2, W3, . . .) attenuated by cor-
+responding powers of ρ (e.g., ρ2, ρ3, . . .).1 To see the similarity with the impacts of lower level
+variables as to the (average) total impacts, we multiply equation (20) by a J by 1 vector of
+ones, lJ:
+∂
+∂
+(
+)
+=
++
++
++…
+=
++
++
++…
+(
+)
+=
+−
+×
+y
+z
+I
+l
+W l
+W
+l
+l
+p
+N
+N
+J
+p
+J
+p
+J
+p
+p N
+p
+1
+2
+2
+2
+1
+1
+Δ
+Δ
+Δ
+γ
+ρ
+γ
+ρ
+γ
+ρ
+ρ
+γ
+γ
+ρ
+(
+)lN
+(21)
+because ΔlJ = lN and W is row normalized. Here, we obtain the same structure for the (average)
+total impacts associated with a unit change in zp as that for xk. To modify this, we could add
+spatially lagged Z to produce varying total effects for each observation. The direct impacts on
+each individual of a unit change in zp is the elements in Sp(W)ΔIJγp whose location corresponds
+to that of 1 s in the random effect design matrix Δ, or the diagonal elements of Sp(W)ΔIJγpΔT.
+Similarly, the average direct impacts is trace(Sp(W)ΔIJγpΔT)/N and the indirect impact is the total
+impact subtracting the direct impact.
+Estimating the HSAR model
+As indicated by the references in the preceding discussion, the estimation of model (a), (b) and
+(c) has been investigated. However, to the best of our knowledge, the HSAR model has not been
+discussed before. Therefore, in this section, we provide Bayesian Markov Chain Monte Carlo
+(MCMC) algorithms for implementing it. The application of Bayesian estimation methods in
+spatial econometrics has been discussed by many researchers (inter alia, Hepple 1995a; LeSage
+1997; LeSage and Pace 2009). The Bayesian MCMC method is preferred over MLE in the spatial
+econometrics literatures for implementing complex models such as those with a complex
+variance–covariance structure or with limited dependent variables (LeSage 1997, 2000), for
+spatial panel data models with random effects (Parent and LeSage 2012), and for undertaking
+model comparisons (Hepple 1995b; LeSage and Parent 2007). The estimation of HSAR is
+achieved via MCMC methods that draw samples sequentially from the conditional posterior
+distributions for each model unknown parameter (Gelfand and Smith 1990; Smith and LeSage
+2004). To implement HSAR, we need to specify the prior distributions for each parameter and
+derive their conditional distributions.
+Guanpeng Dong and Richard Harris
+Hierarchical Spatial Autoregressive Models
+9
+Prior speciﬁcations for HSAR
+In the Bayesian paradigm, the basic principle is that the posterior distribution of θ* is propor-
+tional to the product of the data and prior distributions, as denoted by
+P
+P
+P
+q
+q
+q
+* Data
+Data
+*
+*
+|
+|
+.
+(
+) ∝
+(
+)×
+(
+)
+(22)
+We note that as there is no difference with respect to estimating regression coefﬁcient sets, β and
+γ, we let X = [X Z] and β = [β, γ] for notational convenience. Therefore, in the HSAR,
+q
+b q
+* = {
+}
+ρ λ
+σ
+σ
+, , , ,
+,
+e
+u
+2
+2 , Data = {Y, X, W, M}. The prior distribution P (θ*) reﬂects the prior
+knowledge and uncertainty on θ*, and the posterior distribution P (θ* | Data) reﬂects the
+knowledge on θ* by updating the prior knowledge with sample data information (LeSage
+and Pace 2009, p. 125). The inferences are based on the posterior distributions of model
+parameters.
+In this article, we utilize a k-dimensional multivariate normal prior for β, with mean M0 and
+variance matrix T0; therefore, P (β) ∼N (M0, T0). We assign a uniform prior distribution for ρ over
+a feasible range [1/vmin, 1/vmax], where vmin and vmax represent the minimum and maximum
+eigenvalues of the spatial connectivity matrix W. When a row normalization procedure is applied
+to W, vmax = 1, and then the range becomes [1/vmin, 1] (LeSage and Pace 2009). Similarly, we
+assume a uniform prior distribution for λ over [1/v*min, 1] where v*min is the minimum eigenvalue
+of the higher level spatial weight matrix M. P
+e
+σ2
+(
+) and P
+u
+σ2
+(
+) are assigned an inverse gamma
+distribution, P
+IG c d
+e
+σ2
+0
+0
+(
+)
+(
+)
+∼
+,
+and P
+IG a b
+u
+σ2
+0
+0
+(
+)
+(
+)
+∼
+,
+. Following Gelman et al. (2003), the
+inverse gamma distribution (non-normalized) with a and β being the shape parameter and scale
+parameter is parameterized as
+p x
+x
+exp
+x
+( ) ∝
+−
+(
+)
+−−
+α
+β
+1
+(23)
+In order to derive the posterior distribution for unknown parameters, we need ﬁrst to write the
+likelihood function that indicates P (Data | θ*). The likelihood function for the HSAR model can
+be expressed as
+L Y
+A
+AY
+X
+AY
+| , , , ,
+,
+exp
+ρ λ
+σ
+σ
+πσ
+σ
+b q
+b
+q
+u
+e
+e
+N
+e
+2
+2
+2
+2
+2
+1
+2
+2
+(
+) = (
+)
+−(
+)
+−
+−
+(
+)′
+−
+−
+−
+Δ
+Xb
+q
+−
+(
+)
+{
+}
+Δ
+(24)
+where A = IN −ρW, as in equation (16) and |A| denotes the determinant of A. Therefore, the full
+posterior distribution for q
+b q
+* = {
+}
+ρ λ
+σ
+σ
+, , , ,
+,
+e
+u
+2
+2
+is
+P
+Y
+L Y
+P
+P
+P
+P
+e
+u
+e
+u
+ρ λ
+σ
+σ
+ρ λ
+σ
+σ
+ρ
+λ
+, , , ,
+,
+|
+| , , , ,
+,
+b q
+b q
+b
+2
+2
+2
+2
+(
+) ∝
+(
+)×
+( )×
+( )×
+( )×
+q | ,
+λ σ
+σ
+σ
+u
+u
+e
+P
+P
+2
+2
+2
+(
+)
+×
+(
+)×
+(
+)
+(25)
+Deriving the conditional posterior distribution for each parameter
+The conditional posterior distribution for β
+Let the posterior distribution for β, P
+Y
+N M
+e
+u
+b
+q
+b
+b
+| , , , ,
+,
+,
+ρ λ
+σ
+σ
+2
+2
+(
+) ∼
+(
+)
+Σ
+. According to equation
+(25), the posterior distribution for β is
+Geographical Analysis
+10
+P
+Y
+L Y
+P
+e
+u
+e
+u
+b
+q
+b q
+b
+|
+, , , ,
+,
+| , , , ,
+,
+exp
+ρ λ
+σ
+σ
+ρ λ
+σ
+σ
+σ
+2
+2
+2
+2
+2
+2
+(
+) ∝
+(
+)×
+( )
+∝
+−(
+)
+−
+e
+1
+0
+0
+1
+0
+1
+2
+1
+2
+AY
+X
+AY
+X
+M
+T
+M
+−
+−
+(
+)′
+−
+−
+(
+)
+{
+}×
+−
+−
+(
+)′
+−
+(
+)
+{
+}
+−
+∝
+−
+b
+q
+b
+q
+b
+b
+Δ
+Δ
+exp
+exp
+× ′ (
+)
+′
++
+⎡⎣
+⎤⎦
++ (
+)
+−
+(
+)′
++
+⎡⎣
+⎤⎦
++
+{
+−
+−
+−
+−
+b
+b
+q
+b
+σ
+σ
+e
+e
+2
+1
+0
+1
+2
+1
+0
+1
+0
+X X
+T
+AY
+X
+T
+M
+con
+Δ
+}
+(26)
+Therefore, comparing this with a standard multivariate normal density, we obtain
+Σ
+Σ
+Δ
+b
+b
+b
+q
+=
+=
+(
+)
+′
++
+⎡⎣
+⎤⎦
+(
+)
+′
+−
+(
+)+
+⎡⎣
+⎤⎦
+−
+−
+−
+−
+−
+σ
+σ
+e
+e
+2
+1
+0
+1
+1
+2
+1
+0
+1
+X X
+T
+X
+AY
+T
+M
+M
+;
+0
+(27)
+The conditional posterior distribution for
+q,
+,
+σ
+σ
+u
+e
+2
+2
+{
+}
+Following similar procedures to those used in deriving the posterior distribution for β, we show
+the posterior distribution for θ is also a multivariate normal N (Mθ, Σθ) where
+Σ
+Δ Δ
+Σ
+Δ
+q
+q
+q
+b
+=
+′
+=
+′
+(
+)
++ (
+)
+′
+⎡⎣
+⎤⎦
+(
+)
+−
+(
+)
+⎡⎣
+⎤⎦
+−
+−
+−
+−
+σ
+σ
+σ
+e
+e
+2
+1
+2
+1
+1
+2
+1
+u
+B B
+AY
+X
+M
+;
+(28)
+The full conditions for σu
+2 and σe
+2 are IV (au, bu) and IV (ce, de) where
+a
+J
+a
+b
+B B
+b
+u
+u
+=
++
+=
+′ ′
++
+2
+2
+0
+0
+;
+q
+q
+(29)
+c
+N
+c
+d
+AY
+X
+AY
+X
+d
+e
+e
+=
++
+=
+×
+−
+−
+(
+)′
+−
+−
+(
+)+
+2
+1
+2
+0
+0
+;
+b
+q
+b
+q
+Δ
+Δ
+(30)
+The conditional posterior distribution for ρ
+To this point we have derived the posterior distributions for
+b q
+, ,
+,
+σ
+σ
+e
+u
+2
+2
+{
+}, which are all
+recognizable standard distributions. Gibbs sampler is therefore employed to draw samples
+(Gelfand and Smith 1990; Gelman et al. 2003). The posterior distribution for ρ is
+P
+Y
+L Y
+P
+e
+u
+e
+u
+ρ
+λ
+σ
+σ
+ρ λ
+σ
+σ
+ρ
+| , , ,
+,
+,
+| , , , ,
+,
+b
+q
+b q
+2
+2
+2
+2
+(
+) ∝
+(
+)×
+( )
+∝
+−
+×
+−(
+)
+−
+−
+(
+)′
+−
+−
+(
+)
+{
+}
+−
+IN
+W
+AY
+X
+AY
+X
+ρ
+σ
+exp
+2
+2
+1
+e
+b
+q
+b
+q
+Δ
+Δ
+(31)
+Unlike
+b q
+, ,
+,
+σ
+σ
+e
+u
+2
+2
+{
+}, this conditional distribution does not ﬁt a standard recognizable density
+distribution. Therefore, an alternative MCMC method, the Metropolis–Hastings (M–H) sampling
+strategy could be employed for updating ρ. As an alternative to the M–H sampling strategy, Smith
+and LeSage (2004) propose an inversion sampling procedure to update ρ and they ﬁnd this
+method is more efﬁcient than the M–H algorithm. The logic is that, in one MCMC loop, after
+updating
+λ
+σ
+σ
+, , ,
+,
+b q
+e
+u
+2
+2
+[
+], we conduct a numeric integration for ρ, calculate the normalized
+constant for the distribution of ρ, and draw from the cumulative distribution of ρ.
+We employ the inverse sampling strategy in the subsequent analysis. Following Pace and
+Barry (1997), and given updated λ
+σ
+σ
+, , ,
+,
+b q
+e
+u
+2
+2
+[
+] in MCMC loop k, equation (31) is a function of
+ρ, and the non-normalized density distribution indicated by f (ρ). Log f (ρ) can be expressed as
+Log
+e
+f
+W
+S
+S
+m S
+e
+e
+e
+e
+Y
+X
+e
+N
+d
+u
+d
+ρ
+ρ
+ρ
+ρ
+ρ
+σ
+ρ
+β
+( ) =
+−
++ ( )′ ( )
++
+( ) =
+−
+−
+=
+−
+log
+;
+;
+I
+2
+2
+0
+0
+0
+=
+−
+=
+−
+=
+′
+(
+)
+′
+=
+′
+(
+)
+′
+=
+′
+(
+)
+′
+−
+−
+−
+WY
+X
+e
+X
+X X
+X Y
+X X
+X WY
+X X
+d
+u
+u
+d
+u
+β
+β
+β
+β
+β
+;
+;
+;
+Δq
+0
+1
+1
+1 X Δq
+(32)
+Guanpeng Dong and Richard Harris
+Hierarchical Spatial Autoregressive Models
+11
+where m is a constant. Therefore, in each loop, we can numerically integrate log f (ρ) over (1/vmin,
+1) and calculate the cumulative distribution of ρ; then the inverse sampling strategy can be
+employed.
+The conditional posterior distribution for λ
+The conditional posterior distribution for λ
+λ
+ρ
+σ
+σ
+,
+|
+, , ,
+,
+P
+Y
+e
+b
+2
+u
+u
+J
+P
+P
+M
+B B
+2
+2
+2
+1
+2
+,
+| ,
+exp
+q
+q
+q
+(
+) ∝
+(
+)×
+( )
+∝
+′
+−
+×
+−(
+)
+′
+{
+}
+−
+θ λ σ
+λ
+λ
+σ
+I
+u
+(33)
+is not a recognizable density function as neither is P
+Y
+e
+u
+ρ
+λ
+σ
+σ
+| , , ,
+,
+,
+b
+q
+2
+2
+(
+). We also employ the
+above-mentioned inverse sampling strategy to update λ. Let f (λ) indicate the non-normalized
+probability density, therefore, log f (λ) is
+Log
+u
+f
+M
+B B
+M
+M
+M M
+J
+J
+λ
+λ
+σ
+λ
+λ
+λ
+( ) =
+=
+′
+−
++ ′ ′
+−
++
+′ −
+′
++
+′
+(
+log
+log
+I
+I
+q
+q
+q q
+q
+q
+q
+q
+2
+2
+2
+2
+) 2
+2
+σu.
+(34)
+In equation (34), in the kth MCMC loop, θ′θ, θ′Mθ, θ′M′Mθ and σu
+2 are all scalars. Therefore,
+using the pre-calculated vector of log |IJ −λM|, we integrate log f (λ) over (1/v*min, 1) to obtain
+the cumulative distribution of λ, and then the inverse sampling strategy can be operated.
+When implementing this MCMC algorithm, the pre-calculated log Jacobian determinants,
+log |IN −ρW| and log |IJ −λM| are essential for saving running time when N and J are large. Many
+fast and accurate approximation methods for calculating the log Jacobian determinant have been
+proposed (Pace and Barry 1997; Barry and Pace 1999; Smirnov and Anselin 2001; Grifﬁth 2004;
+LeSage and Pace 2009). A detailed summary and comparison of these methods are provided by
+Bivand, Hauke, and Kossowski (2013).
+Application of the HSAR model
+In this section, we demonstrate the HSAR model using a data set that consists of all leased
+residential land parcels from 2003 to 2009 in Beijing, China. There are 1,117 land parcels situated
+in 111 districts (Jiedao). A detailed data description is provided by Harris, Dong, and Zhang
+(2013). We regard land parcels as the lower level and districts as the regional level, thus giving
+a two-level hierarchical data structure.
+Spatial interactions in house or land markets have been well recognized in at least two ways.
+The ﬁrst regards the actual workings of the real estate market, in which the sale prices of nearby
+properties are often used to guide the price of a property for sale (e.g., Can 1992; Koschinsky,
+Lozano-Gracia, and Piras 2012). The second is related to the interacting decision-making process
+like house maintenance or repairing decisions among householders (Can and Megbolugbe 1997).
+It is also expected that regional effects are dependent. For example, regions of close spatial
+proximity might be similar in local tax rates, educational quality, public facility provision, and so
+on, which exert similar effects on land prices.
+For model implementation, the lower level spatial weight matrix W is speciﬁed as
+W
+exp
+d
+d
+if d
+d
+otherwise
+ij
+ij
+ij
+=
+−(
+)
+≤
+(
+)
+2
+2
+0
+,
+; ,
+(35)
+where d is the distance threshold, which is set to 1.5 km after a series of exploratory analyses on
+the empirical variograms of land prices (Cressie 1993; Banerjee, Carlin, and Gelfand 2004). The
+Geographical Analysis
+12
+Euclidian distance between land parcels is dij. The regional-level spatial weight matrix M is based
+on the contiguity of the 111 districts. Both W and M are row normalized.
+The outcome variable is the leasing price per square meter of each residential land parcel
+adjusted using the consumer price index (CPI). The lower level covariates used here are the
+proximity of each land parcel to the nearest subway stations (LogDsubway), elementary schools
+(LogDele), green parks (LogDpark), river (LogDriver) and the central business district
+(LogDcbd), and the land parcel size (Logarea). Year dummies (Year04–Year09) are included in
+the model to control the ﬁxed period effects, with year 2003 as the baseline. The regional-level
+covariates used here are population density of each district (Popden), the proportion of houses
+built before 1949 (Buildings1949), and the number of violent crimes taking place per 1,000
+people (Crimerate). Admittedly, variable selection is a problem—it is with a standard model and
+it is further complicated by a hierarchical one because we need to distinguish between the lower
+level covariates and the higher level ones.
+The estimation results from the HSAR and classic SAR models are provided in Table 1. The
+inferences are based on three MCMC chains that each consist of 10,000 iterations with a burn-in
+period of 5,000 for both models.2 Diffuse or quite non-informative priors are employed for model
+parameters. Two model ﬁt indices are calculated for each model: the Pseudo R2 and DIC with
+smaller values indicating a better model ﬁt (LeSage et al. 2011). Both indices show that the
+HSAR model is better than the classic SAR in explaining the land price variations in Beijing.
+From the regression coefﬁcients estimates from the HSAR model in Table 1, we see that
+proximity to the CBD, subway stations, and parks has signiﬁcant impacts on land prices. The
+Table 1 Estimation Results for the Land Price Data Using the HSAR and SAR models
+The HSAR model
+The SAR model
+Posterior mean
+SE
+Posterior mean
+SE
+Intercept
+11.406*
+0.988
+10.314*
+0.674
+Logarea
+−0.022
+0.018
+−0.020
+0.018
+LogDcbd
+−0.380*
+0.103
+−0.234*
+0.050
+LogDsubway
+−0.178*
+0.041
+−0.165*
+0.034
+LogDele
+−0.011
+0.040
+−0.071*
+0.031
+LogDpark
+−0.137*
+0.061
+−0.203*
+0.045
+LogDriver
+0.097*
+0.036
+0.067*
+0.029
+Popden
+0.019
+0.013
+0.023*
+0.010
+Buildings1949
+−1.106*
+0.515
+−1.222*
+0.293
+Crimerate
+0.001
+0.008
+0.003
+0.004
+Year dummies
+Yes
+Yes
+ρ
+0.173
+0.036
+0.280
+0.032
+λ
+0.829
+0.124
+NA
+NA
+σu
+2
+0.045
+0.018
+NA
+NA
+σe
+2
+0.575
+0.026
+0.633
+0.027
+DIC
+3,036.7
+3,235.6
+Pseudo R2
+0.423
+0.311
+DIC, Deviance Information Criterion; NA, not applicable; SE, standard error; *, statistically
+signiﬁcant at 95% credible level.
+Guanpeng Dong and Richard Harris
+Hierarchical Spatial Autoregressive Models
+13
+negative sign indicates that increasing accessibility to the CBD, subway stations, and parks will
+increase land prices. Proximity to rivers induces negative impacts to land prices, which probably
+mirrors the situation where most of the rivers in urban areas of Beijing are severely polluted
+speciﬁcally before the host of Olympic Games in 2008 (Harris, Dong, and Zhang 2013). As for
+the regional-level covariates (observed contextual effects), only the proportion of buildings built
+before 1949 (Buildings1949) is signiﬁcant and exerts negative impacts on land prices.
+As expected, we ﬁnd spatial interactions at the land parcel level and dependent regional
+effects, indicated by the signiﬁcant SAR parameters ρ (0.173) and λ (0.829) in the HSAR model.
+Hence, both the spatial dependence and group dependence are identiﬁed in our land price data
+set.
+From Table 1, we see that there are not consistent patterns of differences between the two
+models with respect to regression coefﬁcient estimates (β). However, we ﬁnd that the introduc-
+tion of a higher level impacts the precision estimate for each covariate. Generally, the variability
+in covariate effect estimates appears to increase in the HSAR model because of the inclusion of
+outcome variations at the higher level. We should be cautious about this observation though
+because the true process that generates the land prices is unknown. Nonetheless, we do ﬁnd
+certain amount of variations at the district level ( σu
+2) that is not modeled in the classic SAR
+model. In a non-spatial hierarchical data structure, Goldstein (2003) has shown that ignoring
+group dependence will result in underestimated standard errors for covariate effects and the
+higher level covariates in particular. Differences between the HSAR model and the SAR model
+in terms of statistical inference on covariate effects are also observed. For example, the popula-
+tion density is found signiﬁcant at the 95% conﬁdence level in the SAR model whereas it is not
+so in the HSAR model, and the same situation is found for the effect of accesses to primary
+schools.
+With respect to the estimates for ρ, it appears to be overestimated in the SAR model when
+compared with the HSAR model, and the 95% credible intervals estimates for ρ in the HSAR
+model do not contain the posterior mean of ρ from the SAR model. This indicates that at the land
+parcel level, spatial dependence is possibly confounded by the regional effects and thus incor-
+rectly estimated as a result in the SAR model. More generally, if no effort is made to separate
+spatial interaction effects from the regional effects then we can anticipate that the two will be
+confounded.
+As for the magnitude of covariate effects, the total, direct, and indirect impact summaries for
+each covariate and their 95% credible intervals from the HSAR and SAR models are provided in
+Table 2. For interpreting these measures, and taking the example of the effect of LogDsubway in
+the HSAR model, if the distance to subway stations decrease by 1%, land prices will increase by
+0.178% from a direct effect, and by 0.037% from an indirect effect, producing a total effect of
+0.216% increase.
+The posterior means of regional (district) effects from HSAR are mapped in Fig. 3. The
+break points correspond to the lower quartile, median, and upper quartile of the regional effects.
+Quite as expected (as λ is signiﬁcant and relatively large in magnitude), these regional effects
+exhibit a strong spatial pattern with high and low values clustering together, respectively.
+Conclusions
+In this article, we brought forward a research question: how to modify a standard spatial
+econometric method, speciﬁcally the SAR model, to accommodate a geographically hierarchical
+Geographical Analysis
+14
+data structure? To answer this question, we began by outlining a typology of four different model
+speciﬁcations that are distinguished by the type of weights matrix used and whether the regional
+effects are treated as ﬁxed or random. Previous research and implementations of these models
+were discussed.
+In this article, we have given extensive attention to the HSAR model because of its meth-
+odological advantage that it allows for estimation of spatial spillover effects while also allowing
+for the control and examination of dependent group effects. By simultaneously modeling the
+spatial dependence and the group dependence, the HSAR model avoids the situation where these
+two types of dependence are confounded. It provides more accurate estimates for both of them.
+Our view is that the HSAR is especially well suited to the increasingly available hierarchical
+data sets with detailed geographic information and for providing a greater synthesis between
+multilevel modeling and spatial econometric perspectives (more so than the other model
+speciﬁcations).
+We end this article by illustrating several further elaborations on the HSAR. First, other
+standard spatial econometric models like spatial error model and spatial Durbin model could be
+easily extended in this proposed framework as they have very similar likelihood functions as a
+Table 2 The Impact Estimates for Covariates with Signiﬁcant Regression Coefﬁcients Using
+Estimates from the HSAR and SAR, Respectively
+The HSAR model
+The SAR model
+Posterior
+mean
+SE
+2.5%
+97.5%
+Posterior
+mean
+SE
+2.5%
+97.5%
+Total impacts
+Intercept
+13.816
+1.313
+11.292
+16.452
+14.354
+1.137
+12.230
+16.664
+LogDcbd
+−0.459
+0.125
+−0.711
+−0.214
+−0.324
+0.072
+−0.467
+−0.184
+LogDsubway
+−0.216
+0.051
+−0.317
+−0.118
+−0.232
+0.049
+−0.328
+−0.136
+LogDpark
+−0.166
+0.074
+−0.312
+−0.021
+−0.284
+0.063
+−0.408
+−0.161
+LogDriver
+0.118
+0.043
+0.037
+0.205
+0.094
+0.040
+0.018
+0.174
+Buildings1949
+−1.341
+0.630
+−2.606
+−0.127
+−1.705
+0.421
+−2.532
+−0.871
+Direct impacts
+Intercept
+11.446
+0.991
+9.483
+13.361
+10.413
+0.675
+9.090
+11.715
+LogDcbd
+−0.381
+0.103
+−0.585
+−0.178
+−0.235
+0.051
+−0.334
+−0.135
+LogDsubway
+−0.178
+0.041
+−0.258
+−0.098
+−0.168
+0.035
+−0.236
+−0.100
+LogDpark
+−0.137
+0.061
+−0.257
+−0.017
+−0.206
+0.045
+−0.294
+−0.119
+LogDriver
+0.098
+0.036
+0.031
+0.169
+0.068
+0.029
+0.013
+0.125
+Buildings1949
+−1.110
+0.517
+−2.145
+−0.106
+−1.237
+0.300
+−1.817
+−0.629
+Indirect impacts
+Intercept
+2.370
+0.618
+1.240
+3.671
+3.941
+0.674
+2.716
+5.367
+LogDcbd
+−0.079
+0.028
+−0.142
+−0.030
+−0.089
+0.024
+−0.140
+−0.047
+LogDsubway
+−0.037
+0.013
+−0.065
+−0.015
+−0.064
+0.017
+−0.100
+−0.034
+LogDpark
+−0.029
+0.015
+−0.063
+−0.003
+−0.078
+0.021
+−0.123
+−0.040
+LogDriver
+0.020
+0.009
+0.006
+0.040
+0.026
+0.012
+0.005
+0.051
+Buildings1949
+−0.231
+0.127
+−0.519
+−0.019
+−0.468
+0.137
+−0.761
+−0.224
+SE, standard error.
+Guanpeng Dong and Richard Harris
+Hierarchical Spatial Autoregressive Models
+15
+SAR model. In essence, HSAR just allows the model intercept term to have a spatial dependence
+structure through the simultaneous autoregressive process of θ. The future extension could be to
+allow for differentiating spatial processes for the regression coefﬁcients, which enables us to
+simultaneously explore spatial heterogeneity. However, the difﬁculty for this lies in two aspects.
+The ﬁrst concerns whether a univariate SAR could be extended to a proper multivariate SAR. The
+second concerns model estimation. By assigning varying SAR processes to regression coefﬁ-
+cients, the autoregressive parameters may not be well identiﬁed even in the Bayesian framework
+because of the possible strong correlations between them and of the model complexity.
+Figure 3. The district (regional) level random effects from the hierarchical spatial autoregressive
+model.
+Geographical Analysis
+16
+Acknowledgements
+The authors gratefully acknowledge Prof. Bill Browne and Dr. George Leckie from The Centre
+for Multilevel Modeling (CMM), University of Bristol, for providing valuable comments on the
+previous draft. We also thank the referees and the editor for their time in providing detailed
+comments on an earlier version of the article. The ﬁrst author thanks the U.K. ESRC for funding
+his doctoral research.
+Notes
+1 We are grateful to a referee for identifying this property of the model.
+2 The MCMC sampler for HSAR is coded using the R language. The convergence of the MCMC sampler
+for HSAR is diagnosed using the CODA package (Plummer et al. 2006) in R. Because of the use of sparse
+matrices for calculating the determinants of W and M and also the use of inversion sampling for updating
+SAR parameters ρ and λ, the numerical computation is not especially time consuming. It takes about
+3 min for the MCMC sampler to produce 10,000 draws on a laptop with a 2.5 GHz processor. Before
+applying the code to the land price data, we conduct a series of simulation studies with known data-
+generating processes and using the geography of the land parcel data to test the code, the results show that
+the HSAR model could accurately retrieve the true model parameters. Both the R code for implementing
+the HSAR model and the simulation study results are available upon request.
+References
+Agarwal, D. K., A. E. Gelfand, and J. A. Silander. (2002). “Investigating Tropical Deforestation Using
+Two-Stage Spatial Misaligned Regression Models.” Journal of Agricultural, Biological, and Envi-
+ronmental Statistics 7(3), 420–39.
+Anselin, L. (1988). Spatial Econometrics: Methods and Models. Dordrecht: Kluwer Academic
+Publishers.
+Anselin, L., and D. Arribas-Bel. (2013). “Spatial Fixed Effects and Spatial Dependence in A Single
+Cross-Section.” Papers in Regional Science 92(1), 3–17.
+Banerjee, S., B. P. Carlin, and A. E. Gelfand. (2004). Hierarchical Modeling and Analysis for Spatial
+Data. Boca Raton, FL: Chapman and Hall/CRC.
+Barry, R. P., and R. K. Pace. (1999). “Monte Carlo Estimates of the Log Determinant of Large Sparse
+Matrices.” Linear Algebra and its Applications 289, 41–54.
+Baumont, C. (2009). “Spatial Effects of Urban Public Policies on Housing Values.” Papers in Regional
+Science 88(2), 301–27.
+Bavaud, F. (1998). “Models for Spatial Weights: A Systematic Look.” Geographical Analysis 30(2),
+153–71.
+Bivand, R., J. Hauke, and T. Kossowski. (2013). “Computing the Jacobian in Gaussian Spatial Autore-
+gressive Models: An Illustrated Comparison of Available Methods.” Geographical Analysis 45,
+150–79.
+Bowen, W. M., B. A. Mikelbank, and D. M. Prestegaard. (2001). “Theoretical and Empirical Consider-
+ations Regarding Space in Hedonic Housing Price Model Applications.” Growth and Change 32(4),
+466–90.
+Can, A. (1992). “Speciﬁcation and Estimation of Hedonic Housing Price Models.” Regional Science and
+Urban Economics 22, 453–74.
+Can, A., and I. Megbolugbe. (1997). “Spatial Dependence and House Price Index Construction.” Journal
+of Real Estate Finance and Economics 14, 203–22.
+Case, A. (1992). “Neighborhood Inﬂuence and Technological Change.” Regional Science and Urban
+Economics 22(3), 491–508.
+Cliff, A., and J. K. Ord. (1981). Spatial Processes: Models and Applications. London: Pion.
+Corrado, L., and B. Fingleton. (2012). “Where Is the Economics in Spatial Econometrics?” Journal of
+Regional Sciences 52(2), 210–39.
+Guanpeng Dong and Richard Harris
+Hierarchical Spatial Autoregressive Models
+17
+Cressie, N. A. C. (1993). Statistics for Spatial Data, 2nd ed. New York: Wiley.
+Durlauf, S. N., and Y. M. Ioannides. (2010). “Social Interaction.” Annual Review of Economics 2, 451–
+78.
+Elhorst, J. P. (2010). “Applied Spatial Econometrics: Raising the Bar.” Spatial Economic Analysis 5(1),
+9–28.
+Gelfand, A. E., and A. F. M. Smith. (1990). “Sampling-Based Approaches to Calculate Marginal Densi-
+ties.” Journal of the American Statistical Association 85, 398–409.
+Gelfand, A. E., L. Zhu, and B. P. Carlin. (2001). “On the Change of Support Problem for Spatio-
+Temporal Data.” Biostatistics 2(1), 31–45.
+Gelman, A., J. B. Carlin, H. S. Stern, and D. B. Rubin. (2003). Bayesian Data Analysis, 2nd ed. Boca
+Raton: Chapman & Hall/CRC.
+Getis, A., and J. Ord. (1992). “The Analysis of Spatial Association by Use of Distance Statistics.” Geo-
+graphical Analysis 24, 189–206.
+Goldstein, H. (2003). Multilevel Statistical Methods, 3rd ed. London: Arnold.
+Gotway, C. A., and L. J. Young. (2002). “Combining Incompatible Spatial Data.” Journal of the Ameri-
+can Statistical Association 97(458), 632–48.
+Grifﬁth, D. A. (1988). Advanced Spatial Statistics: Special Topics in the Exploration of Quantitative
+Spatial Data Series. Dordrecht: Kluwer.
+Grifﬁth, D. A. (2003). Spatial Autocorrelation and Spatial Filtering. New York: Springer.
+Grifﬁth, D. A. (2004). “Fast Maximum Likelihood Estimation of Very Large Spatial Autoregressive
+Models: An Extension of the Smirnov–Anselin Result.” Journal of Statistical Computation and
+Simulation 74, 855–66.
+Haining, R. (2003). Spatial Data Analysis: Theory and Practice. Cambridge: Cambridge University
+Press.
+Haining, R., R. Kerry, and M. Oliver. (2010). “Geography, Spatial Data Analysis and Geostatistics.”
+Geographical Analysis 42(1), 7–31.
+Harris, R., G. P. Dong, and W. Z. Zhang. (2013). “Using Contextualised Geographically Weighted
+Regression to Model the Spatial Heterogeneity of Land Prices in Beijing, China.” Transaction in
+GIS 17(6), 901–19.
+Hepple, L. W. (1995a). “Bayesian Techniques in Spatial and Network Econometrics: 1. Model Compari-
+son and Posterior Odds.” Environment and Planning A 27, 447–69.
+Hepple, L. W. (1995b). “Bayesian Techniques in Spatial and Network Econometrics: 2. Computational
+Methods and Algorithms.” Environment and Planning A 27, 615–44.
+Jones, K. (1991). “Specifying and Estimating Multi-Level Models for Geographical Research.” Transac-
+tions of the Institute of British Geographers 16(2), 148–59.
+Kelejian, H. H., and I. R. Prucha. (2002). “2SLS and OLS in a Spatial Autoregressive Model with Equal
+Spatial Weights.” Regional Science and Urban Economics 32(6), 691–707.
+Koschinsky, J., N. Lozano-Gracia, and G. Piras. (2012). “The Welfare Beneﬁt of a Home’s Location: An
+Empirical Comparison of Spatial and Non-Spatial Model Estimates.” Journal of Geographical
+Systems 14, 319–56.
+Lee, L. F. (2007). “GMM and 2SLS Estimation of Mixed Regressive, Spatial Autoregressive Models.”
+Journal of Econometrics 137(2), 489–514.
+LeSage, J. P. (1997). “Bayesian Estimation of Spatial Autoregressive Models.” International Regional
+Science Review 20(3), 113–29.
+LeSage, J. P. (2000). “Bayesian Estimation of Limited Dependent Variable Spatial Autoregressive
+Models.” Geographical Analysis 32(1), 19–35.
+LeSage, J. P., and C. Llano. (2013). “A Spatial Interaction Model with Spatially Structured Origin and
+Destination Effects.” Journal of Geographical Systems 15(3), 265–89.
+LeSage, J. P., and R. K. Pace. (2009). Introduction to Spatial Econometrics. Boca Raton, FL: CRC
+Press/Taylor & Francis.
+LeSage, J. P., and O. Parent. (2007). “Bayesian Model Averaging for Spatial Econometric Models.” Geo-
+graphical Analysis 39(3), 241–67.
+LeSage, J. P., R. K. Pace, N. Lam, R. Campanella, and X. Liu. (2011). “New Orleans Business Recovery
+in the Aftermath of Hurricane Katrina.” Journal of Royal Statistical Society A 174(4), 1007–27.
+Geographical Analysis
+18
+Lin, X. (2010). “Identifying Peer Effects in Student Academic by Spatial Autoregressive Models with
+Group Unobservables.” Journal of Labor Economics 28(4), 825–60.
+Manski, C. F. (1993). “Identiﬁcation of Endogenous Social Effects: The Reﬂection Problem.” Review of
+Economic Studies 60(3), 531–42.
+McMillen, D. P. (1992). “Probit with Spatial Autocorrelation.” Journal of Regional Sciences 32(3), 335–
+48.
+Mugglin, A. S., and B. P. Carlin. (1998). “Hierarchical Modelling in Geographic Information Systems:
+Population Interpolation over Incompatible Zones.” Journal of Agricultural, Biological, and Envi-
+ronmental Statistics 3(2), 111–30.
+Pace, R. K., and R. P. Barry. (1997). “Quick Computation of Spatial Autoregressive Estimators.” Geo-
+graphical Analysis 29(3), 232–46.
+Parent, O., and J. P. LeSage. (2012). “Spatial Dynamic Panel Data Models with Random Effects.”
+Regional Science and Urban Economics 42(4), 727–38.
+Plummer, M., N. Best, K. Cowles, and K. Vines. (2006). “CODA: Convergence Diagnosis and Output
+Analysis for MCMC.” R News 6, 7–11.
+Smirnov, O., and L. Anselin. (2001). “Fast Maximum Likelihood Estimation of Very Large Spatial
+Autoregressive Models: A Characteristic Polynomial Approach.” Computational Statistics and Data
+Analysis 35, 301–19.
+Smith, T. E., and J. P. LeSage. (2004). “A Bayesian Probit Model with Spatial Dependencies.” In
+Advances in Econometrics: Volume 18: Spatial and Spatiotemporal Econometrics, 127–60, edited
+by J. P. LeSage and R. K. Pace. Oxford: Elsevier Ltd.
+Zhu, L., B. Carlin, and A. E. Gelfand. (2003). “Hierarchical Regression with Misaligned Spatial Data:
+Relating Ambient Ozone and Pediatric Asthma ER Visits in Atlanta.” Environmetrics 14, 537–57.
+Guanpeng Dong and Richard Harris
+Hierarchical Spatial Autoregressive Models
+19

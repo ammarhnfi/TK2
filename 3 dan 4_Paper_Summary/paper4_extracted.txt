@@ -1,0 +1,1328 @@
+ORIGINAL ARTICLE
+Random effects speciﬁcations in eigenvector spatial
+ﬁltering: a simulation study
+Daisuke Murakami1 • Daniel A. Grifﬁth2
+Received: 13 September 2013 / Accepted: 27 April 2015
+Springer-Verlag Berlin Heidelberg 2015
+Abstract
+Eigenvector spatial ﬁltering (ESF) is becoming a popular way to address
+spatial dependence. Recently, a random effects speciﬁcation of ESF (RE-ESF) is
+receiving considerable attention because of its usefulness for spatial dependence
+analysis considering spatial confounding. The objective of this study was to analyze
+theoretical properties of RE-ESF and extend it to overcome some of its disadvan-
+tages. We ﬁrst compare the properties of RE-ESF and ESF with geostatistical and
+spatial econometric models. There, we suggest two major disadvantages of RE-ESF:
+it is speciﬁc to its selected spatial connectivity structure, and while the current form
+of RE-ESF eliminates the spatial dependence component confounding with ex-
+planatory variables to stabilize the parameter estimation, the elimination can yield
+biased estimates. RE-ESF is extended to cope with these two problems. A com-
+putationally efﬁcient residual maximum likelihood estimation is developed for the
+extended model. Effectiveness of the extended RE-ESF is examined by a com-
+parative Monte Carlo simulation. The main ﬁndings of this simulation are as fol-
+lows: Our extension successfully reduces errors in parameter estimates; in many
+cases, parameter estimates of our RE-ESF are more accurate than other ESF models;
+the elimination of the spatial component confounding with explanatory variables
+results in biased parameter estimates; efﬁciency of an accuracy maximization-based
+conventional ESF is comparable to RE-ESF in many cases.
+& Daisuke Murakami
+murakami.daisuke@nies.go.jp
+Daniel A. Grifﬁth
+dagrifﬁth@utdallas.edu
+1
+Center for Global Environmental Research, National Institute for Environmental Studies,
+16-2 Onogawa, Tsukuba-shi, Ibaraki 305-8506, Japan
+2
+School of Economic, Political and Policy Sciences, The University of Texas at Dallas,
+Richardson, Dallas, TX 75083, USA
+123
+J Geogr Syst
+DOI 10.1007/s10109-015-0213-7
+Keywords
+Eigenvector spatial ﬁltering Mixed effects model Geostatistics 
+Spatial econometrics Spatial confounding
+JEL Classiﬁcation
+C15 C21
+1 Introduction
+Along with the recent development of geographic information systems (GIS),
+statistical methods for spatial and spatiotemporal data have been discussed
+extensively in geostatistics (e.g., Cressie 1993; Cressie and Wikle 2011) and
+spatial econometrics (e.g., LeSage and Pace 2009). Geostatistical and spatial
+econometric methods are useful because they consider properties of spatial data
+such as spatial dependence and spatial heterogeneity. Spatial ﬁltering (e.g., Grifﬁth
+2010; Grifﬁth and Paelinck 2011; Grifﬁth and Chun 2013), which relates to both
+geostatistics and spatial econometrics, is an approach that captures spatial
+dependence using map pattern variables obtained from spatial connectivity
+information (Getis and Grifﬁth 2002). The G statistic (Getis and Ord 1992)-based
+ﬁltering method of Getis (1990) and the Moran coefﬁcient (Moran 1950)-based
+method called eigenvector spatial ﬁltering (ESF; Grifﬁth 1996) are representative
+methods. Applications of ESF are increasing because of its practicality, expand-
+ability, and other appealing factors. For instance, Chun (2008), Fischer and Grifﬁth
+(2008), Grifﬁth (2009, 2011), Chun and Grifﬁth (2011), Scherngell and Lata (2013),
+and Grifﬁth and Fischer (2013) utilize ESF for spatial interaction analyses; Grimpe
+and Patuelli (2009), Patuelli et al. (2011), and Cuaresma and Feldkircher (2013)
+employ it for economic analyses; Grifﬁth and Peres-Neto (2006) and Jacob et al.
+(2008) use it for ecological analyses; Helbich and Arsanjani (2014) and Chun
+(2014) use it for criminal analyses; Wang et al. (2013) analyze land value and land
+use applying it; and Moniruzzaman and Paez (2012) use it for urban design analysis.
+Thus, ESF has become a popular method to address spatial dependence (Pace et al.
+2013).
+One of the advantages of ESF is simplicity (Grifﬁth 2003). The basic model of
+ESF is identical to the standard linear and generalized linear regression models, and
+therefore, it is easily implemented and extended, for example, by combining it with
+standard non-spatial models (e.g., Poisson and logistic regression; see, e.g., Grifﬁth
+2002, 2004a). Another advantage of ESF is its effectiveness in capturing spatial
+dependence. Tiefelsdorf and Grifﬁth (2007) show that ESF effectively removes
+spatial dependence from residuals, and Grifﬁth (2006) demonstrates its usefulness
+for extracting negative spatial dependence hidden by predominant positive spatial
+dependence. Thayn and Simanis (2013) show that ESF reduces spatial misspeciﬁ-
+cation errors, increases the strength of a model ﬁt, frequently increases the normality
+of model residuals, and can increase the homoscedasticity of model residuals.
+Franzese and Hays (2014) show the effectiveness of ESF in distinguishing a
+common exposure effect, which is a source of spatial dependence, and a spatial
+spillover effect, which is another source of spatial dependence. Some important
+D. Murakami, D. A. Grifﬁth
+123
+statistical properties of ESF are discussed in Chun and Grifﬁth (2013, 2014) as well
+as in Pace et al. (2013).
+Hughes and Haran (2013) discuss a random effects speciﬁcation of ESF (RE-
+ESF) and demonstrate the usefulness for spatial dependence analysis while
+mitigating the variance inﬂation due to the confounding factor between explanatory
+variables and the latent spatial process. The confounding factor is called spatial
+confounder in the statistical literature (e.g., Paciorek 2010; Hodges and Reich
+2010). However, discussion of RE-ESF is limited, and its theoretical properties are
+not necessarily thoroughly understood.
+The objective of this study was to analyze advantages and disadvantages of RE-
+ESF, and extend it to overcome some of the disadvantages. This paper’s sections are
+organized as follows. Section 2 brieﬂy explains conventional ESF and RE-ESF.
+Section 3 analyzes theoretical properties of ESF and RE-ESF models by comparing
+them with models in geostatistics and spatial econometrics. Therein, we point to two
+disadvantages of RE-ESF: it is sensitive to the chosen spatial connectivity structure,
+and while the current form of RE-ESF eliminates spatial confounder, the
+elimination can yield biased parameter estimates. Section 4 extends RE-ESF to
+cope with these problems, and Sect. 5 compares ESF models, including our
+extended RE-ESF, by a Monte Carlo simulation. Finally, Sect. 6 concludes our
+discussion.
+2 Eigenvector spatial ﬁltering: ESF
+2.1 The Moran coefﬁcient: MC
+The Moran coefﬁcient (MC), given by the following equation, is a spatial
+dependence diagnostic statistic:
+MC ¼
+N
+10C1
+z0MCMz
+z0Mz
+;
+ð1Þ
+where ‘‘0’’ represents matrix transpose, 1 is a N 9 1 vector of ones, z is a N 9 1
+vector of variable values, C is a N 9 N symmetric connectivity matrix whose
+diagonal elements are zero, and M is a N 9 N projection matrix. Two types of
+projection matrix M, I–110/N and I–X(X0 X)-1X0, have been applied, where I is an
+N 9 N identity matrix, and X is a N 9 K matrix of K explanatory variables (e.g.,
+Anselin and Rey 1991). Matrix I–110/N is used if z is adjusted for a constant mean,
+whereas I–X(X0 X)-1X0 is used if z is a residual vector of a linear regression model
+(e.g., adjusted for a variable mean). MC, which evaluates spatial dependence by
+measuring covariation among sample values, is positive if sample values in z dis-
+play positive spatial dependence and negative if the sample values display negative
+spatial dependence.1
+1 The expectation of MC, E[MC], equals 
+1
+N1 when M = I–110/N, whereas it equals 
+N
+10C1
+tr½ðX0XÞ1X0CX
+NK1
+when M = I–X(X0X)-1X0. E[MC] \ MC, MC \ E[MC], and MC = E[MC] imply positive, negative,
+and no spatial dependence, respectively.
+Random effects speciﬁcations in eigenvector spatial…
+123
+2.2 Standard ESF
+ESF models spatial dependence using the eigenvectors of MCM in Eq. (1). The
+eigenvector corresponding to the ﬁrst eigenvalue, e1, is the set of real values that has
+the largest positive MC (depicting the maximum positive spatial dependence)
+achievable by any set of real numbers for the spatial arrangement deﬁned by C. The
+second eigenvector, e2, is the set of real values that has the largest positive MC that
+is uncorrelated with and orthogonal to e1, and eN is the set of numerical values that
+has the largest negative MC (depicting the maximum negative spatial dependence)
+achievable that is uncorrelated with and orthogonal to e1, …, eN-1 (Grifﬁth 2003).
+The set of eigenvectors of MCM, Efull = {e1, …, eN}, furnishes all possible distinct
+map pattern descriptions of latent spatial dependence, with each level being indexed
+by an MC that is proportional to its corresponding eigenvalue.
+The basic linear model of ESF is
+y ¼ Xb þ Ec þ e;
+e Nð0; r2IÞ;
+ð2Þ
+where y is a N 9 1 vector of response variable values; E is a N 9 L matrix com-
+posed of a subset of L eigenvectors (L \ N) from Efull; e is a N 9 1 vector of
+disturbances; b and c = [c1, …, cl, …, cL]0 are parameter vectors whose sizes are
+K 9 1 and L 9 1, respectively; r2 is a variance parameter; and 0 is a N 9 1 vector
+of zeros. Equation (2) is a semiparametric model. For M = I–110/N, Eq. (2) is an
+approximation of a standard spatial econometric model called the spatial lag model,
+whereas, when M = I–X(X0X)-1X0, Eq. (2) is an approximation of the spatial error
+model, another spatial econometric model (Tiefelsdorf and Grifﬁth 2007). When
+M = I–X(X0 X)-1X0, the eigenvectors are mutually uncorrelated as well as un-
+correlated with X.
+The L eigenvectors in E are selected as follows: (1) Eigenvectors representing
+inconsequential levels of spatial dependence are removed, and (2) signiﬁcant
+eigenvectors are chosen using a stepwise selection method. Generally, step (1) is
+conducted by removing eigenvectors whose eigenvalues are small or of the wrong
+nature, whereas step (2) is done by maximizing model accuracy or minimizing
+residual spatial dependence. The adjusted R-square is a commonly used objective
+function for the former, and residual MC is the objective function for the latter.
+Because Eq. (2) is identical to the standard linear regression model, step (2) can be
+conducted by using ordinary least squares (OLS) estimation-based stepwise
+methods. OLS estimators of b and c are given as
+^b
+^c
+
+
+¼
+X0X
+X0E
+E0X
+I
+
+1 X0y
+E0y
+
+
+:
+ð3Þ
+Such stepwise techniques also are available for generalized linear models.
+2.3 RE-ESF
+The linear model of RE-ESF (Hughes and Haran 2013), which is based on a model
+with an intrinsic conditional autoregressive prior, is formulated as follows:
+D. Murakami, D. A. Grifﬁth
+123
+y ¼ Xb þ Ec þ e;
+c Nð0; r2
+cKÞ;
+e Nð0; r2IÞ
+ð4Þ
+where rc
+2 is a variance parameter, and K is a L 9 L diagonal matrix whose elements
+are the ﬁrst L-eigenvalues of MCM, k1, …, kL, corresponding to the L eigenvectors
+in E. Equation (4) is identical to the standard linear mixed model (LMM). Hughes
+and Haran (2013) introduce eigenvectors into E whose eigenvalues are greater than
+zero. They estimate parameters with Markov Chain Monte Carlo (MCMC)
+techniques.
+The best linear unbiased estimators (BLUEs) of b and c are obtained as (see
+Henderson 1975)2
+^b
+^c
+
+
+¼
+X0X
+X0E
+E0X
+I þ r2
+r2
+c
+K1
+2
+4
+3
+5
+1
+X0y
+E0y
+
+
+;
+ð5Þ
+where K-1 is a L 9 L diagonal matrix whose elements are 1/k1, …, 1/kL. BLUEs of
+the standard ESF, Eq. (3), converge to Eq. (5) as rc
+2 goes to ??. In other words, the
+conventional ESF is a limiting case of RE-ESF. In Eq. (5), the l-th diagonal (l = 1,
+…, L) of (r2/rc
+2)K-1, which is given by (r2/rc
+2) kl
+-1, shrinks cl toward zero. The
+shrinkage is signiﬁcant for eigenvectors corresponding to smaller eigenvalues, kl.
+Such shrinkage, which is useful for model estimation while holding constant the
+degrees of freedom (Hodges 2013), allows estimation of the RE-ESF model without
+applying a stepwise eigenvector selection.
+Variances of the estimated b and c are given as follows
+Var ^b
+^c
+
+
+¼ r2
+X0X
+X0E
+E0X
+I þ r2
+r2
+c
+K1
+2
+4
+3
+5
+1
+:
+ð6Þ
+3 Properties of the standard ESF and RE-ESF
+3.1 Relationship with geostatistical models
+Consider a standard geostatistical model with known mean,3 which is formulated as
+y ¼ XbbOLS þ x;
+x Nð0; r2I þ r2
+cCÞ;
+ð7Þ
+where bbOLS = X(X0 X)-1X0y are the OLS estimates. x in Eq. (7) describes a sta-
+tionary Gaussian process (Cressie 1993). C in this model is a N 9 N covariance
+matrix whose (i, j)th element is given by a function of distance, such as the ex-
+ponential function, exp(–d(si,sj)/h), where d(si, sj) is the Euclidean distance between
+sample sites si and sj, and h is a range parameter. Following ESF, diagonal elements
+2 ^b in Eq. (5) is identical to the generalized least squared estimator (Henderson 1975).
+3 Models with known mean structure are widely applied in geostatistics (e.g., Cressie and Wikle 2011).
+Random effects speciﬁcations in eigenvector spatial…
+123
+of C are assumed to be zero.4 A variant of ESF, which is called Moran’s eigenvector
+maps (MEMs), uses the Euclidean distance-based C to extract spatial eigenvectors.
+MEMs have been applied for ecological data analysis, including spatial pattern
+detection and variation partitioning (e.g., Borcard and Legendre 2002; Peres-Neto
+et al. 2006; Blancheta et al. 2008; Legendre and Legendre 2012). Just like the
+standard ESF, which usually assumes a binary connectivity-based C matrix, MEMs
+assume Ec as a ﬁxed effects term and estimate c via OLS.
+Equation (7) can be expanded using M = I–X(X0X)-1X0 as
+x ¼ My Nð0; r2M þ r2
+cMCMÞ:
+ð8Þ
+Eigenvectors of MCM and r2M ?rc
+2 MCM are identical (Grifﬁth 2003). Fur-
+thermore, eigenvalues of these matrices have the following relationship
+KfullðþÞ ¼ r2E0
+fullMEfull þ r2
+cE0
+fullMCMEfull;
+¼ r2
+E0L
+E0NL
+
+
+M EL
+ENL
+ð
+Þ þ r2
+cKfull;
+¼ r2
+IL
+00
+0
+0NL
+
+
+þ r2
+cKfull;
+ð9Þ
+where Kfull(?) is a diagonal matrix of eigenvalues of r2M ? rc
+2MCM, and Kfull is
+the same matrix of MCM. Efull = [E L*, EN-L*], where EL* is the subset of Efull
+composed of L* eigenvector whose eigenvalues are not zero (L \ L*), EN-L* is the
+subset composed of the other eigenvectors, IL* is an identity matrix, 0 and 0N-L* are
+matrixes of zeros. Equation (8) can be expanded by substituting Eq. (9) as
+x N 0; Efull r2
+IL
+00
+0
+0NL
+
+
+þ r2
+cK
+
+
+E0
+full
+
+
+:
+ð10Þ
+Further, Eq. (10) can be approximated, by dropping N - L non-principal eigen-
+vectors, as
+x Nð0; r2I þ r2
+cEKE0Þ:
+ð11Þ
+Equation (11) may be rewritten as
+x ¼ Ec þ e;
+c Nð0; r2
+cKÞ;
+e Nð0; r2IÞ:
+ð12Þ
+By substituting Eq. (12) into the standard geostatistical model, Eq. (7), the model
+yields the RE-ESF model, Eq. (4). After all, RE-ESF is a low-rank approximation of
+the geostatistical model,5 whereas the standard ESF is the limiting case, where rc
+2
+goes to ?? (see Sect. 2.3).
+4 Although the covariance matrix of x usually is deﬁned by rNS
+2 I ? rc
+2(I ? C), where rNS
+2
+is a variance
+parameter, because it can be expanded as follows: rNS
+2 I ? rc
+2(I ? C) = (rNS
+2
+?r2c)I ? rc
+2C = r2-
+I ? rc
+2C, the assumption of zero diagonal elements is consistent with the usual assumption.
+5 When M = I–110/N, RE-ESF approximates the geostatistical model with known constant mean.
+D. Murakami, D. A. Grifﬁth
+123
+This relationship justiﬁes the use of a distance-based C following geostatistics,
+whereas ESF studies typically apply a binary connectivity-based C. The relationship
+also highlights that ESF models must specify C a priori, whereas geostatistical
+approaches estimate C by parameterizing its elements (e.g., using exp(-d(si,sj)/h)).
+The next subsection discusses this problem from a spatial econometric perspective,
+and Sect. 4 how to cope with this problem.
+3.2 Relationships with spatial econometric models
+Spatial econometrics is another ﬁeld concerned with the parameter estimation
+problem in the presence of spatial dependence. Spatial econometrics typically
+models spatial dependence by multiplying a variable vector z by (I - qW)-1 =
+I ? qW 1 q2W2…,
+which
+is
+a
+matrix
+describing
+spatial
+interactions,
+as
+(I 2 qW)-1z, where q is a spatial autocorrelation parameter, and W (= EWKWEW0)6
+is a row-standardized spatial connectivity matrix. (I - qW)-1z can be expanded to
+EWcW, which is similar to Ec in ESF models, where cW = (I - qKW)-1EW0z is a
+vector of coefﬁcients of eigenvectors. Because cW depends not only on data ﬁtting,
+but also on the eigenvalues of W, the choice of W must have a considerable impact
+on the resulting EWcW. In fact, the sensitivity of spatial econometric models to the
+selection of W has been demonstrated in many studies (e.g., Arbia and Fingleton
+2008; Elhorst 2010). LeSage and Pace (2014), however, illustrate that well-speciﬁed
+spatial econometric models are less sensitive to the selection of W. But they do not
+discuss ESF models. Besides, they do not consider the inﬂuence of the confounding
+factor between explanatory variables and the spatial dependence component (i.e.,
+spatial confounder: see Sect. 1).
+For the ESF approach, it is also important to avoid misspeciﬁcation of
+C. Fortunately, c in the standard ESF speciﬁcation is estimated independent of the
+eigenvalues of MCM, and the resulting Ec is less sensitive to the choice of C. In
+contrast, the estimate of c in RE-ESF depends on the eigenvalues (see Eq. (5));
+hence, the resulting Ec would be more sensitive to the choice of C.
+Speciﬁcation of M is another issue. M = I–X(X0 X)-1X0 speciﬁes Ec to be
+orthogonal and uncorrelated with X, whereas M = I–110/N speciﬁes Ec such that it
+is not necessarily orthogonal and uncorrelated with X. Hughes and Haran (2013)
+interpret the correlation between Ec and X as a spatial confounder that inﬂates the
+uncertainty of the estimate of b and recommend using M = I– X(X0 X)-1X0.
+However, the use of M = I– X(X0 X)-1X0 can artiﬁcially increase the
+signiﬁcance of ^b. To see this, consider the variance of [^b,^c]0, which is formulated
+by Eq. (6). When M = I– X(X0 X)-1X0, Eq. (6) is expanded using X0 E = 0, which
+M = I– X(X0 X)-1X0 assumes, as follows:
+Var ^b
+^c
+
+
+¼ r2
+X0X
+0
+00
+I þ r2
+r2
+c
+K1
+2
+4
+3
+5
+1
+:
+ð13Þ
+6 The asymmetric matrix W has real eigenvalues and eigenvectors (see Grifﬁth 2000).
+Random effects speciﬁcations in eigenvector spatial…
+123
+Equation (13) implies Var[^b] = r2(X0 X)-1. The spatial effects term, Ec,
+decreases the residual variance, r2, and Var[^b] = r2(X0 X)-1 as well. As a result,
+Ec inﬂates the signiﬁcance of ^b. However, the inﬂation is due to the assumption of
+X0 E = 0 that is unrealistic in most real-world cases, in which the spatial
+dependence component can correlate with explanatory variables. In other words, the
+inﬂation might be an artifact introduced by the unrealistic assumption X0 E = 0.
+Spatial econometric studies (e.g., Pace and LeSage 2010) demonstrate the
+importance of considering spatial components correlated with X; the consideration
+helps reducing omitted variables bias, which arises when some variables omitted
+from a model speciﬁcation are correlated with X. From a spatial econometric
+perspective, use of M = I–110/N, which does not eliminate spatial confounding,
+might be preferable. When M = I–110/N, Ec results in a ﬁxed or random intercept
+term capturing spatial heterogeneity.
+In summary, while RE-ESF is theoretically consistent with geostatistics, some
+additional discussions of how to specify C and M are required.
+4 An extension of RE-ESF
+4.1 Model
+This section discusses how to specify a spatial connectivity structure within a RE-
+ESF framework. In the spatial econometric literature, multiple spatial weight
+matrices often have been considered to specify W ﬂexibly (e.g., LeSage and Parent
+2007; Seya et al. 2014a). However, in an ESF framework, consideration of multiple
+C matrices requires multiple eigendecompositions, which increases its computa-
+tional cost. Besides, use of eigenvectors of multiple C matrices decreases the
+degrees of freedom. Thus, we do not consider using multiple C.
+Instead, following some geostatistical studies (e.g., Pintore and Holmes 2004;
+Haskard and Lark 2009), we replace eigenvalues, kl, with klðaÞ ¼
+P
+l kl
+P
+l ka
+l ka
+l , where a
+is an unknown parameter. a determines the spatial scale of spatial dependence; a
+large a describes global-scale spatial variations by assigning dominant powers for
+principal eigenvectors, whereas a small a describes local-scale spatial variations by
+assigning more powers for non-principal eigenvectors (see Fig. 1). The scaling
+term, Rlkl/Rlkl
+a, is introduced to increase the identiﬁability of a and rc
+2; it makes the
+total variation explained by kl(a), c0 Nð0; KÞ, constant regardless of a. As a
+result, the total variance of c = rcc0 * N(0, rc
+2 K) depends solely on rc
+2, whereas
+the scale of spatial dependence depends only on a. As mentioned in Haskard and
+Lark (2009), the estimation of a is identical to the estimation of the range parameter
+in geostatistical models. Introduction of a would be useful to mitigate the sensitivity
+of RE-ESF to a chosen C.
+We propose an extended RE-ESF, which is deﬁned as
+y ¼ Xb þ Ec þ e;
+c Nð0; r2
+cKðaÞÞ;
+e Nð0; r2IÞ;
+ð14Þ
+D. Murakami, D. A. Grifﬁth
+123
+where KðaÞ is a L 9 L diagonal matrix whose l-th element is kl(a). Considering the
+consistency with geostatistics discussed in §3.1, elements in C are given by an
+exponential function, exp(–d(si,sj)/h), and following some studies of distance-based
+spatial ﬁltering (e.g., Grifﬁth and Peres-Neto 2006; Dray et al. 2006; Grifﬁth 2010),
+h in the function is the longest distance in the minimum spanning tree covering the
+N observation sites. Equation (14) approximates the standard geostatistical model
+with the exponential function that is well approximated by the conditional autore-
+gressive model with a binary connectivity matrix (Grifﬁth and Csillag 1993; Grifﬁth
+and Layne 1997). Hence, behavior of Eq. (14) would be similar even if the distance-
+based C is replaced with a binary connectivity-based one.
+4.2 Estimation
+Equation (14) may be rewritten as
+y ¼ Xb þ EVðhÞu þ e;
+u Nð0; r2IÞ;
+e Nð0; r2IÞ;
+ð15Þ
+V(h)u = c, where h = {rc
+2/r2, a}, and V(h) is a L 9 L diagonal matrix whose (l, l)-
+th element is (rc/r)kl(a)1/2. Equation (15) is identical to the LMM, whose efﬁcient
+ML and residual ML (REML) estimations are discussed by Bates (2010) and im-
+plemented in ‘‘lme4,’’ which is one of the standard packages for mixed effects
+model estimation in R (http://www.r-project.org/). Bates shows that the log-likeli-
+hood of Eq. (15) can be expressed as
+loglikðb; h; r2Þ ¼ N
+2 logð2pr2Þ logðjVðhÞj2Þ dðhÞ
+r2
+ð16Þ
+dðhÞ ¼ jjy Xb EVðhÞujj2 þ jjujj2
+Note that ||u||2 in d(h) acts as a regularization term that stabilizes the parameter
+estimation.
+BLUEs of b and u are given by maximizing Eq. (16) as
+Y-coordinate
+ = 1                          
+ = 3                            = 5 
+20 
+Y-coordinate 
+Y-coordinate 
+0                       20 
+0                       20
+0                       20
+20
+20
+X-coordinate
+X-coordinate
+X-coordinate
+Fig. 1 Examples of Ec generated in 20-by-20 grids: Ec in the left (a = 1), the middle (a = 3), and the
+right (a = 5) part of the ﬁgure describes local-, medium-, and global-scale spatial-dependent variations,
+respectively
+Random effects speciﬁcations in eigenvector spatial…
+123
+^b
+^u
+
+
+¼
+X0X
+X0EVðhÞ
+VðhÞE0X
+VðhÞ2 þ I
+
+1
+X0y
+VðhÞE0y
+
+
+;
+ð17Þ
+where V(h)2 is a L 9 L diagonal matrix whose (l, l)-th element is (rc
+2/r2)kl(a).
+Equation (17) is identical to Eq. (5) with a added. h may be estimated by
+maximizing Eq. (16). However, ML estimates of variance parameters (h and r2) are
+known to be biased (Bates 2010). Hence, we apply the REML estimation, which
+furnishes unbiased variance parameter estimates. The residual log-likelihood for the
+variance parameters is formulated as
+loglikRðh; r2Þ ¼
+Z
+loglikðb; h; r2Þdb:
+ð18Þ
+By maximizing Eq. (18) with respect to r2, the well-known unbiased estimator is
+obtained as
+r2 ¼ jjy Xb EVðhÞujj2
+N K
+:
+ð19Þ
+h is estimated by maximizing its proﬁle residual log-likelihood, loglikR(h), which
+is derived by the following steps: (a) substitute Eq. (16) into Eq. (18) and derive the
+function loglikR(h, r2), and (b) substitute Eq. (19) into loglikR(h, r2) and derive the
+function loglikR(h) (see, Bates 2010, for more detail). The resulting proﬁle residual
+log-likelihood function is given by
+log likRðhÞ ¼ 1
+2 log
+X0X
+X0EVðhÞ
+VðhÞE0X
+VðhÞ2 þ I
+
+
+
+N K
+2
+1 þ log 2pdðhÞ
+N K
+
+
+
+
+:
+ð20Þ
+Maximization of Eq. (20) requires calculating the determinant in the ﬁrst term.
+However, the computational complexity, O((K ? L)3), is usually smaller than
+O(N3), which is required for ML or REML estimation of the standard geostatistical
+model (see, Cressie and Wikle 2011). Besides, the computational burden can be
+lightened by reducing the number of eigenvectors in E. Fortunately, Hughes and
+Haran (2013) demonstrate, based on their simulation results, that 50–100 eigen-
+vectors may sufﬁce for inferences for b in most analysis with RE-ESF (without a).
+The parameter estimation procedure of our extended RE-ESF, Eq. (14), may be
+summarized as follows: (1) estimate h by maximizing Eq. (20), where b and u in
+d(h) are given by Eq. (17); (2) estimate b and c = V(h)u by substituting ^h into
+Eq. (17); and (3) estimate r2 by substituting the estimated parameters into Eq. (19).
+Variances of the estimated b and c are given as follows
+Var ^b
+^c
+
+
+¼ Var
+^b
+VðhÞ^u
+
+
+¼ r2 X0X
+X0E
+E0X
+I þ VðhÞ2
+
+1
+;
+ð21Þ
+where V(h)-2 is a L 9 L diagonal matrix whose l-th element is (r2/rc
+2)kl(a)-1.
+D. Murakami, D. A. Grifﬁth
+123
+5 A simulation study
+5.1 Assumption
+This section compares the standard liner model (LM) and a suite of ESF models
+with a simulation study. Table 1 summarizes the ESF models compared. Standard
+ESF models compared include E(1) and E(X), which perform the adjusted-R2
+maximization-based stepwise eigenvector selection, and EMC(1) and EMC(X), which
+iterate the stepwise eigenvector selection until residual MC becomes less than 0.01
+(see, Tiefelsdorf and Grifﬁth 2007). RE-ESF models compared include RE(1) and
+RE(X), which do not include a, and REa(1) and REa(X), which include a. These
+models are estimated by REML. E(1), E(X), EMC(1), and EMC(X) are discussed by
+Grifﬁth (2003), and RE(X) is discussed by Hughes and Haran (2013). However,
+based on our discussion, REa(1), which we developed in Sects. 3 and 4, might be
+preferable.
+The simulation compares the effectiveness of these ESF models and LM in terms
+of parameter estimation and inference. Simulation data are generated by Eq. (22),
+which describes a Gaussian process (see Sect. 3.1):
+y ¼ b01 þ x1b1 þ x2b2 þ Ec þ e;
+c Nð0; r2
+ckKðaÞÞ;
+e Nð0; r2IÞ:
+ð22Þ
+where b0 is the intercept, x1 and x2 are vectors of explanatory variables, and b1 and
+b2 are their coefﬁcients. k ¼ N
+P
+l ka
+l
+is a scaling parameter7 that forces
+Var[Ec] = rc
+2. Introduction of k allows a comparison between the variances
+Var[Ec] and Var[e] using rc
+2 and r2, respectively. We assume a moderate sample
+size of 400. Following Seya et al. (2014a), spatial coordinates (x, y) of the
+simulation data are generated from a standard normal distribution.
+Unlike Hughes and Haran (2013), we assume M = I–110/N, because the
+correlation between explanatory variables and Ec, which is eliminated when
+Table 1 Comparison of ESF models
+Objective function
+a
+M = I–110/N
+M = I–X(X0 X)-1X0
+ESF
+Adj.R2
+NA
+E(1)
+E(X)
+Residual MC
+EMC(1)
+EMC(X)
+RE-ESF
+Residual log-likelihood
+Implicitly ﬁxed by one
+RE(1)
+RE(X)
+Estimated
+REa(1)
+REa(X)
+E(1) and E(X) are adjusted-R2 maximization-based standard ESF models, EMC(1) and EMC(X) are
+residual MC minimization-based standard ESF models, RE(1) and RE(X) are RE-ESF models without
+estimation of a, and REa(1) and REa(X) are RE-ESF models with estimation of a. E(1), EMC(1), RE(1),
+and REa(1) assume M = I–110/N, and E(X), EMC(X), RE(X), and REa(X) assume M = I–X(X0 X)-1X0
+7 Expanding the variance of Ec in Eq. (22) as Var½Ec¼ c0E0Ec
+N
+¼ c0c
+N ¼ 1
+N
+P
+l diag½r2
+ckKðaÞl ¼ k
+r2
+c
+N
+P
+l ka
+l ,
+where diag½l returns the lth diagonal of the matrix . This equation shows that Var[Ec] equals rc
+2 when
+k ¼
+N
+P
+l ka
+l .
+Random effects speciﬁcations in eigenvector spatial…
+123
+M = I–X(X0 X)-1X0 is used, is possible in most real-world cases. Following
+Hughes and Haran (2013), eigenvectors corresponding to positive eigenvalues are
+introduced into E in RE-ESF models. In standard ESF models, these eigenvectors
+are assumed to be candidates to be entered into E in their stepwise eigenvector
+selection.
+One purpose of this simulation was to assess the impact of a spatial confounder
+on parameter estimates and inferences, i.e., to what extent the correlation between
+explanatory variables and Ec makes parameter estimates unstable. To examine it,
+we generate x1 and x2 using Eq. (23) and Eq. (24), respectively:
+x1 ¼ Ecx1 þ ex1;
+cx1 Nð0; r2
+cðxÞkKðaÞÞ;
+ex1 Nð0; ð1 rcðxÞÞ2IÞ;
+ð23Þ
+x2 ¼ Ecx2 þ ex2;
+cx1 Nð0; r2
+cðxÞkKðaÞÞ;
+ex1 Nð0; ð1 rcðxÞÞ2IÞ:
+ð24Þ
+where rc
+2
+(x) is the rate of spatial-dependent variation accounting for the total var-
+iation in x1 or x2. When rc
+2
+(x) = 0, x1 and x2 do not have any spatial-dependent
+component, and accordingly, the correlation between these explanatory variables
+and Ec is approximately zero (i.e., no spatial confounding). In contrast, when
+rc
+2
+(x) = 0, x1 and x2 have a spatial dependence component, and they are correlated
+with Ec.
+True parameter values are set as follows: a = 4.0, b1 = 1.0, and b2 = –0.4.
+Their estimates and standard errors are evaluated by varying variance parameter
+values: r2 = 1.0, rc
+2 2 {0.0, 1.0, 2.02}, a 2 {1, 3, 5}, and rc
+2
+(x) 2 {0, 0.42, 0.82}.
+Each case has 2000 replications. RE(1) and RE(X) implicitly assume a = 1.
+All our calculations are implemented on a Windows 7 64-bit system with a
+48 GB memory, and coded using R (version 3.1.1).
+6 Results
+The accuracy of estimated trend parameters, b1 and b2, is evaluated by the root
+mean squared error (RMSE), which is given by
+RMSEðbpÞ ¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+1
+2000
+X2000
+iter¼1 ðbbðiterÞ
+p
+bpÞ2
+r
+;
+ð25Þ
+where iter denotes iteration number, ^bðiterÞ
+p
+is bp estimated in the iter-th iteration, and
+p 2 f1; 2g. Figure 2 summarizes the RMSEs of b1 and b2 estimated by LM, E(1),
+EMC(1), RE(1), and REa(1). Note that estimates of E(X), EMC(X), RE(X), and
+REa(X) are always equal to those of LM.8
+8 Equation (5)
+is
+expanded
+using
+X0
+E = 0,
+which
+M = I–X(X0X)-1X0
+implies,
+as
+^b
+^c
+
+
+¼
+X0X
+0
+0
+I þ r2
+r2
+c
+K1
+2
+4
+3
+5
+1
+X0y
+E0y
+
+
+¼
+ðX0XÞ1X0y
+I þ r2
+r2
+c
+K1
+ 
+!1
+E0y
+2
+64
+3
+75. Thus, ^b equals the estimate of the
+OLS estimate.
+D. Murakami, D. A. Grifﬁth
+123
+E(1) indicates larger RMSEs when residuals have no spatial dependence
+(rc
+2 = 0). To examine the reason, average numbers of selected eigenvectors are
+summarized in Fig. 3. This ﬁgure suggests that E(1) selects around 12 eigenvectors
+even in cases with an absence of spatial dependence. The excessively selected
+eigenvectors would be the source of large RMSEs. In contrast, EMC(1) selects less
+than one eigenvector on average and indicates smaller RMSEs. RE(1) and REa(1)
+also indicate small RMSEs. Thus, in the absence of residual spatial dependence,
+EMC(1), RE(1), and REa(1) provide accurate parameter estimates.
+However, the RMSEs of EMC(1) inﬂate when both residuals and explanatory
+variables are spatially dependent (rc
+2 = 0 and rc(x)
+2
+= 0), while RE(1) and REa(1)
+show a relatively smaller inﬂation of RMSEs even in this case. Besides, REa(1)
+displays smaller RMSEs than RE(1) in many cases. In particular, the gap between
+REa(1) and RE(1) is signiﬁcant when residuals and explanatory variables have
+strong spatial dependence, and a is far from one, which RE(1) implicitly assumes.
+RMSEs of our proposed REa(1) are fairly small across cases.
+1 (
+2 = 0: No residual spatial dependence)
+2 (
+2 = 0: No residual spatial dependence)
+1   3   5    1   3   5    1   3   5      
+1   3   5     1   3   5    1   3   5 
+2
+(x)    0.0          0.42          0.82
+2
+(x)    0.0           0.42          0.82
+1   3   5    1   3   5    1   3   5      
+1   3   5     1   3   5    1   3   5 
+2
+(x)    0.0          0.42          0.82
+2
+(x)    0.0           0.42          0.82
+1 (
+2 = 1: Moderate residual spatial dependence)
+2 (
+2 = 1: Moderate residual spatial dependence)
+1   3   5    1   3   5    1   3   5      
+1   3   5     1   3   5    1   3   5 
+2
+(x)    0.0          0.42          0.82
+2
+(x)    0.0           0.42          0.82
+1 (
+2 = 22: Strong residual spatial dependence)  
+2 (
+2 = 22: Strong residual spatial dependence)
+LM   E(1)  EMC(1)  RE(1)  RE (1) 
+RMSE                                            RMSE
+RMSE                                            RMSE
+RMSE                                            RMSE
+Fig. 2 RMSEs of estimated b1 (left) and b2 (right): The top (rc
+2 = 0), the middle (rc
+2 = 1), and the
+bottom (rc
+2 = 2) part of the ﬁgure corresponds to cases with no, moderate, and strong residual spatial
+dependences, respectively. In each case, RMSEs are evaluated by varying rc
+2
+(x), which describes the rate
+of spatial-dependent variation in explanatory variables, and a, which describes the spatial scale of the
+spatial-dependent variations
+Random effects speciﬁcations in eigenvector spatial…
+123
+Another interesting result is that, when residuals are spatially dependent, RMSEs
+of E(1) are comparable with RE(1) and REa(1). This result demonstrates that the
+standard ESF provides accurate parameter estimates. In contrast, large RMSEs of
+LM suggest inefﬁciency of models with M = I–X(X0 X)-1X0, whose estimates are
+identical to those for LM. This inefﬁciency would be due to their strong assumption
+that the spatial dependence component in residuals is uncorrelated with X (Hodges
+and Reich 2010).Next, biases of estimated parameters are evaluated using Eq. (26):
+BiasðbpÞ ¼
+1
+2000
+X2000
+iter¼1 ð^bðiterÞ
+p
+bpÞ:
+ð26Þ
+In each model, biases are at most ± 0.01, which is sufﬁciently small relative to their
+true values. For reference, biases when rc
+2 = 22, in which biases are largest, are
+shown in Fig. 4.
+     1             3             5                 1             3             5 
+2 = 0: No residual spatial dependence
+2 = 1: Moderate residual spatial dependence
+     1             3             5     
+2 = 2: Strong residual spatial dependence
+E(1)  EMC(1)   E(X)  EMC(X)
+Number of eigenvectors                              Number of eigenvectors
+Number of eigenvectors
+Fig. 3 Number of selected eigenvectors (E(1), EMC(1), E(X), EMC(X)): top left (no spatial dependence:
+rc
+2 = 0); top right (moderate spatial dependence: rc
+2 = 1); bottom left (strong spatial dependence:
+rc
+2 = 2)
+1
+2
+1   3   5    1  3   5    1   3   5      
+1   3   5     1   3  5    1   3   5 
+2
+(x)    0.0          0.42          0.82
+2
+(x)    0.0           0.42          0.82
+LM   E(1)  EMC(1)  RE(1)  RE (1) 
+Bias
+Bias
+Fig. 4 Biases of estimated b1 (left) and b2 (right): here, biases in strong residual spatial dependence (i.e.,
+rc
+2 = 22) cases are displayed
+D. Murakami, D. A. Grifﬁth
+123
+To compare the effectiveness of the models for statistical inferences, t-values of
+^bp are compared to their true values. The estimated t-value in the iter-th iteration is
+calculated by ^tðiterÞ
+p
+¼ ^bp=
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+Varð^bpÞðiterÞ
+q
+, where Varð^bpÞðiterÞ is the variance of ^bp,
+which is calculated by substituting estimated parameters into Eq. (21), and the true
+t-value, tðiterÞ
+p
+¼ bp=
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+VarðbpÞðiterÞ
+q
+, is evaluated by substituting true parameter
+values into Eq. (21). Note that, as a result of changing x1 and x2 across iterations,
+true t-values in each iteration are not constant. To compare the accuracy of t-value
+estimates across cases whose true values differ from each other, the root mean
+squared percentage error (RMSPE), which is deﬁned as follows, is applied:
+RMSPEðtpÞ ¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+1
+2; 000
+X2;000
+iter¼1
+^tðiterÞ
+p
+tðiterÞ
+p
+tðiterÞ
+p
+ 
+!2
+v
+u
+u
+t
+:
+ð27Þ
+Figures 5 and 6 summarize RMSPEs of t1 and t2, respectively. As a whole,
+RMSPEs are large when explanatory variables have spatial dependence (rc(x)
+2
+= 0).
+2 = 0: No residual spatial dependence
+1   3   5     1   3   5      1   3   5       
+1   3   5   1   3   5   1   3   5 
+2
+(x)    0.0           0.42            0.82
+2
+(x)    0.0         0.42          0.82
+1   3   5     1   3   5      1   3   5       
+1   3   5   1   3   5   1   3   5 
+2
+(x)    0.0           0.42            0.82
+2
+(x)    0.0         0.42          0.82
+2 = 1: Moderate residual spatial dependence
+1   3   5     1   3   5      1   3   5       
+1   3   5   1   3   5   1   3   5 
+2
+(x)    0.0           0.42            0.82
+2
+(x)    0.0         0.42          0.82
+2 = 22: Strong residual spatial dependence
+LM    E(1)   EMC(1)  RE(1)  RE (1)
+E(X)  EMC(X) RE(X)  RE (X) 
+RMSPE                                                         RMSPE 
+RMSPE                                                          RMSPE
+RMSPE                                                          RMSPE
+Fig. 5 RMSPEs of t-values (b1): The left ﬁgures summarize RMSPEs of LM and ESF models with
+M = I–110/N, and the right ﬁgures summarize RMSPE values of ESF models with M = I–X(X0 X)-1X0.
+The top (rc
+2 = 0), the middle (rc
+2 = 1), and the bottom (rc
+2 = 2) part of the ﬁgure corresponds to cases
+with no, moderate, and strong residual spatial dependences, respectively. Dash lines are introduced to
+compare left and right ﬁgures, whose scales are different
+Random effects speciﬁcations in eigenvector spatial…
+123
+The tendency is remarkable when M = I–X(X0 X)-1X0 is used. Thus, inefﬁciency
+of M = I–X(X0 X)-1X0 is again conﬁrmed. Among models with M = I–110/N, as
+holds for the RMSEs of b1 and b2, E(1) outperforms EMC(1) when residuals are
+spatially dependent, and otherwise, the reverse is true. RMSPEs of RE(1) and
+REa(1) are smaller than E(1) and EMC(1) when explanatory variables are spatially
+dependent (rc(x)
+2
+= 0). Furthermore, RMSPEs of REa(1) are smaller than those for
+RE(1) in many cases, in particular, when residual and explanatory variables have
+strong spatial dependence, and a is far from one, which RE(1) assumes. The
+difference between RE(1) and REa(1) is especially large in t2, whose true coefﬁcient
+b2 is small. Thus, the effectiveness of REa(1) again is veriﬁed in terms of accuracy
+of the t-value estimates. Although the RMSEs of E(1) are larger than those for the
+RE-ESF models, these values are comparable as long as spatial dependence in X is
+not signiﬁcant (rc(x)
+2
+= 0.8). Considering the simplicity of E(1), it would still be an
+effective alternative.
+Figure 7 portrays biases of t-values. This ﬁgure shows that t-values are seriously
+overestimated when M = I–X(X0 X)-1X0 is assumed. Among the other models, t-
+2 = 0: No residual spatial dependence
+1   3   5     1   3   5      1   3   5       
+1   3   5   1   3   5  1   3   5 
+2
+(x)    0.0           0.42            0.82
+2
+(x)    0.0         0.42          0.82
+1   3   5     1   3   5      1   3   5       
+1   3   5   1   3   5  1   3   5 
+2
+(x)    0.0           0.42            0.82
+2
+(x)    0.0         0.42          0.82
+2 = 1: Moderate residual spatial dependence
+1   3   5     1   3   5      1   3   5       
+1   3   5   1   3   5   1   3   5 
+2
+(x)    0.0           0.42            0.82
+2
+(x)    0.0         0.42          0.82
+2 = 22: Strong residual spatial dependence
+LM    E(1)   EMC(1)  RE(1)  RE (1)               E(X)  EMC(X) RE(X)  RE (X) 
+RMSPE                                                           RMSPE 
+RMSPE                                                           RMSPE
+RMSPE
+RMSPE
+Fig. 6 RMSPEs of t-values (b2): The left ﬁgures summarize RMSPEs of LM and ESF models with
+M = I–110/N, and the right ﬁgures summarize RMSPE values of ESF models with M = I–X(X0 X)-1X0.
+The top (rc
+2 = 0), the middle (rc
+2 = 1), and the bottom (rc
+2 = 2) part of the ﬁgure corresponds to cases
+with no, moderate, and strong residual spatial dependences, respectively. Dash lines are introduced to
+compare left and right ﬁgures, whose scales are different
+D. Murakami, D. A. Grifﬁth
+123
+values of E(1) tend to be underestimated when residual spatial dependence is absent,
+while t-values of LM and EMC(1) tend to be upwardly biased in cases with a
+presence of residual spatial dependence. Although biases in RE(1) and REa(1) are
+relatively small, the latter tends to have greater bias than the former. This might be
+due to the overestimation of a, which we subsequently discuss.
+Figure 8 describes the RMSEs and biases of a in REa(1). These RMSEs and
+biases are sufﬁciently small compared to the true value of a. They demonstrate that
+our REML provides fairly accurate estimates of a. Still, RMSEs increase when the
+true value of a is large and residual spatial dependence variation is small (rc
+2 = 1).
+Besides, a tends to be overestimated in these cases. Reducing RMSEs and biases
+would be important to enhance the efﬁciency of REa(1) for trend parameter
+estimation inferences.
+Finally, Fig. 9 summarizes average computational times. Except for LM, RE(1)
+is the fastest (average: 0.65 s.), and our proposed Ea(1) is also fast (average: 1.02 s.)
+compared to the standard ESF-type models, which must perform a stepwise
+eigenvector selection. This result would be useful to extend RE-ESF models to large
+2 = 0: No residual spatial dependence
+1   3   5     1   3   5     1   3   5       
+1   3   5   1   3   5   1   3   5 
+2
+(x)    0.0           0.42            0.82
+2
+(x)    0.0         0.42          0.82
+1   3   5     1   3   5      1   3   5       
+1   3   5   1   3   5   1   3   5 
+2
+(x)    0.0           0.42            0.82
+2
+(x)    0.0         0.42          0.82
+2 = 1: Moderate residual spatial dependence
+1   3   5     1   3   5      1   3   5       
+1   3   5   1   3   5   1   3   5 
+2
+(x)    0.0           0.42            0.82
+2
+(x)    0.0         0.42          0.82
+2 = 22: Strong residual spatial dependence
+LM    E(1)   EMC(1)  RE(1)  RE (1)               E(X)  EMC(X) RE(X)  RE (X) 
+Bias                                                              Bias 
+Bias                                                              Bias
+Bias  
+Bias  
+Fig. 7 Biases of t-values (b2). The left ﬁgures summarize biases of LM and ESF models with M = I–
+110/N, and the right ﬁgures summarize biases of ESF models with M = I–X(X0 X)-1X0. The top
+(rc
+2 = 0), the middle (rc
+2 = 1), and the bottom (rc
+2 = 2) part of the ﬁgure corresponds to cases with no,
+moderate, and strong residual spatial dependences, respectively. Dash lines are introduced to compare left
+and right ﬁgures, whose scales are different
+Random effects speciﬁcations in eigenvector spatial…
+123
+datasets. Actually, the residual log-likelihood of our model can be maximized
+efﬁciently even for large data, provided that less than 100 eigenvectors are
+considered, as suggested by Hughes and Haran (2013) (i.e., 50 to 100 eigenvectors
+may sufﬁce for RE-ESF-based statistical inferences). Although eigendecomposition
+is computationally intensive, it can be approximated efﬁciently, e.g., by applying
+the ARPACK procedure, which is applied for ESF by Seya et al. (2014b), the
+Nystro¨m extension (Drineas and Mahoney 2005), and an analytic approximation for
+regular square tessellations, which is proposed by Grifﬁth (2000).
+In summary, our developed REa(1) provides accurate parameter estimates and t-
+values. These accuracies are stable across cases compared to the other models. We
+demonstrate the computational efﬁciency of REa(1) and also suggest that the use of
+M = I–X(X0 X)-1X0 can lead to misleading results, and that the effectiveness of
+E(1) is comparable in many cases.
+7 Concluding remarks
+This study ﬁrst discusses the theoretical properties of conventional ESF models and
+a RE-ESF version by Hughes and Haran (2013). There, we show that, although the
+RE-ESF model is theoretically consistent with the standard geostatistical model, it
+can be sensitive to the chosen spatial connectivity matrix, C. To mitigate the
+dependency on C, we extend the RE-ESF to estimate the scale of a spatial
+dependency structure endogenously (see Fig. 1) and introduce a computationally
+efﬁcient REML estimation for the model.
+  RMSE                                       Bias 
+2     1     2       1    2       1   2         
+2     1     2      1    2       1   2 
+        1             3            5           
+        1            3            5
+2
+(x) = 0, 0.42, 0.82
+2
+(x) = 0, 0.42, 0.82
+RMSE                                              Bias
+Fig. 8 RMSEs (left) and biases (right) of a (REa(1))
+LM   E(1)   EMC(1) RE(1)  RE (1)  E(X)  EMC(X) RE(X) RE (X)
+Seconds 
+Fig. 9 Average computation time: LM is the standard linear regression model. E(1) and E(X) are
+adjusted-R2 maximization-based standard ESF models, EMC(1) and EMC(X) are the residual MC
+minimization-based ESF models, RE(1) and RE(X) are RE-ESF models without estimation of a, and
+REa(1) and REa(X) are RE-ESF models with estimation of a. E(1), EMC(1), RE(1), and REa(1) assume
+M = I–110/N, and E(X), EMC(X), RE(X), and REa(X) assume M = I–X(X0 X)-1X0
+D. Murakami, D. A. Grifﬁth
+123
+A Monte Carlo simulation shows the effectiveness of our RE-ESF, REa(1); it
+provides accurate parameter estimates across cases, whereas the other models
+provide less accurate estimates in some cases; especially, models with M = I–X(X0
+X)-1X0 indicate erroneous results in many cases. This is due to the strong
+assumption that residual spatial components are uncorrelated with explanatory
+variables (Hodges and Reich 2010). Development of another type of M that can
+cope with the spatial confounding bias (just like M = I–X(X0 X)-1X0), while
+considering the spatial component correlated with X (just like M = I–110/N), would
+be an important future research endeavor.
+The stability of REa(1) would be a good reason to extend it, e.g., non-Gaussian
+models and spatially varying coefﬁcient models (see, Grifﬁth 2008). The stability
+might hold even if data have some missing values (see, Grifﬁth 2004b). Further,
+REa(1), which does not require stepwise eigenvector selection, also might be useful
+for large data modeling, provided that eigenvectors of a large spatial weights matrix
+C can be approximated efﬁciently, for example, using the ARPACK procedure, the
+Nystro¨m extension, and an analytic approximation proposed by Grifﬁth (2000).
+These extensions would be interesting topics that advance discussion of ESF
+models.
+R code for the proposed method is available on request (please e-mail
+murakami.daisuke@nies.go.jp or murakami_daisuke_t@yahoo.co.jp).
+Acknowledgments
+We received helpful comments from Professor Arthur Getis at the 59th Annual
+North American Meetings of the Regional Science Association International. Also, we received generous
+support from Professor Morito Tsutsumi, University of Tsukuba, and Professor Yoshiki Yamagata,
+National Institute for Environmental Studies. We would particularly like to thank them. In addition, we
+are grateful to anonymous referees for their many suggestive comments. This work was supported by a
+grant-in-aid from the Japan Society for the Promotion of Science Fellows. In addition, this is an
+achievement of the Global Climate Risk Management Strategies (S10) project.
+References
+Anselin L, Rey S (1991) Properties of tests for spatial dependence in linear regression models. Geogr
+Anal 23(2):112–131
+Arbia G, Fingleton B (2008) New spatial econometric techniques and applications in Regional Science.
+Pap Reg Sci 87(3):311–317
+Bates DM (2010) lme4: Mixed-effects modeling with R. http://lme4.r-forge.r-project.org/book
+Blancheta FG, Legendre P, Borcard D (2008) Modelling directional spatial process in ecological data.
+Ecol Model 215(4):325–336
+Borcard D, Legendre P (2002) All-scale spatial analysis of ecological data by means of principal
+coordinates of neighbor matrices. Ecol Model 153(1–2):51–68
+Chun Y (2008) Modeling network autocorrelation within migration ﬂows by eigenvector spatial ﬁltering.
+J Geogr Syst 10(4):317–344
+Chun Y (2014) Analyzing space–time crime incidents using eigenvector spatial ﬁltering: an application to
+vehicle burglary. Geogr Anal 46(2):165–184
+Chun Y, Grifﬁth DA (2011) Modeling network autocorrelation in space–time migration ﬂow data: an
+eigenvector spatial ﬁltering approach. Ann Assoc Am Geogr 101(3):523–536
+Chun Y, Grifﬁth DA (2013) Spatial statistics and geostatistics: theory and applications for geographic
+information science and technology. SAGE, London
+Chun Y, Grifﬁth DA (2014) A quality assessment of eigenvector spatial ﬁltering based parameter
+estimates for the normal probability model. Spat Stat 10:1–11
+Cressie N (1993) Statistics for spatial data. John Wiley & Sons, New York
+Random effects speciﬁcations in eigenvector spatial…
+123
+Cressie N, Wikle CK (2011) Statistics for spatio-temporal data. Wiley, New York
+Cuaresma CJ, Feldkircher M (2013) Spatial ﬁltering, model uncertainty and the speed of income
+convergence in Europe. J Appl Econom 28(4):720–741
+Dray S, Legendre P, Peres-Neto PR (2006) Spatial modeling: a comprehensive framework for principal
+coordinate analysis of neighbor matrices (PCNM). Ecol Model 196(3–4):483–493
+Drineas P, Mahoney MW (2005) On the Nystro¨m method for approximating a gram matrix for improved
+kernel-based learning. J Mach Learn Res 6:2153–2175
+Elhorst JP (2010) Applied spatial econometrics: raising the bar. Spat Econ Anal 5(1):9–28
+Fischer MM, Grifﬁth DA (2008) Modeling spatial autocorrelation in spatial interaction data: an
+application to patent citation data in European Union. J Reg Sci 48(5):969–989
+Franzese RJ, Hays JC (2014) Testing for spatial-autoregressive lag versus (unobserved) spatially
+correlated error-components. Benjamin F. Shambaugh conference: New frontiers in the study of
+policy diffusion, University of Iowa, Iowa City
+Getis A (1990) Screening for spatial dependence in regression analysis. Paper Reg Sci Assoc 69(1):69–81
+Getis A, Grifﬁth DA (2002) Comparative spatial ﬁltering in regression analysis. Geogr Anal
+34(2):130–140
+Getis A, Ord K (1992) The analysis of spatial association by use of distance statistics. Geogr Anal
+24(3):189–206
+Grifﬁth DA (1996) Spatial autocorrelation and eigenfunctions of the geographic weights matrix
+accompanying georeferenced data. Can Geogr 40(4):351–367
+Grifﬁth DA (2000) Eigenfunction properties and approximations of selected incidence matrices employed
+in spatial analyses. Linear Algebr Appl 321(1–3):95–112
+Grifﬁth DA (2002) A spatial ﬁltering speciﬁcation of the auto-Poisson model. Stat Prob Letters
+58(3):245–251
+Grifﬁth DA (2003) Spatial autocorrelation and spatial ﬁltering: Gaining understanding through theory and
+scientiﬁc visualization. Springer, Berlin
+Grifﬁth DA (2004a) A spatial ﬁltering speciﬁcation for the autologistic model. Environ Plan
+36(10):1791–1811
+Grifﬁth DA (2004b) Distributional properties of georeferenced random variables based on the
+eigenfunction spatial ﬁlter. J Geogr Syst 6(3):263–288
+Grifﬁth DA (2006) Hidden negative spatial autocorrelation. J Geogr Syst 8(4):335–355
+Grifﬁth DA (2008) Spatial-ﬁltering-based contributions to a critique of geographically weighted
+regression (GWR). Environ Plan 40(11):2751–2769
+Grifﬁth DA (2009) Modeling spatial autocorrelation in spatial interaction data: empirical evidence from
+2002 Germany journey-to-work ﬂows. J Geogr Syst 11(2):117–140
+Grifﬁth DA (2010) Spatial ﬁltering. In: Fischer MM, Getis A (eds) Handbook of applied spatial analysis.
+Springer, Berlin, pp 301–318
+Grifﬁth DA (2011) Visualizing analytical spatial autocorrelation components latent in spatial interaction
+data: an eigenvector spatial ﬁlter approach. Comput Environ Urban Syst 35(2):140–149
+Grifﬁth DA, Chun Y (2013) Spatial autocorrelation and spatial ﬁltering. In: Fischer MM, Nijkamp P (eds)
+Handbook of regional science. Springer, Berlin, pp 1477–1507
+Grifﬁth DA, Csillag F (1993) Exploring relationship between semi-variogram and spatial autoregressive
+models. Paper Reg Sci 72(3):283–295
+Grifﬁth DA, Fischer MM (2013) Constrained variants of the gravity model and spatial dependence: model
+speciﬁcation and estimation issues. J Geogr Syst 15(3):291–317
+Grifﬁth DA, Layne L (1997) Uncovering relationships between geo-statistical and spatial autoregressive
+models. In: American Statistical Association (ed) Proceedings of the section on statistics and the
+environment 1997, American Statistical Association, Alexandria, Virginia, pp 91–96
+Grifﬁth DA, Paelinck JHP (2011) Non–standard spatial statistics and spatial econometrics. Springer,
+Berlin
+Grifﬁth DA, Peres-Neto PR (2006) Spatial modeling in ecology: the ﬂexibility of eigenfunction spatial
+analyses in exploiting relative location information. Ecol 87(10):2603–2613
+Grimpe C, Patuelli R (2009) Regional knowledge production in nanomaterials: a spatial ﬁltering
+approach. Ann Reg Sci 46(3):519–541
+Haskard KA, Lark RM (2009) Modelling non-stationary variance of soil properties by tempering an
+empirical spectrum. Geoderma 153(1–2):18–28
+Helbich M, Arsanjani JJ (2014) Spatial eigenvector ﬁltering for spatiotemporal crime mapping and spatial
+crime analysis. Cartogr Geogr Inf Sci 42(2):134–148
+D. Murakami, D. A. Grifﬁth
+123
+Henderson CR (1975) Best linear unbiased estimation and prediction under a selection model. Biometrics
+31(2):423–447
+Hodges JS (2013) Richly parameterized linear models: additive, time series, and spatial models using
+random effects. CRC Press, Boca Raton
+Hodges JS, Reich BJ (2010) Adding spatially-correlated errors can mess up the ﬁxed effect you love. Am
+Stat 64(4):325–334
+Hughes J, Haran M (2013) Dimension reduction and alleviation of confounding for spatial generalized
+linear mixed models. J R Stat Soc B Stat Methodol 75(1):139–159
+Jacob GB, Muturi EJ, Caamano EX, Gunter JT et al (2008) Hydrological modeling of geophysical
+parameters of arboviral and protozoan disease vectors in Internally Displaced People camps in Gulu,
+Uganda. Int J Health Geogr 7:11
+Legendre P, Legendre L (2012) Numerical Ecology, 3rd edn. Elsevier Science BV, Amsterdam
+LeSage JP, Pace RK (2009) Introduction to spatial econometrics. Chapman & Hall/CRC, Boca Raton
+LeSage JP, Pace RK (2014) The biggest myth in spatial econometrics. Econom 2(4):217–249
+LeSage JP, Parent O (2007) Bayesian model averaging for spatial econometric models. Geogr Anal
+39(3):241–267
+Moniruzzaman M, Paez A (2012) A model-based approach to select case sites for walkability audits.
+Health Place 18(6):1323–1334
+Moran PAP (1950) Notes on continuous stochastic phenomena. Biom 37(1/2):17–23
+Pace RK, LeSage JP (2010) Omitted variable biases of OLS and spatial lag models. In: Pa´ez A, Gallo J,
+Buliung RN, Dall’erba S (eds) Progress in spatial analysis. Springer, Berlin, pp 17–28
+Pace RK, LeSage JP, Zhu S (2013) Interpretation and computation of estimates from regression models
+using spatial ﬁltering. Spat Econ Anal 8(3):352–369
+Paciorek CJ (2010) The importance of scale for spatial-confounding bias and precision of spatial
+regression estimators. Stat Sci 25(1):107–125
+Patuelli R, Grifﬁth DA, Tiefelsdorf M, Nijkamp P (2011) Spatial ﬁltering and eigenvector stability:
+space-time models for German unemployment data. Int Reg Sci Rev 34(2):253–280
+Peres-Neto PR, Legendre P, Dray S, Borcard D (2006) Variation partitioning of species data matrices:
+estimation and comparison of fractions. Ecol Soc Am 87(10):2614–2625
+Pintore A, Holmes CC (2004) Non-stationary covariance functions via spatially adaptive spectra.
+University of Oxford, Oxford
+Scherngell T, Lata R (2013) Towards an integrated European Research Area? Findings from eigenvector
+spatially ﬁltered spatial interaction models using European Framework Programme data. Pap Reg
+Sci 92(3):555–577
+Seya H, Tsutsumi M, Yamagata Y (2014a) Weighted-average least squares applied to spatial econometric
+models: a Monte Carlo investigation. Geogr Anal 46(2):126–147
+Seya H, Murakami D, Tsutsumi M, Yamagata Y (2014b) Application of LASSO to the eigenvector
+selection problem in eigenvector-based spatial ﬁltering. Geogr Anal. doi:10.1111/gean.12054
+Thayn JB, Simanis JM (2013) Accounting for spatial autocorrelation in linear regression models using
+spatial ﬁltering with eigenvectors. Ann Assoc Am Geogr 103(1):47–66
+Tiefelsdorf M, Grifﬁth DA (2007) Semiparametric ﬁltering of spatial autocorrelation: the eigenvector
+approach. Environ Plan A 39(5):1193–1221
+Wang Y, Kockelman KM, Wang X (2013) Understanding spatial ﬁltering for analysis of land use-
+transport data. J Transp Geogr 31:123–131
+Random effects speciﬁcations in eigenvector spatial…
+123

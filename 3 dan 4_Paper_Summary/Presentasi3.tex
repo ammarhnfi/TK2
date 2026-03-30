@@ -1,0 +1,163 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+%\usepackage[indonesian]{babel} % Disabled to prevent PGF conflict
+
+\title[Ringkasan Paper Regresi Spasial]{RINGKASAN ENAM PAPER REGRESI SPASIAL}
+\subtitle{Tugas Review Jurnal}
+\author[Ammar, Norman, Kirono, Devana]{
+    Ammar Hanafi (2206051582) \texorpdfstring{\\}{, }
+    Norman Mowlana Aziz (2206025470) \texorpdfstring{\\}{, }
+    Kirono Dwi Saputro (2106656365) \texorpdfstring{\\}{, }
+    Devana Solea (2306262402)
+}
+\institute[Univ. Indonesia]{
+    Program Studi Sarjana Statistika \\
+    Fakultas Matematika dan Ilmu Pengetahuan Alam \\
+    Universitas Indonesia
+}
+\date{Juni 2026}
+
+\logo{\includegraphics[height=1cm]{figs/makara.png}}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Daftar Isi}
+    \tableofcontents
+\end{frame}
+
+\section{Meliyana, S. M., Ahmar, A. S., \& Auliah, S. N. (2025)}
+
+\begin{frame}[allowframebreaks]{Paper 1: Meliyana, S. M., Ahmar, A. S., \& Auliah, S. N. (2025)}
+    \textbf{Judul}: Geographically Weighted Poisson Regression (GWPR) Model with Fixed Gaussian Kernel and Fixed Bi-square Kernel Weights \\
+    \textbf{Tujuan Penelitian}: Memodelkan sebaran kasus tuberkulosis (TB) di Kota Makassar pada tahun 2022 dengan pendekatan GWPR serta membandingkan fungsi pembobot Fixed Gaussian dan Fixed Bi-square untuk mengidentifikasi tingkat efektivitas model terbaik. \\
+    \vspace{0.3cm}
+    \textbf{Data dan Variabel}: Data empiris sekunder Dinas Kesehatan Kota Makassar. Variabel Dependen (Y): Total kasus TB. Variabel Independen (X): \% usia produktif (X1), Jml fasilitas kesehatan (X2), \% penduduk miskin (X3), Jml RT ber-PHBS (X4), Kepadatan penduduk (X5). \\
+    \vspace{0.3cm}
+    \textbf{Metode}: Regresi Poisson Global dan metode spasial lokal regresi GWPR. Model diuji parameter spasial heterogenitasnya (Breusch-Pagan test) lalu dipilih berdasarkan kriteria AIC dan R². \\
+    \framebreak
+    \textbf{Hasil dan Kesimpulan}: Model GWPR dengan pembobot Fixed Bi-square adalah yang paling optimal/terbaik (AIC=97.69, R² = 99.93\%). Kepadatan penduduk dan persentase usia produktif mendominasi sebagian besar distrik, mengindikasikan bahwa GWPR efektif dalam menangkap dinamika spasial TB yang bervariasi di tiap wilayah. \\
+    \vspace{0.3cm}
+    \textbf{Ide Baru}: Melakukan pendekatan spasio-temporal regresi poisson dengan basis panel longitude data, misalnya Geographically and Temporally Weighted Poisson Regression (GTWPR), lalu dicari pita bandwidth optimal berskala genetika/metaheuristik (ALPO). \\
+    \vspace{0.3cm}
+    \textbf{Simulasi/Penelitian Teori}: Tidak ada. Ini merupakan penelitian aplikasi metode (studi kasus) menggunakan data riil empiris lapangan, bukan pengembangan turunan model teoritis statistik baru murni atau simulasi Monte Carlo. \\
+    \vspace{0.3cm}
+    \textbf{Link}: \url{https://doi.org/10.35877/soshum3812}
+\end{frame}
+
+\section{Halleck Vega, S., \& Elhorst, J. P. (2015)}
+
+\begin{frame}[allowframebreaks]{Paper 2: Halleck Vega, S., \& Elhorst, J. P. (2015)}
+    \textbf{Judul}: The SLX model \\
+    \textbf{Tujuan Penelitian}: Menyoroti kelebihan SLX (Spatial Lag of X) sebagai standar dasar (titik tolak awal) untuk memodelkan efek spasial dan meluruskan persepsi tentang kapan menggunakan model SAR, SDM, atau SEM. \\
+    \vspace{0.3cm}
+    \textbf{Data dan Variabel}: Data panel asli dari permintaan/konsumsi rokok di 46 negara bagian AS dari tahun 1963-1992 (Studi kasus rujukan: Baltagi \& Li, 2004). Variabel Dependen (Y): Penjualan rokok rill per kapita (Cit). Variabel Independen (X): Harga eceran rata-rata (Pit) dan Pendapatan disposable (Iit). \\
+    \vspace{0.3cm}
+    \textbf{Metode}: Membandingkan spesifikasi ekonometrik multivariabel spasial (SAR, SEM, SDM, SAC, dll) lalu menguji aplikabilitas SLX (Spatial Lag of X) menggunakan parameter optimasi pembobot (SLX Parameterization W). \\
+    \framebreak
+    \textbf{Hasil dan Kesimpulan}: Model SLX adalah paling bebas bias dalam menafsirkan dampak spillover. Metode SLX, bila menggunakan estimasi nilai pembobot spasial fleksibel non-dichotomous, secara signifikan mengalahkan klaim global eksklusif yang biasa dihasilkan estimasi SAR/SDM. \\
+    \vspace{0.3cm}
+    \textbf{Ide Baru}: Penerapan model SLX dengan matriks bobot kernel spasial decay yang asimetris/non-parametrik (misalkan pada prediksi data pasar real estate). \\
+    \vspace{0.3cm}
+    \textbf{Simulasi/Penelitian Teori}: Tidak ada simulasi Monte Carlo murni, melainkan mengandalkan aljabar fungsi regresi dan pembuktian data rokok empiris di dunia nyata. \\
+    \vspace{0.3cm}
+    \textbf{Link}: \url{https://doi.org/10.1111/jors.12188}
+\end{frame}
+
+\section{Dong, G., \& Harris, R. (2014)}
+
+\begin{frame}[allowframebreaks]{Paper 3: Dong, G., \& Harris, R. (2014)}
+    \textbf{Judul}: Spatial autoregressive models for geographically hierarchical data structures \\
+    \textbf{Tujuan Penelitian}: Memformulasikan sekaligus memperkenalkan model Hierarchical Spatial Autoregressive (HSAR) untuk menampung kondisi data statistik yang bertingkat ganda (multilevel / spatial hierarchy). \\
+    \vspace{0.3cm}
+    \textbf{Data dan Variabel}: Database empiris dua level transaksi bidang tanah (land price) di Beijing. Top Level (Distrik), Bottom Level (Persil area tanah spesifik). Variabel terkait atribut harga dan properti level persil sekaligus efek regional yang dimiliki oleh masing-masing distrik di Tiongkok. \\
+    \vspace{0.3cm}
+    \textbf{Metode}: Model perluasan ekonometrik keruangan atau disebut HSAR (Hirarki Autoregresif Spasial). Proses penaksir/Estimator mengandalkan desain komputasi iteratif Bayesian MCMC (Markov Chain Monte Carlo). \\
+    \framebreak
+    \textbf{Hasil dan Kesimpulan}: Terdapat variasi spasial ketergantungan (spatial dependence) yang cukup mendalam tak hanya dari proksimitas persil bawah melainkan efek kawasan. Evaluasi MCMC ini berhasil mengisolasi efek multivariat di tataran mikro maupun distrik makro secara stabil dan tidak memberikan bobot parameter bias. \\
+    \vspace{0.3cm}
+    \textbf{Ide Baru}: Konstruksi perluasan arsitektur Spasio-Temporal Panel Hierarki (ST-HSAR) pada studi epidemiologi multi-skala (Kecamatan-Desa) untuk isolasi tren fluktuatif temporal penularan wabah secara dinamis. \\
+    \vspace{0.3cm}
+    \textbf{Simulasi/Penelitian Teori}: Ya. Paper mendedahkan teori turunan fungsi Bayesian statistik MCMC dan menjabarkan algoritma teorinya, sekaligus mengimplementasikannya secara fungsional. Murni merumuskan teori estimasi model keruangan hierarkis. \\
+    \vspace{0.3cm}
+    \textbf{Link}: \url{https://doi.org/10.1111/gean.12049}
+\end{frame}
+
+\section{Murakami, D., \& Griffith, D. A. (2015)}
+
+\begin{frame}[allowframebreaks]{Paper 4: Murakami, D., \& Griffith, D. A. (2015)}
+    \textbf{Judul}: Random effects specifications in eigenvector spatial filtering: a simulation study \\
+    \textbf{Tujuan Penelitian}: Memeriksa dan merekonstruksi metodologi matematika keruangan spesifikasi Random Effects Eigenvector Spatial Filtering (RE-ESF), sekaligus menanggulangi sisi negatifnya yang mudah mendegradasi estimasi regresi apabila terdapat confounding factor spasial. \\
+    \vspace{0.3cm}
+    \textbf{Data dan Variabel}: Set data buatan yang di-generate lewat simulasi Monte Carlo untuk merumuskan Proses Gaussian. (Variabel Y sintetik dengan pola matriks dependensi terkontrol, X random). \\
+    \vspace{0.3cm}
+    \textbf{Metode}: Menginisiasi varian baru perpanjangan Random Effect Eigenvector Spatial Filtering. Komputasi parameternya dicarikan solusinya via fungsi optimasi Residual Maximum Likelihood / Restricted ML (REML). \\
+    \framebreak
+    \textbf{Hasil dan Kesimpulan}: Model penyempurnaan RE-ESF terbukti valid mengurangi galat parameter (RMSE minimum). Proses eliminasi korelasi konstan akibat variabel prediktor dengan spatial confounder dapat dikendalikan. Model baru melampaui kemampuan filtrasi spasial umum secara akurasi iteratif. \\
+    \vspace{0.3cm}
+    \textbf{Ide Baru}: Meluncurkan model prediksi iklim spasio-temporal secara instan berbasis komputasi filter RE-ESF resolusi sangat tinggi dengan fast low-rank scalable estimator computation. \\
+    \vspace{0.3cm}
+    \textbf{Simulasi/Penelitian Teori}: Ya. Jurnal sepenuhnya bersandar pada eksplorasi komputasional dan perumusan matematis fungsi metodologi regresi yang dievaluasi menggunakan Uji Coba Simulasi Monte Carlo. \\
+    \vspace{0.3cm}
+    \textbf{Link}: \url{https://doi.org/10.1007/s10109-015-0213-7}
+\end{frame}
+
+\section{Lu, B., Charlton, M., Harris, P., \& Fotheringham, A. S. (2014)}
+
+\begin{frame}[allowframebreaks]{Paper 5: Lu, B., Charlton, M., Harris, P., \& Fotheringham, A. S. (2014)}
+    \textbf{Judul}: Geographically weighted regression with a non-Euclidean distance metric: a case study using hedonic house price data \\
+    \textbf{Tujuan Penelitian}: Menilai efisiensi pembobot metrik jarak non-Euclidean (Road Distance \& Travel Time/Waktu Tempuh) ketika diaplikasikan dalam fungsi kernel GWR, ketimbang hanya matriks jarak padat (Euclidean). \\
+    \vspace{0.3cm}
+    \textbf{Data dan Variabel}: Harga empiris rumah hedonik di ibukota London (tahun 2001) memuat 2108 unit properti. Variabel Y: Harga rumah. Variabel X: 15 atribut independen meliputi luas lantai bangunan, proporsi kamar, dll. \\
+    \vspace{0.3cm}
+    \textbf{Metode}: Geographically Weighted Regression (GWR) berstandar ukuran Euclidean (ED), Jaringan rute terpendek Jalan (Network Distance-ND), dan waktu lintasan riil (Travel Time-TT). Pita bandwidth otomatis difiltrasi memakai AICc. \\
+    \framebreak
+    \textbf{Hasil dan Kesimpulan}: GWR pembobot matriks Waktu Tempuh (Travel time-fixed bandwidth) melahirkan angka akurasi pendugaan R² dan AICc yang memuaskan dan signifikan paling tinggi. Limitasi pergerakan lalu lintas memiliki pengaruh korelasional harga yg lebih tinggi dari jarak lurus. \\
+    \vspace{0.3cm}
+    \textbf{Ide Baru}: Konstruksi aplikasi Machine Learning Spatial Klasifikasi Harga via sinkronisasi metrik Real-time Google Distance Time API sebagai penentu radius bandwidth di daerah padat lalu lintas. \\
+    \vspace{0.3cm}
+    \textbf{Simulasi/Penelitian Teori}: Tidak ada pembuktian derivatif statistik teori murni maupun simulasi DGP Monte Carlo. Eksklusif dirancang sebagai eksplorasi/aplikasi empiris lapangan pada real estat. \\
+    \vspace{0.3cm}
+    \textbf{Link}: \url{https://doi.org/10.1080/13658816.2013.865739}
+\end{frame}
+
+\section{Golgher, A. B., \& Voss, P. R. (2016)}
+
+\begin{frame}[allowframebreaks]{Paper 6: Golgher, A. B., \& Voss, P. R. (2016)}
+    \textbf{Judul}: How to interpret the coefficients of spatial models: Spillovers, direct and indirect effects \\
+    \textbf{Tujuan Penelitian}: Merasionalisasi fondasi penafsiran praktikal atas nilai estimator effect (spillover, direct, indirect) yang tersimpan di baris persamaan regresi spasial global seperti SAR, SDM, maupun SEM. \\
+    \vspace{0.3cm}
+    \textbf{Data dan Variabel}: Spesimen sintetik stokastik simulasi DGP Monte Carlo di 80 wilayah Michigan yang diformulasikan ke 5 kriteria RT (SAR, SEM, SDM, SDEM, SAC). Parameter rho, lambda dan korelasi X termutilasi acak. \\
+    \vspace{0.3cm}
+    \textbf{Metode}: Komparasi kalkulus Marginal Impact Derivative Analysis berdasar rumus identitas invers pengali matriks spasial. Matriks dampaknya dibagi merata sebagai turunan rata-rata efek parsial skalar LeSage Pace. \\
+    \framebreak
+    \textbf{Hasil dan Kesimpulan}: Praktisi dilarang menginterpretasikan nilai koefisien regresi spatial lag persis seperti koefisien OLS biasa. Peningakatan variabel harus dicermati dari efek marginal (langsung dan tak langsung) karena adanya efek Feedback Multiplier Inverse. \\
+    \vspace{0.3cm}
+    \textbf{Ide Baru}: Rancang bangun ekstensi Direct-Indirect Spillover Component analitis pada permodelan regresi multinomial/logistik biner asimetris guna melihat intervensi multiskala. \\
+    \vspace{0.3cm}
+    \textbf{Simulasi/Penelitian Teori}: Ya. Didaktik yang dominan berkutat di bidang teori statistika ekonometrika terapan dengan sarat pemanfaatan Uji Ulang Model Data Generating Process (DGP) Monte Carlo Simulation. \\
+    \vspace{0.3cm}
+    \textbf{Link}: \url{https://doi.org/10.1007/s40980-015-0016-y}
+\end{frame}
+
+
+\section{Kesimpulan Umum}
+\begin{frame}{Kesimpulan Umum}
+    \begin{itemize}
+        \item Terdapat berbagai variasi dalam permodelan regresi spasial (GWR, GWPR, SLX, HSAR, dll).
+        \item Pendekatan spasial terbukti memberikan wawasan lebih baik dibandingkan regresi global (OLS/Poisson biasa) dengan mengakomodasi heterogenitas dan dependensi spasial.
+        \item Beberapa paper menyertakan simulasi Monte Carlo untuk justifikasi teoritis estimator yang diusulkan.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \centering
+    \Huge \textbf{Terima Kasih}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,68 @@
+ 
+International Journal of
+Geo-Information
+Article
+MGWR: A Python Implementation of Multiscale
+Geographically Weighted Regression for
+Investigating Process Spatial Heterogeneity and Scale
+Taylor M. Oshan 1,*, Ziqi Li 2, Wei Kang 3, Levi J. Wolf 4 and A. Stewart Fotheringham 2
+1
+Center for Geospatial Information Science, Department of Geographical Sciences, University of Maryland,
+College Park, MD 20740, USA
+2
+Spatial Analysis Research Center, School of Geographical Sciences an Urban Planning, Arizona State
+University, Tempe 85281, AZ, USA; lziqi@asu.edu (Z.L.); sfotheri@asu.edu (A.S.F.)
+3
+Center for Geospatial Sciences, School of Public Policy, University of California, Riverside 92521, CA, USA;
+weikang@ucr.edu
+4
+School of Geographical Sciences, University of Bristol, Bristol BS8 1SS, UK; levi.john.wolf@bristol.ac.uk
+*
+Correspondence: toshan@umd.edu
+Received: 16 April 2019; Accepted: 5 June 2019; Published: 8 June 2019
+Abstract: Geographically weighted regression (GWR) is a spatial statistical technique that recognizes
+that traditional ‘global’ regression models may be limited when spatial processes vary with spatial
+context. GWR captures process spatial heterogeneity by allowing effects to vary over space. To do
+this, GWR calibrates an ensemble of local linear models at any number of locations using ‘borrowed’
+nearby data. This provides a surface of location-speciﬁc parameter estimates for each relationship in
+the model that is allowed to vary spatially, as well as a single bandwidth parameter that provides
+intuition about the geographic scale of the processes. A recent extension to this framework allows
+each relationship to vary according to a distinct spatial scale parameter, and is therefore known as
+multiscale (M)GWR. This paper introduces mgwr, a Python-based implementation of MGWR that
+explicitly focuses on the multiscale analysis of spatial heterogeneity. It provides novel functionality
+for inference and exploratory analysis of local spatial processes, new diagnostics unique to multi-scale
+local models, and drastic improvements to efﬁciency in estimation routines. We provide two case
+studies using mgwr, in addition to reviewing core concepts of local models. We present this in
+a literate programming style, providing an overview of the primary software functionality and
+demonstrations of suggested usage alongside the discussion of primary concepts and demonstration
+of the improvements made in mgwr.
+Keywords: multiscale; gwr; spatial statistics; heterogeneity; scale; mgwr
+1. Introduction
+Geographically weighted regression (GWR) is a spatial statistical technique that, like aspatial local
+regression, recognizes that traditional ‘global’ regression models may be limited when processes vary
+by context. GWR captures process’s spatial heterogeneity (i.e., process variation by spatial context)
+via an operationalization of Tobler’s ﬁrst law of geography: “everything is related to everything
+else, but near things are more related than distant things” [1]. An ensemble of local linear models
+are calibrated at any number of locations by ‘borrowing’ nearby data. The result is a surface of
+location-speciﬁc parameter estimates for each relationship in the model that may vary spatially, as well
+as a single bandwidth parameter that provides intuition about the geographic scale of the processes.
+In addition, GWR typically provides increased model ﬁt and reduced residual spatial autocorrelation
+compared to a traditional ‘global’ regression that assumes relationships are constant over space [2].
+ISPRS Int. J. Geo-Inf. 2019, 8, 269; doi:10.3390/ijgi8060269
+www.mdpi.com/journal/ijgi
+ISPRS Int. J. Geo-Inf. 2019, 8, 269
+2 of 31
+A recent extension to the GWR framework allows each relationship in the model to vary at a
+unique spatial scale and is therefore known as multiscale (M)GWR [3]. MGWR is much less restrictive
+in its assumptions than GWR, since the relationship between the response and a covariate is allowed to
+vary locally, vary regionally, and or not vary at all. Eliminating the restriction that all relationships vary
+at the same spatial scale can minimize over-ﬁtting, reduce bias in the parameter estimates, and mitigate
+concurvity (i.e., collinearity due to similar functional transformations). Therefore, MGWR has been
+suggested as the default local model speciﬁcation when using GWR to investigate process spatial
+heterogeneity and scale.
+This paper introduces mgwr (throughout this manuscript mgwr refers to the software implementation,
+while MGWR refers to the technique more generally), a Python-based software package for deploying
+GWR and MGWR models. Though there are existing software options, they are limited in terms of
+available functionality, computational efﬁciency, or both. For example, there is a GWR tool in the
+spatial analyst toolbox within ArcGIS [4] and there are several options within the R ecosystem, such
+as spgwr [5] and gwrr [6]. However, none of these implementations offers capabilities to calibrate 

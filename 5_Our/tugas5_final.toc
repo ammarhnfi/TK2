@@ -1,0 +1,20 @@
+\babel@toc {indonesian}{}\relax 
+\contentsline {section}{BAB I PENDAHULUAN}{4}{section*.3}%
+\contentsline {subsection}{\numberline {1.1}Latar Belakang}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Rumusan Masalah}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Tujuan}{4}{subsection.1.3}%
+\contentsline {section}{BAB II LANDASAN TEORI}{5}{subsection.1.3}%
+\contentsline {subsection}{\numberline {2.1}Regresi Linear Global (OLS)}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Autokorelasi Spasial (Moran's I)}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Geographically Weighted Regression (GWR)}{5}{subsection.2.3}%
+\contentsline {section}{BAB III METODE PENELITIAN}{6}{subsection.2.3}%
+\contentsline {subsection}{\numberline {3.1}Data dan Variabel}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Langkah Analisis}{6}{subsection.3.2}%
+\contentsline {section}{BAB IV ANALISIS DAN PEMBAHASAN}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {4.1}Eksplorasi Karakteristik Data Uji}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Estimasi Regresi (Global OLS) dan Heteroskedastisitas Spasial}{8}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Autokorelasi Spasial}{9}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Evaluasi Model dan Eksekusi Dual-GWR}{10}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Distribusi Koefisien Lokal (Local Spatial Mapping)}{11}{subsection.4.5}%
+\contentsline {section}{BAB V KESIMPULAN DAN SARAN}{12}{figure.caption.14}%
+\contentsline {section}{DAFTAR PUSTAKA}{13}{Item.5}%

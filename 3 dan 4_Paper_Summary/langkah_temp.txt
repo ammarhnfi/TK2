@@ -1,0 +1,30 @@
+Paper 1: 1. Analisis Deskriptif
+2. Uji Multikolinearitas
+3. Regresi Poisson Global
+4. Uji Heterogenitas Spasial (BP)
+5. Estimasi BW dengan CV
+6. Estimasi Parameter GWPR
+7. Pemilihan model (AIC/R²).
+
+Paper 2: 1. Formulasi model SLX murni teori.
+2. Desain algoritma Monte Carlo berbasis k-NN.
+3. Estimasi bias koefisien & RMSE.
+4. Perbandingan kecepatan komputasi SLX vs SDM.
+
+Paper 3: 1. Penurunan spesifikasi likelihood HSAR.
+2. Algoritma MCMC Gibbs sampler.
+3. Generasi sampel simulasi hierarkis spasial.
+4. Pembuktian tingkat kekonvergenan bias estimasi.
+
+Paper 4: 1. Ekstraksi vektor eigen dari matriks pembobot W.
+2. Formulasi Random Effect untuk distribusi seleksi Eigenvector.
+3. Generasi simulasi dan perhitungan RMSE membandingkan RE-ESF dengan SAR.
+
+Paper 5: 1. Formulasi kernel jarak network-Minkowski pada GWR.
+2. Bangkitan simulasi GWR topologi jalan raya.
+3. Estimasi rasio performa Euclidean vs Non-Euclidean.
+
+Paper 6: 1. Turunan aljabar eksplisit pada tiap varian spasial.
+2. Re-simulasi dengan efek limpahan eksak.
+3. Penghitungan estimator bias parsial.
+
