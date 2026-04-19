@@ -1,23 +1,13 @@
-# LaTeX
 *.aux
 *.fdb_latexmk
 *.fls
 *.log
 *.out
 *.pdf
+*.synctex.gz
 *.toc
 *.lof
 *.lot
-*.synctex.gz
 *.brf
-
-# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Workspace
 .vscode/
-.idea/
-.gemini/
