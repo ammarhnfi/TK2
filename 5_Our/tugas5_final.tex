@@ -8,6 +8,16 @@
 \usepackage{booktabs}
 \usepackage{amsmath}
 \usepackage{subcaption}
+\usepackage{amssymb}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{parskip}
+
+\definecolor{headerblue}{RGB}{23, 62, 125}
+\definecolor{rowlight}{RGB}{235, 242, 255}
 
 \geometry{
 	left=3cm,
@@ -128,6 +138,28 @@ Data primer diturunkan dari GeoJSON Dataset pasar sekunder perumahan DKI Jakarta
 \subsection{Langkah Analisis}
 Penelitian ditempuh dengan ekskavasi data, tinjauan *pairwise correlation*, diestimasikan pada matriks regresi OLS untuk meninjau *error* lokal spasial, *Modelling* Dual-GWR optimasi AICc, lalu divisualisasikan menggunakan perangkat sistem informasi geografis / Matplotlib.
 
+\subsection{Rumus Statistik yang Digunakan}
+
+Seluruh ukuran statistik deskriptif dihitung menggunakan formula standar berikut:
+
+\begin{align*}
+\text{Rata-rata:} \quad & \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i \\[6pt]
+\text{Varian (tidak bias):} \quad & s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2 \\[6pt]
+\text{Koef. Variasi:} \quad & \text{CV} = \frac{s}{|\bar{x}|} \times 100\% \\[6pt]
+\text{Skewness (Fisher):} \quad & g_1 = \frac{n}{(n-1)(n-2)} \sum_{i=1}^{n} \left(\frac{x_i - \bar{x}}{s}\right)^3 \\[6pt]
+\text{Excess Kurtosis:} \quad & g_2 = \frac{n(n+1)}{(n-1)(n-2)(n-3)} \sum_{i=1}^{n}\left(\frac{x_i-\bar{x}}{s}\right)^4 \\
+& \quad - \frac{3(n-1)^2}{(n-2)(n-3)} \\[6pt]
+\text{Korelasi Pearson:} \quad & r_{XY} = \frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}
+  {\sqrt{\sum_{i=1}^{n}(x_i-\bar{x})^2}\;\sqrt{\sum_{i=1}^{n}(y_i-\bar{y})^2}} \\[6pt]
+\text{IQR:} \quad & \text{IQR} = Q_3 - Q_1
+\end{align*}
+
+\begin{itemize}
+  \item Varian dihitung dengan \textit{estimator tidak bias} (pembagi $n-1$).
+  \item Skewness dan kurtosis menggunakan koreksi Fisher--Pearson (\textit{adjusted}).
+  \item Data diekstrak langsung tanpa transformasi awal.
+\end{itemize}
+
 \newpage
 %===================================
 % BAB 4 - ANALISIS DAN PEMBAHASAN
@@ -143,20 +175,192 @@ Penelitian ditempuh dengan ekskavasi data, tinjauan *pairwise correlation*, dies
 
 \subsection{Eksplorasi Karakteristik Data Uji}
 
-\input{tabel_desc_stats.tex}
+\subsubsection{Statistik Ringkasan Komprehensif}
 
-Merujuk pada Tabel \ref{tab:desc_stats}, statistik deskriptif menunjukkan rentang nilai perumahan Jakarta yang lebar (maksimum mencapai ratusan miliar dengan variansi dan *stdev* yang sangat sensitif). Hubungan korelasional awal (*pairwise correlation*) digambarkan melaui Heatmap Gambar \ref{fig:korelasi_matriks}.
+\begin{table}[H]
+\centering
+\caption{Lima Angka Ringkasan, Rata-rata, dan Standar Deviasi}
+\label{tab:summary1}
+\small
+\setlength{\tabcolsep}{5.5pt}
+\begin{tabular}{lrrrrrrrr}
+\toprule
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{Var}} &
+\textcolor{white}{\textbf{$n$}} &
+\textcolor{white}{\textbf{Min}} &
+\textcolor{white}{\textbf{$Q_1$}} &
+\textcolor{white}{\textbf{Median}} &
+\textcolor{white}{\textbf{Mean}} &
+\textcolor{white}{\textbf{$Q_3$}} &
+\textcolor{white}{\textbf{Max}} &
+\textcolor{white}{\textbf{Std.Dev}} \\
+\midrule
+\rowcolor{rowlight}
+Harga (Y) & 1079 & 0.3650 & 1.9700 & 3.5000 & 9.7813 & 9.2500 & 221.000 & 18.8377 \\
+LB (X1) & 1079 & 36.0000 & 105.500 & 192.000 & 269.577 & 335.500 & 4,850.00 & 279.736 \\
+\rowcolor{rowlight}
+LT (X2) & 1079 & 19.0000 & 87.5000 & 132.000 & 266.057 & 301.000 & 10,847 & 448.825 \\
+KT (X3) & 1079 & 1.0000 & 3.0000 & 3.0000 & 3.7025 & 4.0000 & 17.0000 & 1.4688 \\
+\rowcolor{rowlight}
+Monas (X4) & 1079 & 0.2133 & 6.4334 & 9.5226 & 9.5852 & 12.2242 & 21.2055 & 3.9379 \\
+Sekolah (X5) & 1079 & 0.0000 & 0.5387 & 1.0328 & 1.4448 & 1.7056 & 8.1757 & 1.5061 \\
+\rowcolor{rowlight}
+RS (X6) & 1079 & 0.0000 & 0.9570 & 1.6024 & 2.1459 & 2.6514 & 8.9700 & 1.8226 \\
+Jalan (X7) & 1079 & 0.0000 & 0.0055 & 0.0119 & 0.0159 & 0.0218 & 0.2845 & 0.0167 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\input{tabel_korelasi.tex}
+Statistik deskriptif pada Tabel \ref{tab:summary1} menunjukkan rentang nilai perumahan Jakarta yang lebar (maksimum mencapai ratusan miliar). Nilai mean $Y$ yang jauh di atas median mengkonfirmasi distribusi harga yang menceng kanan (\textit{positively skewed}).
+
+\begin{table}[H]
+\centering
+\caption{Ukuran Dispersi dan Keragaman Data}
+\label{tab:dispersi}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{Var}} &
+\textcolor{white}{\textbf{Varian ($s^2$)}} &
+\textcolor{white}{\textbf{CV (\%)}} &
+\textcolor{white}{\textbf{IQR}} &
+\textcolor{white}{\textbf{Range}} &
+\textcolor{white}{\textbf{Skewness}} &
+\textcolor{white}{\textbf{Kurtosis}} \\
+\midrule
+\rowcolor{rowlight}
+Harga (Y) & 354.861 & 192.589\% & 7.2800 & 220.635 & 5.8146 & 48.0383 \\
+LB (X1) & 78,252 & 103.768\% & 230.000 & 4,814.00 & 5.6303 & 70.5120 \\
+\rowcolor{rowlight}
+LT (X2) & 201,444 & 168.695\% & 213.500 & 10,828 & 13.1932 & 289.013 \\
+KT (X3) & 2.16 & 39.67\% & 1.0000 & 16.0000 & 2.6102 & 15.3124 \\
+\rowcolor{rowlight}
+Monas (X4) & 15.51 & 41.08\% & 5.7908 & 20.9922 & 0.2972 & -0.1039 \\
+Sekolah (X5) & 2.27 & 104.240\% & 1.1669 & 8.1757 & 2.4798 & 6.4839 \\
+\rowcolor{rowlight}
+RS (X6) & 3.32 & 84.93\% & 1.6944 & 8.9700 & 1.6344 & 2.3382 \\
+Jalan (X7) & 0.00 & 104.705\% & 0.0162 & 0.2845 & 5.2608 & 65.5754 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Seluruh variabel memiliki Koefisien Variasi (CV) $>30\%$, mencerminkan heterogenitas data perumahan Jakarta yang nyata. Variabel fisik ($X_1, X_2$) menunjukkan skewness positif tinggi, mengindikasikan adanya properti berukuran sangat besar yang membentuk ekor distribusi panjang.
+
+\subsubsection{Visualisasi Distribusi (Boxplot dan Pairplot)}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{peta_heatmap.png}
-    \caption{Matriks Korelasi (Heatmap) Pearson}
-    \label{fig:korelasi_matriks}
+    \includegraphics[width=0.85\textwidth]{boxplot_deskriptif.png}
+    \caption{Boxplot Distribusi Seluruh Variabel Penelitian}
+    \label{fig:boxplot_all}
 \end{figure}
 
-Korelasi tertinggi nampak positif antar fisik bangunan (Luas dengan Harga Y), sedari ada sifat reduksi pada jarak terhadap monas yang menjauhi pusat (Korelasi minus).
+Boxplot pada Gambar \ref{fig:boxplot_all} mengidentifikasi keberadaan pencilan (\textit{outliers}) yang signifikan, terutama pada variabel harga dan luas bangunan. Hal ini mencerminkan karakteristik pasar properti di mana terdapat hunian sangat mewah yang jauh melampaui rata-rata.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{pairplot_deskriptif.png}
+    \caption{Pairplot Matriks Hubungan Antar Variabel}
+    \label{fig:pairplot_all}
+\end{figure}
+
+Visualisasi Pairplot (Gambar \ref{fig:pairplot_all}) memberikan gambaran awal mengenai hubungan linear antar variabel. Variabel fisik menunjukkan korelasi positif yang nyata dengan harga ($Y$).
+
+\subsubsection{Analisis Pencilan (Outlier Analysis)}
+
+\begin{table}[H]
+\centering
+\caption{Identifikasi Jumlah dan Persentase Outlier per Variabel}
+\label{tab:outliers}
+\begin{tabular}{lrr}
+\toprule
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{Variabel}} & \textcolor{white}{\textbf{Jumlah Outlier}} & \textcolor{white}{\textbf{Persentase}} \\
+\midrule
+\rowcolor{rowlight}
+Harga (Y) & 119 & 11.03\% \\
+LB (X1) & 68 & 6.30\% \\
+\rowcolor{rowlight}
+LT (X2) & 109 & 10.10\% \\
+KT (X3) & 91 & 8.43\% \\
+\rowcolor{rowlight}
+Monas (X4) & 5 & 0.46\% \\
+Sekolah (X5) & 76 & 7.04\% \\
+\rowcolor{rowlight}
+RS (X6) & 100 & 9.27\% \\
+Jalan (X7) & 39 & 3.61\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Identifikasi pencilan menggunakan metode IQR (Tabel \ref{tab:outliers}) menunjukkan bahwa variabel harga ($Y$) memiliki pencilan sebanyak 11.03\%. Dalam analisis GWR, pencilan ini seringkali menjadi poin ketertarikan (\textit{local interest}) untuk melihat variasi spasial yang ekstrem.
+
+\subsubsection{Korelasi dan Multikolinearitas (VIF)}
+
+\begin{table}[H]
+\centering
+\caption{Matriks Korelasi Pearson Antar Variabel}
+\label{tab:corr_full}
+\scriptsize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lrrrrrrrr}
+\toprule
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{}} &
+\textcolor{white}{\textbf{Y}} &
+\textcolor{white}{\textbf{X1}} &
+\textcolor{white}{\textbf{X2}} &
+\textcolor{white}{\textbf{X3}} &
+\textcolor{white}{\textbf{X4}} &
+\textcolor{white}{\textbf{X5}} &
+\textcolor{white}{\textbf{X6}} &
+\textcolor{white}{\textbf{X7}} \\
+\midrule
+\rowcolor{rowlight}
+Harga (Y) & 1.0000 & 0.5389 & 0.5166 & 0.3389 & -0.0827 & -0.0454 & -0.1188 & 0.0087 \\
+LB (X1) & 0.5389 & 1.0000 & 0.7969 & 0.6042 & -0.0565 & 0.0080 & -0.0678 & 0.0161 \\
+\rowcolor{rowlight}
+LT (X2) & 0.5166 & 0.7969 & 1.0000 & 0.4706 & 0.0068 & -0.0437 & -0.0705 & 0.0167 \\
+KT (X3) & 0.3389 & 0.6042 & 0.4706 & 1.0000 & -0.0532 & -0.0787 & -0.0903 & -0.0018 \\
+\rowcolor{rowlight}
+Monas (X4) & -0.0827 & -0.0565 & 0.0068 & -0.0532 & 1.0000 & 0.3241 & 0.4738 & 0.0938 \\
+Sekolah (X5) & -0.0454 & 0.0080 & -0.0437 & -0.0787 & 0.3241 & 1.0000 & 0.7470 & 0.0624 \\
+\rowcolor{rowlight}
+RS (X6) & -0.1188 & -0.0678 & -0.0705 & -0.0903 & 0.4738 & 0.7470 & 1.0000 & 0.0837 \\
+Jalan (X7) & 0.0087 & 0.0161 & 0.0167 & -0.0018 & 0.0938 & 0.0624 & 0.0837 & 1.0000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Korelasi tertinggi nampak positif antar fisik bangunan ($X_1, X_2$). Untuk menguji potensi redundansi antar variabel independen, dilakukan perhitungan \textit{Variance Inflation Factor} (VIF).
+
+\begin{table}[H]
+\centering
+\caption{Hasil Perhitungan Variance Inflation Factor (VIF)}
+\label{tab:vif}
+\begin{tabular}{lrl}
+\toprule
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{Variabel}} & \textcolor{white}{\textbf{Nilai VIF}} & \textcolor{white}{\textbf{Status}} \\
+\midrule
+\rowcolor{rowlight}
+LB (X1) & 3.4751 & Aman \\
+LT (X2) & 2.8030 & Aman \\
+\rowcolor{rowlight}
+KT (X3) & 1.5953 & Aman \\
+Monas (X4) & 1.3139 & Aman \\
+\rowcolor{rowlight}
+Sekolah (X5) & 2.3227 & Aman \\
+RS (X6) & 2.6454 & Aman \\
+\rowcolor{rowlight}
+Jalan (X7) & 1.0116 & Aman \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Seluruh variabel memiliki VIF $< 10$, sehingga asumsi non-multikolinearitas global terpenuhi dan variabel-variabel tersebut dapat dipertahankan dalam model pemodelan selanjutnya.
 
 \subsection{Estimasi Regresi (Global OLS) dan Heteroskedastisitas Spasial}
 Di hadapan instrumen estimasi global OLS, rangkuman probabilitas parsial diramu di Tabel \ref{tab:ols_result}.
@@ -253,5 +457,16 @@ Oshan, T. M., Li, Z., Kang, W., Wolf, L. J., \& Fotheringham, A. S. (2019). mgwr
 Pemerintah Provinsi DKI Jakarta (2024). Analisis Tata Ruang Real Estate Open Data Portal Jakarta.
 \end{thebibliography}
 \endgroup
+
+\newpage
+\begin{center}
+    {\Large \textbf{LAMPIRAN}}
+\end{center}
+\addcontentsline{toc}{section}{LAMPIRAN}
+\vspace{10pt}
+
+\noindent \textbf{Akses Dataset Penelitian} \\
+Seluruh dataset yang digunakan dalam penelitian ini, termasuk file GeoJSON mentah dan hasil pemrosesan, dapat diakses melalui tautan repositori Google Drive berikut: \\
+\url{https://drive.google.com/drive/folders/1dmIp66Qh8gmt7BZdckrE9OWTKQKyhDJV?usp=sharing}
 
 \end{document}

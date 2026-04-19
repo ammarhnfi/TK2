@@ -1,0 +1,104 @@
+\documentclass[10pt,journal]{IEEEtran}
+
+\usepackage[utf8]{inputenc}
+\usepackage[indonesian]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{cite}
+\usepackage[caption=false,font=footnotesize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{float}
+\usepackage{microtype}
+
+% Custom colors for premium feel
+\definecolor{primaryblue}{RGB}{0, 51, 102}
+\definecolor{deepred}{RGB}{153, 0, 0}
+
+% --- Penanganan Sitasi dan Back-reference ---
+\usepackage[pagebackref=true]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primaryblue,
+    citecolor=primaryblue,
+    urlcolor=primaryblue,
+    pdftitle={Analisis GWR Jakarta 2024}
+}
+
+% Kustomisasi teks back-reference (halaman posisi kutipan)
+\renewcommand*{\backrefalt}[4]{%
+    \ifcase #1 \relax (Belum disitasi.)\or (Hal. #2.)\else (Hal. #2.)\fi%
+}
+
+\begin{document}
+
+\title{Analisis Geographically Weighted Regression (GWR) pada Pemodelan Valuasi Harga Rumah di DKI Jakarta Tahun 2024}
+
+\author{Ammar Hanafi, Norman Mowlana Aziz, Kirono Dwi Saputro\\
+\IEEEauthorblockA{Program Studi Sarjana Statistika, Fakultas Matematika dan Ilmu Pengetahuan Alam\\
+Universitas Indonesia, Depok, Indonesia\\
+Email: \{ammar.hanafi, norman.mowlana, kirono.dwi\}@ui.ac.id}}
+
+\markboth{DRAFT MANUSKRIP --- APRIL 2026}%
+{Hanafi \MakeLowercase{\textit{et al.}}: Analisis GWR Valuasi Harga Rumah DKI Jakarta}
+
+\IEEEtitleabstractindextext{%
+\begin{abstract}
+Pasar properti di DKI Jakarta mencerminkan dinamika ekonomi yang kompleks dengan variasi harga yang sangat dipengaruhi oleh faktor fisik dan aksesibilitas geografis. Penelitian ini bertujuan untuk membedah dekonstruksi asumsi stasioneritas dalam valuasi harga rumah dengan mempertimbangkan aspek heterogenitas spasial. Penelitian ini mengevaluasi persistensi proses spasial lokal yang seringkali terabaikan dalam estimasi global melalui penggunaan dataset dari 1.079 observasi rumah di tahun 2024. Hasil awal melalui analisis momen dan uji diagnostik menunjukkan adanya asimetri distribusi yang kuat serta divergensi varians antar koordinat geografis. Implementasi pemodelan spasial dengan optimasi bandwidth menunjukan keunggulan dalam menangkap volatilitas lokal, memberikan perspektif baru bagi kebijakan tata ruang dan investasi real estat yang berbasis pada heterogenitas wilayah.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Hedonic Pricing, Ekonometrika Spasial, Local Parameter, Urban Analytics, Adaptive Kernel.
+\end{IEEEkeywords}}
+
+\maketitle
+\IEEEdisplaynontitleabstractindextext
+\section{Pendahuluan}
+\IEEEPARstart{P}{asar} properti di DKI Jakarta, sebagai episentrum aktivitas ekonomi nasional, memiliki struktur harga yang sangat dipengaruhi oleh interaksi antara karakteristik fisik intrinsik dan eksternalitas lokasi. Dalam perspektif ekonomi hedonis, nilai sebuah hunian bukan sekadar akumulasi materialitas bangunan, melainkan representasi dari aksesibilitas terhadap berbagai amenitas perkotaan. Namun, kompleksitas urban di wilayah megapolitan seringkali memicu fenomena \textit{spatial non-stationarity}, di mana pengaruh prediktor terhadap harga rumah berfluktuasi secara signifikan antar titik lokasi. Untuk mengatasi keterbatasan tersebut, penelitian ini mengadopsi pendekatan \textit{Geographically Weighted Regression} (GWR) sebagaimana dirumuskan oleh Fotheringham dkk. \cite{fotheringham2002}. GWR mengizinkan parameter estimasi ($\beta$) untuk bervariasi sesuai koordinat geografis $(u_i, v_i)$, sehingga mampu mencerminkan kondisi riil pasar properti yang heterogen.
+
+Metode regresi klasik \textit{Ordinary Least Squares} (OLS) beroperasi pada asumsi \textit{fixed parameter}, yang mengasumsikan bahwa rata-rata pengaruh variabel bersifat universal di seluruh ruang sampel. Dalam konteks Jakarta yang memiliki densitas dan stratifikasi sosial ekonomi yang tajam, asumsi ini seringkali terlanggar akibat adanya divergensi lokal. Heterogenitas spasial ini menyebabkan galat model global cenderung terklasterisasi, yang pada gilirannya menurunkan validitas inferensi statistik. Oleh karena itu, diperlukan pendekatan yang mampu memetakan koefisien secara lokal untuk menangkap dinamika yang lebih presisi.
+
+\subsection{Tujuan Penelitian}
+Penelitian ini diarahkan untuk memberikan kontribusi baru pada literatur kemandirian parameter spasial melalui tujuan-tujuan berikut:
+\begin{enumerate}
+    \item Mendekonstruksi asumsi stasioneritas global pada pasar real estat Jakarta melalui lensa ekonometrika spasial lokal guna mengidentifikasi derajat heterogenitas proses.
+    \item Menganalisis secara komparatif kapabilitas fungsi kernel \textit{Adaptive Bisquare} dan \textit{Gaussian} dalam memitigasi isu bias estimasi yang timbul akibat pengelompokan spasial sisaan.
+    \item Mengeksplorasi sensitivitas lokal harga rumah terhadap aksesibilitas amenitas urban (monumen pusat, institusi pendidikan, dan fasilitas kesehatan) guna memetakan gradasi pengaruh yang bersifat non-linier antar zona geografis.
+    \item Memberikan kerangka kerja valuasi properti yang lebih adil dan presisi bagi pemangku kepentingan dengan mempertimbangkan karakteristik keunikan lokal tiap wilayah administrasi di DKI Jakarta.
+\end{enumerate}
+
+\section{Metodologi dan Deskripsi Data}
+
+\subsection{Sumber Data dan Definisi Variabel}
+Data primer diekstraksi dari \textit{GeoJSON dataset} pasar sekunder perumahan DKI Jakarta periode 2024, mencakup total \textbf{1.079 unit rumah} yang telah melalui validasi integritas data. Selaras dengan kerangka kerja \textit{Multi-scale Geographically Weighted Regression} \cite{mgwr2019}, variabel dependen ditetapkan pada harga rumah ($Y$) dalam satuan miliar rupiah. Vektor variabel independen terdiri atas karakteristik fisik (Luas Bangunan $X_1$, Luas Tanah $X_2$, Jumlah Kamar $X_3$) serta karakteristik spasial-aksesibilitas berupa jarak absolut ke simpul ekonomi Monas ($X_4$), fasilitas pendidikan ($X_5$), RS rujukan ($X_6$), dan jaringan jalan arteri ($X_7$).
+
+\subsection{Analisis Karakteristik Data dan Distribusi Probabilitas}
+Analisis statistik deskriptif dilakukan dengan pendekatan momen statistik untuk memahami bentuk distribusi data secara komprehensif. Ditemukan bahwa variabel harga ($Y$) memiliki nilai rata-rata $\bar{y} = 9,78$ miliar Rp, yang secara signifikan lebih besar daripada nilai mediannya ($3,50$ miliar Rp). Ketidaksesuaian ini mengindikasikan struktur data yang sangat menceng kanan (\textit{highly right-skewed}) dengan koefisien skewness Fisher mencapai $5,81$. 
+
+Secara deskriptif, variabel Luas Bangunan ($X_1$) dan Luas Tanah ($X_2$) menunjukkan volatilitas yang sangat tinggi dengan Koefisien Variasi (CV) masing-masing sebesar $103,7\%$ dan $168,7\%$. Fenomena ini mengonfirmasi adanya heterogenitas masif di pasar properti Jakarta, mulai dari hunian minimalis hingga properti ultra-mewah dengan luas mencapai $10.847 \text{ m}^2$. Dari sisi morfologi distribusi, hampir seluruh variabel bersifat \textit{leptokurtik} (dengan \textit{excess kurtosis} pada $Y$ sebesar $48,0$), yang berarti terdapat konsentrasi massa data pada ekor distribusi (keberadaan \textit{extreme outliers}).
+
+Lebih lanjut, analisis multikolinearitas dilakukan melalui penghitungan \textit{Variance Inflation Factor} (VIF). Hasil menunjukkan seluruh variabel fisik dan spasial berada di bawah ambang batas $VIF < 10$ (nilai tertinggi pada $X_1 = 3,47$), sehingga membuktikan bahwa variabel-variabel tersebut bersifat independen secara global dan layak untuk dipertahankan dalam tahap permodelan lokal GWR.
+
+\section{Estimasi Model dan Hasil Diagnostik}
+\textit{[Bagian ini memuat hasil estimasi OLS global, pengujian autokorelasi spasial Moran's I, serta diagnostik heteroskedastisitas Breusch-Pagan sebagai basis transisi menuju permodelan spasial lokal.]}
+
+\section{Pembahasan Dinamika Koefisien Lokal}
+\textit{[Bagian ini memuat hasil pemetaan distribusi parameter lokal dan evaluasi performance model GWR menggunakan metrik AICc dan R-Squared lokal.]}
+
+\section{Simpulan}
+\textit{[Bagian ini memuat intisari temuan mengenai pola non-stasioneritas spasial harga rumah di Jakarta dan implikasi kebijakan tata ruang.]}
+
+\bibliographystyle{IEEEtran}
+\begin{thebibliography}{9}
+
+\bibitem{fotheringham2002}
+A. S. Fotheringham, C. Brunsdon, and M. Charlton, \textit{Geographically Weighted Regression: The Analysis of Spatially Varying Relationships}. John Wiley \& Sons, 2002. \url{https://doi.org/10.1111/j.0002-9092.2004.600_2.x}
+
+\bibitem{mgwr2019}
+T. M. Oshan, Z. Li, W. Kang, L. J. Wolf, and A. S. Fotheringham, ``mgwr: A Python implementation of multiscale geographically weighted regression,'' \textit{ISPRS Int. J. Geo-Inf.}, vol. 8, no. 6, p. 269, 2019. \url{https://doi.org/10.3390/ijgi8060269}
+
+\end{thebibliography}
+
+\end{document}
